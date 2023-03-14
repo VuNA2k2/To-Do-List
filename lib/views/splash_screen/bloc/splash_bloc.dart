@@ -8,7 +8,7 @@ part 'splash_event.dart';
 part 'splash_state.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
-  SplashBloc() : super(SplashInitial(duration: const Duration(seconds: 10))) {
+  SplashBloc() : super(SplashInitial(duration: const Duration(seconds: 3))) {
     on<SplashInitEvent>(_init);
     on<SplashTickEvent>(_tick);
     on<SplashNavigateEvent>(_navigate);

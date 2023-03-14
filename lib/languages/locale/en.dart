@@ -25,5 +25,11 @@ class LanguageEn extends BaseLanguage {
   @override
   String get noAccountQuote => 'Don’t have an account?';
 
+  @override
+  String get signUpScreenTitle => 'Create \nyour \naccount';
+
+  @override
+  String get exitsAccountQuote => 'Already have an account?';
+
 
 }

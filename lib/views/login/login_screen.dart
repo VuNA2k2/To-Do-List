@@ -1,5 +1,8 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/languages/language.dart';
+import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/widgets/elevate_button_common.dart';
@@ -62,9 +65,14 @@ class LoginScreen extends StatelessWidget {
           text: L.current.noAccountQuote,
           style: TextStyleUtils.textStyleOpenSansBlack16W300,
           children: [
+            const TextSpan(text: ' ',),
             TextSpan(
-                text: ' ${L.current.signUpLabel}',
-                style: TextStyleUtils.textStyleOpenSansPrimary16W300),
+                text: L.current.signUpLabel,
+                style: TextStyleUtils.textStyleOpenSansPrimary16W300,
+              recognizer: TapGestureRecognizer()..onTap = () {
+                context.router.push(const SignUpScreenRoute(),);
+              },
+            ),
           ],
         ),
       ),

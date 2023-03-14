@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/services/shared_data/storage_service.dart';
 import 'route/route.gr.dart';

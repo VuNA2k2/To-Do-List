@@ -7,4 +7,6 @@ abstract class BaseLanguage {
   String get loginLabel;
   String get signUpLabel;
   String get noAccountQuote;
+  String get signUpScreenTitle;
+  String get exitsAccountQuote;
 }

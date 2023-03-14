@@ -25,4 +25,10 @@ class LanguageVi extends BaseLanguage {
   @override
   String get noAccountQuote => 'Bạn chưa có tài khoản?';
 
+  @override
+  String get signUpScreenTitle => 'Đăng ký \ntài khoản \ncủa bạn';
+
+  @override
+  String get exitsAccountQuote => 'Bạn đã có tài khoản?';
+
 }

@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:todo_list/views/fill_profile/fill_profile_screen.dart';
 
 import '../views/project/project_screen.dart';
 import '../views/dashboard/dashboard_screen.dart';
@@ -30,6 +31,9 @@ import '../views/splash_screen/splash_screen.dart';
     ),
     MaterialRoute(
       page: SignUpScreen,
+    ),
+    MaterialRoute(
+      page: FillProfileScreen,
     ),
   ],
 )
