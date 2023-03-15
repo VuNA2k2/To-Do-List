@@ -5,7 +5,7 @@ import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
-import 'package:todo_list/views/widgets/elevate_button_common.dart';
+import 'package:todo_list/views/widgets/elevated_button_common.dart';
 import 'package:todo_list/views/widgets/text_field_common.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -122,7 +122,7 @@ class LoginScreen extends StatelessWidget {
             ],
           ),
         ),
-        ElevateButtonCommon(
+        ElevatedButtonCommon(
           width: double.infinity,
           onPressed: () {},
           child: Text(L.current.loginLabel, style: TextStyleUtils.textStyleOpenSans24W700White,),

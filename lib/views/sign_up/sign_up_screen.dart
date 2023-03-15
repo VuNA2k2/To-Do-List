@@ -6,7 +6,7 @@ import 'package:todo_list/route/route.gr.dart';
 import '../../languages/language.dart';
 import '../../utils/color_utils.dart';
 import '../../utils/text_style_utils.dart';
-import '../widgets/elevate_button_common.dart';
+import '../widgets/elevated_button_common.dart';
 import '../widgets/text_field_common.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -130,7 +130,7 @@ class SignUpScreen extends StatelessWidget {
         const SizedBox(
           height: 40,
         ),
-        ElevateButtonCommon(
+        ElevatedButtonCommon(
           width: double.infinity,
           onPressed: () {
             context.router.popAndPush(const FillProfileScreenRoute());
