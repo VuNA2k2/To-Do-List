@@ -35,13 +35,9 @@ class AppRouter extends _i8.RootStackRouter {
       );
     },
     HomeScreenRoute.name: (routeData) {
-      final args = routeData.argsAs<HomeScreenRouteArgs>();
       return _i8.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i2.HomeScreen(
-          key: args.key,
-          message: args.message,
-        ),
+        child: const _i2.HomeScreen(),
       );
     },
     LoginScreenRoute.name: (routeData) {
@@ -127,38 +123,15 @@ class SplashScreenRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.HomeScreen]
-class HomeScreenRoute extends _i8.PageRouteInfo<HomeScreenRouteArgs> {
-  HomeScreenRoute({
-    _i9.Key? key,
-    required String message,
-    List<_i8.PageRouteInfo>? children,
-  }) : super(
+class HomeScreenRoute extends _i8.PageRouteInfo<void> {
+  const HomeScreenRoute({List<_i8.PageRouteInfo>? children})
+      : super(
           HomeScreenRoute.name,
           path: '/home-screen',
-          args: HomeScreenRouteArgs(
-            key: key,
-            message: message,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'HomeScreenRoute';
-}
-
-class HomeScreenRouteArgs {
-  const HomeScreenRouteArgs({
-    this.key,
-    required this.message,
-  });
-
-  final _i9.Key? key;
-
-  final String message;
-
-  @override
-  String toString() {
-    return 'HomeScreenRouteArgs{key: $key, message: $message}';
-  }
 }
 
 /// generated route for
