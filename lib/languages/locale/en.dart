@@ -31,5 +31,8 @@ class LanguageEn extends BaseLanguage {
   @override
   String get exitsAccountQuote => 'Already have an account?';
 
+  @override
+  String get fillProfileLabel => 'Fill your profile';
+
 
 }

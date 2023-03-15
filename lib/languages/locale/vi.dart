@@ -31,4 +31,6 @@ class LanguageVi extends BaseLanguage {
   @override
   String get exitsAccountQuote => 'Bạn đã có tài khoản?';
 
+  @override
+  String get fillProfileLabel => 'Điền thông tin cá nhân';
 }

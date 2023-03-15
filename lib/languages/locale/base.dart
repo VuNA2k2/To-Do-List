@@ -9,4 +9,5 @@ abstract class BaseLanguage {
   String get noAccountQuote;
   String get signUpScreenTitle;
   String get exitsAccountQuote;
+  String get fillProfileLabel;
 }

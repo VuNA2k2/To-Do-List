@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_list/route/route.gr.dart';
 
 import '../../languages/language.dart';
 import '../../utils/color_utils.dart';
@@ -63,14 +64,14 @@ class SignUpScreen extends StatelessWidget {
       child: RichText(
         text: TextSpan(
           text: L.current.exitsAccountQuote,
-          style: TextStyleUtils.textStyleOpenSansBlack16W300,
+          style: TextStyleUtils.textStyleOpenSans16W300Black,
           children: [
             const TextSpan(
               text: ' ',
             ),
             TextSpan(
               text: L.current.loginLabel,
-              style: TextStyleUtils.textStyleOpenSansPrimary16W300,
+              style: TextStyleUtils.textStyleOpenSans16W300Primary,
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   context.router.pop();
@@ -87,19 +88,19 @@ class SignUpScreen extends StatelessWidget {
       children: [
         TextFieldCommon(
           hintText: L.current.hintTextEmail,
-          hintStyle: TextStyleUtils.textStyleOpenSansGrey9B16W300,
+          hintStyle: TextStyleUtils.textStyleOpenSans16W300Grey9B,
           prefixIcon: const Icon(
             Icons.email,
             color: ColorUtils.black,
           ),
-          style: TextStyleUtils.textStyleOpenSansBlack16W300,
+          style: TextStyleUtils.textStyleOpenSans16W300Black,
         ),
         const SizedBox(
           height: 20,
         ),
         TextFieldCommon(
           hintText: L.current.hintTextPassword,
-          hintStyle: TextStyleUtils.textStyleOpenSansGrey9B16W300,
+          hintStyle: TextStyleUtils.textStyleOpenSans16W300Grey9B,
           prefixIcon: const Icon(
             Icons.lock,
             color: ColorUtils.black,
@@ -108,14 +109,14 @@ class SignUpScreen extends StatelessWidget {
             Icons.remove_red_eye,
             color: ColorUtils.black,
           ),
-          style: TextStyleUtils.textStyleOpenSansBlack16W300,
+          style: TextStyleUtils.textStyleOpenSans16W300Black,
         ),
         const SizedBox(
           height: 20,
         ),
         TextFieldCommon(
           hintText: L.current.hintTextPassword,
-          hintStyle: TextStyleUtils.textStyleOpenSansGrey9B16W300,
+          hintStyle: TextStyleUtils.textStyleOpenSans16W300Grey9B,
           prefixIcon: const Icon(
             Icons.lock,
             color: ColorUtils.black,
@@ -124,15 +125,17 @@ class SignUpScreen extends StatelessWidget {
             Icons.remove_red_eye,
             color: ColorUtils.black,
           ),
-          style: TextStyleUtils.textStyleOpenSansBlack16W300,
+          style: TextStyleUtils.textStyleOpenSans16W300Black,
         ),
         const SizedBox(
           height: 40,
         ),
         ElevateButtonCommon(
           width: double.infinity,
-          onPressed: () {},
-          child: Text(L.current.signUpLabel),
+          onPressed: () {
+            context.router.popAndPush(const FillProfileScreenRoute());
+          },
+          child: Text(L.current.signUpLabel, style: TextStyleUtils.textStyleOpenSans24W700White,),
         ),
       ],
     );

@@ -63,12 +63,12 @@ class LoginScreen extends StatelessWidget {
       child: RichText(
         text: TextSpan(
           text: L.current.noAccountQuote,
-          style: TextStyleUtils.textStyleOpenSansBlack16W300,
+          style: TextStyleUtils.textStyleOpenSans16W300Black,
           children: [
             const TextSpan(text: ' ',),
             TextSpan(
                 text: L.current.signUpLabel,
-                style: TextStyleUtils.textStyleOpenSansPrimary16W300,
+                style: TextStyleUtils.textStyleOpenSans16W300Primary,
               recognizer: TapGestureRecognizer()..onTap = () {
                 context.router.push(const SignUpScreenRoute(),);
               },
@@ -84,19 +84,19 @@ class LoginScreen extends StatelessWidget {
       children: [
         TextFieldCommon(
           hintText: L.current.hintTextEmail,
-          hintStyle: TextStyleUtils.textStyleOpenSansGrey9B16W300,
+          hintStyle: TextStyleUtils.textStyleOpenSans16W300Grey9B,
           prefixIcon: const Icon(
             Icons.email,
             color: ColorUtils.black,
           ),
-          style: TextStyleUtils.textStyleOpenSansBlack16W300,
+          style: TextStyleUtils.textStyleOpenSans16W300Black,
         ),
         const SizedBox(
           height: 20,
         ),
         TextFieldCommon(
           hintText: L.current.hintTextPassword,
-          hintStyle: TextStyleUtils.textStyleOpenSansGrey9B16W300,
+          hintStyle: TextStyleUtils.textStyleOpenSans16W300Grey9B,
           prefixIcon: const Icon(
             Icons.lock,
             color: ColorUtils.black,
@@ -105,7 +105,7 @@ class LoginScreen extends StatelessWidget {
             Icons.remove_red_eye,
             color: ColorUtils.black,
           ),
-          style: TextStyleUtils.textStyleOpenSansBlack16W300,
+          style: TextStyleUtils.textStyleOpenSans16W300Black,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -125,7 +125,7 @@ class LoginScreen extends StatelessWidget {
         ElevateButtonCommon(
           width: double.infinity,
           onPressed: () {},
-          child: Text(L.current.loginLabel),
+          child: Text(L.current.loginLabel, style: TextStyleUtils.textStyleOpenSans24W700White,),
         ),
       ],
     );

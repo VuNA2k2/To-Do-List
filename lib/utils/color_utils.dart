@@ -6,4 +6,6 @@ class ColorUtils {
   static const Color black = Colors.black;
 
   static const Color primaryColor = Color(0xffFF96A5);
+
+  static const Color white = Colors.white;
 }
