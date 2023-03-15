@@ -34,5 +34,32 @@ class LanguageEn extends BaseLanguage {
   @override
   String get fillProfileLabel => 'Fill your profile';
 
+  @override
+  String get hintTextUserName => '@username';
+
+  @override
+  // TODO: implement dateOfBirthLabel
+  String get dateOfBirthLabel => 'Date of birth';
+
+  @override
+  // TODO: implement emailLabel
+  String get emailLabel => 'Email';
+
+  @override
+  // TODO: implement fullNameLabel
+  String get fullNameLabel => 'Full name';
+
+  @override
+  // TODO: implement phoneNumberLabel
+  String get phoneNumberLabel => 'Phone number';
+
+  @override
+  // TODO: implement saveLabel
+  String get saveLabel => 'Save';
+
+  @override
+  // TODO: implement skipLabel
+  String get skipLabel => 'Skip';
+
 
 }

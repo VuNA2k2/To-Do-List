@@ -33,4 +33,33 @@ class LanguageVi extends BaseLanguage {
 
   @override
   String get fillProfileLabel => 'Điền thông tin cá nhân';
+
+  @override
+  String get hintTextUserName => 'Nick name';
+
+  @override
+  // TODO: implement dateOfBirthLabel
+  String get dateOfBirthLabel => throw UnimplementedError();
+
+  @override
+  // TODO: implement emailLabel
+  String get emailLabel => throw UnimplementedError();
+
+  @override
+  // TODO: implement fullNameLabel
+  String get fullNameLabel => throw UnimplementedError();
+
+  @override
+  // TODO: implement phoneNumberLabel
+  String get phoneNumberLabel => throw UnimplementedError();
+
+  @override
+  // TODO: implement saveLabel
+  String get saveLabel => 'Lưu';
+
+  @override
+  // TODO: implement skipLabel
+  String get skipLabel => 'Bỏ qua';
+
+
 }
