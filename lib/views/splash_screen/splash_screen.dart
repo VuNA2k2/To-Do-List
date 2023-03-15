@@ -18,7 +18,7 @@ class SplashScreen extends StatelessWidget {
             // TODO: implement listener
             if(state is SplashHomeState) {
             //  TODO: navigate Home
-              context.router.popAndPush(HomeScreenRoute(message: "message"));
+              context.router.popAndPush(const HomeScreenRoute());
             } else if(state is SplashLoginState) {
               context.router.popAndPush(const LoginScreenRoute());
             }
