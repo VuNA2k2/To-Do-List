@@ -61,5 +61,13 @@ class LanguageVi extends BaseLanguage {
   // TODO: implement skipLabel
   String get skipLabel => 'Bỏ qua';
 
+  @override
+  // TODO: implement todayLabel
+  String get todayLabel => 'Hôm nay';
+
+  @override
+  // TODO: implement projectLabel
+  String get projectLabel => 'Dự án của tôi';
+
 
 }

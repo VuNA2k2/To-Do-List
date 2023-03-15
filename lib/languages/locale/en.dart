@@ -61,5 +61,13 @@ class LanguageEn extends BaseLanguage {
   // TODO: implement skipLabel
   String get skipLabel => 'Skip';
 
+  @override
+  // TODO: implement todayLabel
+  String get todayLabel => 'Today';
+
+  @override
+  // TODO: implement projectLabel
+  String get projectLabel => 'My projects';
+
 
 }

@@ -17,4 +17,6 @@ abstract class BaseLanguage {
   String get phoneNumberLabel;
   String get saveLabel;
   String get skipLabel;
+  String get todayLabel;
+  String get projectLabel;
 }
