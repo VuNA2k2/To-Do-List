@@ -10,4 +10,11 @@ abstract class BaseLanguage {
   String get signUpScreenTitle;
   String get exitsAccountQuote;
   String get fillProfileLabel;
+  String get hintTextUserName;
+  String get fullNameLabel;
+  String get dateOfBirthLabel;
+  String get emailLabel;
+  String get phoneNumberLabel;
+  String get saveLabel;
+  String get skipLabel;
 }
