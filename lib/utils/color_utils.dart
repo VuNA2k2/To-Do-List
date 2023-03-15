@@ -5,7 +5,13 @@ class ColorUtils {
 
   static const Color black = Colors.black;
 
-  static const Color primaryColor = Color(0xffFF96A5);
+  static const Color primaryColor = Color(0xffff96A5);
 
   static const Color white = Colors.white;
+
+  static const Color bgColor = white;
+
+  static const Color blue05 = Color(0xff053865);
+
+  static const Color greyCE = Color(0xffCECECE);
 }
