@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list/utils/color_utils.dart';
+import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/widgets/avatar_common.dart';
+import 'package:todo_list/views/widgets/text_field_common.dart';
+import 'package:todo_list/views/widgets/text_field_label.dart';
 
 import '../../languages/language.dart';
+import '../widgets/elevated_button_common.dart';
 
 class FillProfileScreen extends StatelessWidget {
   const FillProfileScreen({Key? key}) : super(key: key);
@@ -19,11 +23,17 @@ class FillProfileScreen extends StatelessWidget {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: SafeArea(
-        child: Column(
+        child: ListView(
           children: [
-            Text(L.current.fillProfileLabel),
-            Expanded(
-              child: _formProfile(context),
+            Text(
+              L.current.fillProfileLabel,
+              textAlign: TextAlign.center,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: Expanded(
+                child: _formProfile(context),
+              ),
             ),
           ],
         ),
@@ -33,21 +43,82 @@ class FillProfileScreen extends StatelessWidget {
 
   Widget _formProfile(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Stack(
-          children: [
-            Container(
-              width: 180,
-              height: 180,
-              decoration: BoxDecoration(
-                border: Border.all(color: ColorUtils.primaryColor, width: 10),
-                shape: BoxShape.circle,
-              ),
-            ),
-            Positioned(child: Icon(Icons.camera_alt_rounded, ))
-          ],
+        AvatarCommon(
+          avatar: const Icon(
+            Icons.person,
+          ),
+          icon: const Icon(
+            Icons.camera_alt_rounded,
+          ),
         ),
+        _formUserName(context),
+        _formInfo(context),
+        _button(context),
       ],
+    );
+  }
+
+  Widget _formUserName(BuildContext context) {
+    return Container(
+      width: 120,
+      padding: const EdgeInsets.all(8),
+      child: TextFieldCommon(
+        minLines: 1,
+        maxLines: 1,
+        hintText: L.current.hintTextUserName,
+        contentPadding: const EdgeInsets.all(4),
+        textAlign: TextAlign.center,
+        maxLength: 8,
+      ),
+    );
+  }
+
+  Widget _formInfo(BuildContext context) {
+    return Column(
+      children: [
+        _formField(context, L.current.fullNameLabel, TextEditingController()),
+        _formField(context, L.current.dateOfBirthLabel, TextEditingController()),
+        _formField(context, L.current.emailLabel, TextEditingController()),
+        _formField(context, L.current.phoneNumberLabel, TextEditingController())
+      ],
+    );
+  }
+
+  Widget _formField(BuildContext context, String label, TextEditingController controller) {
+    return TextFieldLabel(
+      label: label,
+      labelStyle: TextStyleUtils.textStyleOpenSans16W600Blue05,
+      controller: controller,
+      contentStyle: TextStyleUtils.textStyleOpenSans16W600,
+    );
+  }
+
+  Widget _button(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 35.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Expanded(child: Center(
+            child: SizedBox(
+              width: 100,
+              child: ElevatedButtonCommon(onPressed: () {
+
+              }, child: Text(L.current.skipLabel, style: TextStyleUtils.textStyleOpenSans16W600White,),),
+            ),
+          ),),
+          Expanded(child: Center(
+            child: SizedBox(
+              width: 100,
+              child: ElevatedButtonCommon(onPressed: () {
+
+              }, child: Text(L.current.saveLabel, style: TextStyleUtils.textStyleOpenSans16W600White,),),
+            ),
+          ),),
+        ],
+      ),
     );
   }
 }
