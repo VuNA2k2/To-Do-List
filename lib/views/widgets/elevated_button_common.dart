@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/utils/color_utils.dart';
 
-class ElevateButtonCommon extends StatelessWidget {
-  ElevateButtonCommon({super.key,
+class ElevatedButtonCommon extends StatelessWidget {
+  ElevatedButtonCommon({super.key,
     required Function() onPressed,
     required Widget child,
     double? width,
