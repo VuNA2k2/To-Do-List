@@ -25,12 +25,16 @@ class FillProfileScreen extends StatelessWidget {
       child: SafeArea(
         child: ListView(
           children: [
-            Text(
-              L.current.fillProfileLabel,
-              textAlign: TextAlign.center,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Text(
+                L.current.fillProfileLabel,
+                textAlign: TextAlign.center,
+                style: TextStyleUtils.textStyleOpenSans24W700,
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 20),
               child: Expanded(
                 child: _formProfile(context),
               ),
