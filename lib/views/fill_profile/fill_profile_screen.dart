@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/widgets/avatar_common.dart';
 import 'package:todo_list/views/widgets/text_field_common.dart';
@@ -35,9 +37,7 @@ class FillProfileScreen extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 20),
-              child: Expanded(
-                child: _formProfile(context),
-              ),
+              child: _formProfile(context),
             ),
           ],
         ),
@@ -117,7 +117,7 @@ class FillProfileScreen extends StatelessWidget {
             child: SizedBox(
               width: 100,
               child: ElevatedButtonCommon(onPressed: () {
-
+                context.router.popAndPush(HomeScreenRoute(),);
               }, child: Text(L.current.saveLabel, style: TextStyleUtils.textStyleOpenSans16W600White,),),
             ),
           ),),
