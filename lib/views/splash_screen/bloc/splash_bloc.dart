@@ -28,6 +28,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       emit(SplashLoadingState(duration: Duration(seconds: (state as SplashInitial).duration.inSeconds - 1)));
     } if(state is SplashLoadingState) {
       if((state as SplashLoadingState).duration.inSeconds == 0) {
+        timer?.cancel();
         //  TODO: navigate route default navigate login
         add(SplashNavigateEvent(LoginScreenRoute.name));
       } else {
