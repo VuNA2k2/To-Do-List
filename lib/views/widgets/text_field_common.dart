@@ -22,6 +22,7 @@ class TextFieldCommon extends TextField {
     InputBorder? errorBorder,
     InputBorder? enabledBorder,
     InputBorder? disabledBorder,
+    Color? fillColor,
   }) : super(
           decoration: InputDecoration(
             border: border ?? OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: ColorUtils.greyCE)),
@@ -35,6 +36,8 @@ class TextFieldCommon extends TextField {
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             contentPadding: contentPadding,
+            fillColor: fillColor,
+            filled: fillColor != null,
             counter: const Offstage(),
           ),
         );

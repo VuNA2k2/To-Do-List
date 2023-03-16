@@ -14,4 +14,16 @@ class ColorUtils {
   static const Color blue05 = Color(0xff053865);
 
   static const Color greyCE = Color(0xffCECECE);
+
+  static const Color greyE8 = Color(0xffE8E8E8);
+
+  static const Color grey81 = Color(0xff818181);
+
+  static const Color red = Colors.red;
+
+  static const Color yellow = Colors.yellow;
+
+  static const Color green = Colors.green;
+
+  static const Color greyED = Color(0xffEDE2E2);
 }
