@@ -69,5 +69,9 @@ class LanguageEn extends BaseLanguage {
   // TODO: implement projectLabel
   String get projectLabel => 'My projects';
 
+  @override
+  // TODO: implement hintTextSearch
+  String get hintTextSearch => 'Search';
+
 
 }

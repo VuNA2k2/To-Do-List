@@ -69,5 +69,9 @@ class LanguageVi extends BaseLanguage {
   // TODO: implement projectLabel
   String get projectLabel => 'Dự án của tôi';
 
+  @override
+  // TODO: implement hintTextSearch
+  String get hintTextSearch => 'Tìm kiếm';
+
 
 }

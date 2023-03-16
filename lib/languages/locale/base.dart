@@ -19,4 +19,5 @@ abstract class BaseLanguage {
   String get skipLabel;
   String get todayLabel;
   String get projectLabel;
+  String get hintTextSearch;
 }
