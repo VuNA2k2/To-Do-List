@@ -1,3 +1,4 @@
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/route/route.gr.dart';
@@ -117,7 +118,7 @@ class FillProfileScreen extends StatelessWidget {
             child: SizedBox(
               width: 100,
               child: ElevatedButtonCommon(onPressed: () {
-                context.router.popAndPush(HomeScreenRoute(),);
+                context.router.replace(const HomeScreenRoute(),);
               }, child: Text(L.current.saveLabel, style: TextStyleUtils.textStyleOpenSans16W600White,),),
             ),
           ),),

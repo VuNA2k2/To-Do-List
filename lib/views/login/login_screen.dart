@@ -70,7 +70,7 @@ class LoginScreen extends StatelessWidget {
                 text: L.current.signUpLabel,
                 style: TextStyleUtils.textStyleOpenSans16W300Primary,
               recognizer: TapGestureRecognizer()..onTap = () {
-                context.router.push(const SignUpScreenRoute(),);
+                context.router.replace(const SignUpScreenRoute());
               },
             ),
           ],

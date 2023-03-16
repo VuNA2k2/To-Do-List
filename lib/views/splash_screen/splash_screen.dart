@@ -18,9 +18,16 @@ class SplashScreen extends StatelessWidget {
             // TODO: implement listener
             if(state is SplashHomeState) {
             //  TODO: navigate Home
-              context.router.popAndPush(const HomeScreenRoute());
+              context.router.removeUntil((route) {
+                context.replaceRoute(const HomeScreenRoute());
+                return false;
+              });
             } else if(state is SplashLoginState) {
-              context.router.popAndPush(const LoginScreenRoute());
+              context.replaceRoute(const LoginScreenRoute());
+              // context.router.removeUntil((route) {
+              //   context.pushRoute(const LoginScreenRoute());
+              //   return false;
+              // });
             }
           },
           child: const Center(

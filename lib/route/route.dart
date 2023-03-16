@@ -19,7 +19,7 @@ import '../views/splash_screen/splash_screen.dart';
       children: [
         MaterialRoute(
           page: DashboardScreen,
-          initial: true,
+          initial: true
         ),
         MaterialRoute(
           page: ProjectScreen,

@@ -74,7 +74,7 @@ class SignUpScreen extends StatelessWidget {
               style: TextStyleUtils.textStyleOpenSans16W300Primary,
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  context.router.pop();
+                  context.router.replace(const LoginScreenRoute());
                 },
             ),
           ],
@@ -133,7 +133,7 @@ class SignUpScreen extends StatelessWidget {
         ElevatedButtonCommon(
           width: double.infinity,
           onPressed: () {
-            context.router.popAndPush(const FillProfileScreenRoute());
+            context.router.replace(const FillProfileScreenRoute());
           },
           child: Text(L.current.signUpLabel, style: TextStyleUtils.textStyleOpenSans24W700White,),
         ),
