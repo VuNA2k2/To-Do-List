@@ -11,107 +11,118 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i8;
-import 'package:flutter/material.dart' as _i9;
+import 'package:auto_route/auto_route.dart' as _i9;
+import 'package:flutter/material.dart' as _i10;
 
-import '../views/dashboard/dashboard_screen.dart' as _i6;
+import '../views/dashboard/dashboard_screen.dart' as _i7;
 import '../views/fill_profile/fill_profile_screen.dart' as _i5;
 import '../views/home/home_screen.dart' as _i2;
 import '../views/login/login_screen.dart' as _i3;
-import '../views/project/project_screen.dart' as _i7;
+import '../views/project/project_screen.dart' as _i8;
 import '../views/sign_up/sign_up_screen.dart' as _i4;
 import '../views/splash_screen/splash_screen.dart' as _i1;
+import '../views/today_task/today_task_screen.dart' as _i6;
 
-class AppRouter extends _i8.RootStackRouter {
-  AppRouter([_i9.GlobalKey<_i9.NavigatorState>? navigatorKey])
+class AppRouter extends _i9.RootStackRouter {
+  AppRouter([_i10.GlobalKey<_i10.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i8.PageFactory> pagesMap = {
+  final Map<String, _i9.PageFactory> pagesMap = {
     SplashScreenRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
+      return _i9.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.SplashScreen(),
       );
     },
     HomeScreenRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
+      return _i9.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.HomeScreen(),
       );
     },
     LoginScreenRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
+      return _i9.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.LoginScreen(),
       );
     },
     SignUpScreenRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
+      return _i9.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i4.SignUpScreen(),
       );
     },
     FillProfileScreenRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
+      return _i9.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i5.FillProfileScreen(),
       );
     },
-    DashboardScreenRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
+    TodayTaskScreenRoute.name: (routeData) {
+      return _i9.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i6.DashboardScreen(),
+        child: const _i6.TodayTaskScreen(),
+      );
+    },
+    DashboardScreenRoute.name: (routeData) {
+      return _i9.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i7.DashboardScreen(),
       );
     },
     ProjectScreenRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
+      return _i9.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i7.ProjectScreen(),
+        child: const _i8.ProjectScreen(),
       );
     },
   };
 
   @override
-  List<_i8.RouteConfig> get routes => [
-        _i8.RouteConfig(
+  List<_i9.RouteConfig> get routes => [
+        _i9.RouteConfig(
           SplashScreenRoute.name,
           path: '/',
         ),
-        _i8.RouteConfig(
+        _i9.RouteConfig(
           HomeScreenRoute.name,
           path: '/home-screen',
           children: [
-            _i8.RouteConfig(
+            _i9.RouteConfig(
               DashboardScreenRoute.name,
               path: '',
               parent: HomeScreenRoute.name,
             ),
-            _i8.RouteConfig(
+            _i9.RouteConfig(
               ProjectScreenRoute.name,
               path: 'project-screen',
               parent: HomeScreenRoute.name,
             ),
           ],
         ),
-        _i8.RouteConfig(
+        _i9.RouteConfig(
           LoginScreenRoute.name,
           path: '/login-screen',
         ),
-        _i8.RouteConfig(
+        _i9.RouteConfig(
           SignUpScreenRoute.name,
           path: '/sign-up-screen',
         ),
-        _i8.RouteConfig(
+        _i9.RouteConfig(
           FillProfileScreenRoute.name,
           path: '/fill-profile-screen',
+        ),
+        _i9.RouteConfig(
+          TodayTaskScreenRoute.name,
+          path: '/today-task-screen',
         ),
       ];
 }
 
 /// generated route for
 /// [_i1.SplashScreen]
-class SplashScreenRoute extends _i8.PageRouteInfo<void> {
+class SplashScreenRoute extends _i9.PageRouteInfo<void> {
   const SplashScreenRoute()
       : super(
           SplashScreenRoute.name,
@@ -123,8 +134,8 @@ class SplashScreenRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.HomeScreen]
-class HomeScreenRoute extends _i8.PageRouteInfo<void> {
-  const HomeScreenRoute({List<_i8.PageRouteInfo>? children})
+class HomeScreenRoute extends _i9.PageRouteInfo<void> {
+  const HomeScreenRoute({List<_i9.PageRouteInfo>? children})
       : super(
           HomeScreenRoute.name,
           path: '/home-screen',
@@ -136,7 +147,7 @@ class HomeScreenRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.LoginScreen]
-class LoginScreenRoute extends _i8.PageRouteInfo<void> {
+class LoginScreenRoute extends _i9.PageRouteInfo<void> {
   const LoginScreenRoute()
       : super(
           LoginScreenRoute.name,
@@ -148,7 +159,7 @@ class LoginScreenRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.SignUpScreen]
-class SignUpScreenRoute extends _i8.PageRouteInfo<void> {
+class SignUpScreenRoute extends _i9.PageRouteInfo<void> {
   const SignUpScreenRoute()
       : super(
           SignUpScreenRoute.name,
@@ -160,7 +171,7 @@ class SignUpScreenRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.FillProfileScreen]
-class FillProfileScreenRoute extends _i8.PageRouteInfo<void> {
+class FillProfileScreenRoute extends _i9.PageRouteInfo<void> {
   const FillProfileScreenRoute()
       : super(
           FillProfileScreenRoute.name,
@@ -171,8 +182,20 @@ class FillProfileScreenRoute extends _i8.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.DashboardScreen]
-class DashboardScreenRoute extends _i8.PageRouteInfo<void> {
+/// [_i6.TodayTaskScreen]
+class TodayTaskScreenRoute extends _i9.PageRouteInfo<void> {
+  const TodayTaskScreenRoute()
+      : super(
+          TodayTaskScreenRoute.name,
+          path: '/today-task-screen',
+        );
+
+  static const String name = 'TodayTaskScreenRoute';
+}
+
+/// generated route for
+/// [_i7.DashboardScreen]
+class DashboardScreenRoute extends _i9.PageRouteInfo<void> {
   const DashboardScreenRoute()
       : super(
           DashboardScreenRoute.name,
@@ -183,8 +206,8 @@ class DashboardScreenRoute extends _i8.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.ProjectScreen]
-class ProjectScreenRoute extends _i8.PageRouteInfo<void> {
+/// [_i8.ProjectScreen]
+class ProjectScreenRoute extends _i9.PageRouteInfo<void> {
   const ProjectScreenRoute()
       : super(
           ProjectScreenRoute.name,

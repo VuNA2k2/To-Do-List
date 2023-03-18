@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:responsive_notebook_background/responsive_notebook_background.dart';
 import 'package:todo_list/languages/language.dart';
+import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/widgets/search_bar_common.dart';
@@ -30,7 +32,9 @@ class DashboardScreen extends StatelessWidget {
         _count(
           context,
           '${L.current.todayTaskLabel} (20)',
-          () {},
+          () {
+            context.router.push(const TodayTaskScreenRoute());
+          },
         ),
         _listTaskInDay(context),
         _count(

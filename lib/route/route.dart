@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:todo_list/views/fill_profile/fill_profile_screen.dart';
+import 'package:todo_list/views/today_task/today_task_screen.dart';
 
 import '../views/project/project_screen.dart';
 import '../views/dashboard/dashboard_screen.dart';
@@ -35,6 +36,7 @@ import '../views/splash_screen/splash_screen.dart';
     MaterialRoute(
       page: FillProfileScreen,
     ),
+    MaterialRoute(page: TodayTaskScreen,),
   ],
 )
 class $AppRouter {}
