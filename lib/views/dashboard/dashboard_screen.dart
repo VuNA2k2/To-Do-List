@@ -1,12 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:lorem_ipsum/lorem_ipsum.dart';
-import 'package:responsive_notebook_background/responsive_notebook_background.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/widgets/note_item.dart';
 import 'package:todo_list/views/widgets/search_bar_common.dart';
 import 'package:todo_list/views/widgets/task_item.dart';
 
@@ -40,7 +39,9 @@ class DashboardScreen extends StatelessWidget {
         _count(
           context,
           '${L.current.countNoteLabel} (20)',
-          () {},
+          () {
+            context.router.push(const AllNotesScreenRoute());
+          },
         ),
         _staggeredGridNotes(context),
       ],
@@ -165,41 +166,7 @@ class DashboardScreen extends StatelessWidget {
       mainAxisSpacing: 8,
       crossAxisSpacing: 8,
       itemBuilder: (context, index) {
-        return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: ColorUtils.primaryColor.withOpacity(0.1),
-          ),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ResponsiveNotebookBackground(
-                  options: ResponsiveNotebookBackgroundOptions(
-                    backgroundColor: Colors.transparent,
-                    horizontalPadding: 4,
-                    styleForHeightCalculation: TextStyleUtils.textStyleOpenSans14W500,
-                  ),
-                  child: Text(
-                    loremIpsum(words: 5),
-                    style: TextStyleUtils.textStyleOpenSans14W500,
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                const SizedBox(height: 8,),
-                ResponsiveNotebookBackground(
-                  options: ResponsiveNotebookBackgroundOptions(
-                    backgroundColor: Colors.transparent,
-                    horizontalPadding: 4,
-                    styleForHeightCalculation: TextStyleUtils.textStyleOpenSans12W300,
-                  ),
-                  child: Text(
-                    loremIpsum(words: 50),
-                    style: TextStyleUtils.textStyleOpenSans12W300,
-                  ),
-                ),
-              ],
-            ),
-        );
+        return NoteItem();
       },
       itemCount: 5,
     );
