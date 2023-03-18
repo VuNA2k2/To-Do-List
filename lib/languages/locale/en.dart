@@ -73,5 +73,21 @@ class LanguageEn extends BaseLanguage {
   // TODO: implement hintTextSearch
   String get hintTextSearch => 'Search';
 
+  @override
+  // TODO: implement todayTaskLabel
+  String get todayTaskLabel => 'Today task';
+
+  @override
+  // TODO: implement unknown
+  String get unknown => 'Unknown';
+
+  @override
+  // TODO: implement countNoteLabel
+  String get countNoteLabel => 'Notes';
+
+  @override
+  // TODO: implement seeAllLabel
+  String get seeAllLabel => 'See all';
+
 
 }

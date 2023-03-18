@@ -124,7 +124,9 @@ class LoginScreen extends StatelessWidget {
         ),
         ElevatedButtonCommon(
           width: double.infinity,
-          onPressed: () {},
+          onPressed: () {
+            context.router.replace(const HomeScreenRoute());
+          },
           child: Text(L.current.loginLabel, style: TextStyleUtils.textStyleOpenSans24W700White,),
         ),
       ],

@@ -1,5 +1,6 @@
 abstract class BaseLanguage {
   String get appName;
+
   String get loginScreenTitle;
   String get hintTextEmail;
   String get hintTextPassword;
@@ -20,4 +21,8 @@ abstract class BaseLanguage {
   String get todayLabel;
   String get projectLabel;
   String get hintTextSearch;
+  String get todayTaskLabel;
+  String get unknown;
+  String get countNoteLabel;
+  String get seeAllLabel;
 }

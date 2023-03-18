@@ -26,4 +26,6 @@ class ColorUtils {
   static const Color green = Colors.green;
 
   static const Color greyED = Color(0xffEDE2E2);
+
+  static const Color greenOA = Color(0xff0AEE9C);
 }

@@ -5,7 +5,8 @@ import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/widgets/text_field_common.dart';
 
 class SearchBarCommon extends StatelessWidget {
-  SearchBarCommon({Key? key, TextEditingController? controller}) : super(key: key) {
+  SearchBarCommon({Key? key, TextEditingController? controller})
+      : super(key: key) {
     _controller = controller;
   }
 
@@ -19,7 +20,22 @@ class SearchBarCommon extends StatelessWidget {
       fillColor: ColorUtils.greyE8,
       hintText: L.current.hintTextSearch,
       hintStyle: TextStyleUtils.textStyleOpenSans13W400Grey81,
-      suffixIcon: const Icon(Icons.search, color: ColorUtils.black,),
+      suffixIcon: const Icon(
+        Icons.search,
+        color: ColorUtils.black,
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide.none,
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide.none,
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide.none,
+      ),
     );
   }
 }
