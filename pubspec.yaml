@@ -41,6 +41,7 @@ dependencies:
   lorem_ipsum: ^0.0.1
   responsive_notebook_background: ^0.1.5
   table_calendar: ^3.0.9
+  dotted_border: ^2.0.0+3
 
 
 
