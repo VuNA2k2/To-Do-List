@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ProjectScreen extends StatelessWidget {
-  const ProjectScreen({Key? key}) : super(key: key);
+class CalendarScreen extends StatelessWidget {
+  const CalendarScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -9,6 +9,8 @@ class ProjectScreen extends StatelessWidget {
   }
 
   Widget _body(BuildContext context) {
-    return Container();
+    return Column(
+      children: [],
+    );
   }
 }

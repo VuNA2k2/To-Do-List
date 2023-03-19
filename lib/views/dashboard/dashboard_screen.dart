@@ -16,10 +16,7 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: _body(context),
-    );
+    return _body(context);
   }
 
   Widget _body(BuildContext context) {

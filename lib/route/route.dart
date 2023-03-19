@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:todo_list/views/all_notes/all_notes_screen.dart';
+import 'package:todo_list/views/calendar/calendar_screen.dart';
 import 'package:todo_list/views/fill_profile/fill_profile_screen.dart';
 import 'package:todo_list/views/today_task/today_task_screen.dart';
 
@@ -19,9 +20,15 @@ import '../views/splash_screen/splash_screen.dart';
     MaterialRoute(
       page: HomeScreen,
       children: [
-        MaterialRoute(page: DashboardScreen, initial: true),
+        MaterialRoute(
+          page: DashboardScreen,
+          initial: true,
+        ),
         MaterialRoute(
           page: ProjectScreen,
+        ),
+        MaterialRoute(
+          page: CalendarScreen,
         ),
       ],
     ),

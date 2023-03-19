@@ -23,11 +23,13 @@ class HomeScreen extends StatelessWidget {
           routes: const [
             DashboardScreenRoute(),
             ProjectScreenRoute(),
+            CalendarScreenRoute(),
           ],
           appBarBuilder: (context, tabsRouter) => PreferredSize(
             preferredSize: Size.fromHeight(_getHeightAppBar(tabsRouter)),
             child: _appBar(context, tabsRouter),
           ),
+          backgroundColor: ColorUtils.bgColor,
           bottomNavigationBuilder: (_, tabsRouter) {
             return BottomNavigationBar(
               currentIndex: tabsRouter.activeIndex,
@@ -45,6 +47,12 @@ class HomeScreen extends StatelessWidget {
                     Icons.folder,
                   ),
                 ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.calendar_month,
+                  ),
+                  label: "Calendar",
+                ),
               ],
             );
           },
@@ -54,9 +62,9 @@ class HomeScreen extends StatelessWidget {
   }
 
   double _getHeightAppBar(TabsRouter tabsRouter) {
-    if(tabsRouter.current.name == DashboardScreenRoute.name) {
+    if ([DashboardScreenRoute.name, CalendarScreenRoute.name].any((element) => element == tabsRouter.current.name)) {
       return 100;
-    } else if(tabsRouter.current.name == ProjectScreenRoute.name) {
+    } else if (tabsRouter.current.name == ProjectScreenRoute.name) {
       return 145;
     } else {
       return 50;
@@ -66,7 +74,7 @@ class HomeScreen extends StatelessWidget {
   Widget _appBar(BuildContext context, TabsRouter tabsRouter) {
     return Container(
       color: ColorUtils.bgColor,
-      padding: const EdgeInsets.fromLTRB(16,16,16,0),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -95,7 +103,7 @@ class HomeScreen extends StatelessWidget {
               Icon(Icons.notifications_active_outlined),
             ],
           ),
-          if (tabsRouter.current.name == DashboardScreenRoute.name) ...[
+          if ([DashboardScreenRoute.name, CalendarScreenRoute.name].any((element) => element == tabsRouter.current.name)) ...[
             Text(
               L.current.todayLabel,
               style: TextStyleUtils.textStyleOpenSans22W400,
@@ -104,7 +112,7 @@ class HomeScreen extends StatelessWidget {
               FormatUtils.dateFormat.format(DateTime.now()),
               style: TextStyleUtils.textStyleOpenSans20W400,
             ),
-          ] else if(tabsRouter.current.name == ProjectScreenRoute.name) ...[
+          ] else if (tabsRouter.current.name == ProjectScreenRoute.name) ...[
             Text(
               L.current.projectLabel,
               style: TextStyleUtils.textStyleOpenSans22W400,
