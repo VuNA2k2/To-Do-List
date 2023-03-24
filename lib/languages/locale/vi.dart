@@ -74,20 +74,31 @@ class LanguageVi extends BaseLanguage {
   String get hintTextSearch => 'Tìm kiếm';
 
   @override
-  // TODO: implement todayTaskLabel
   String get todayTaskLabel => 'Nhiệm vụ trong ngày';
 
   @override
-  // TODO: implement unknown
   String get unknown => 'Không có thông tin';
 
   @override
-  // TODO: implement countNoteLabel
   String get countNoteLabel => 'Ghi chú';
 
   @override
-  // TODO: implement seeAllLabel
   String get seeAllLabel => 'Xem tất cả';
+
+  @override
+  String get createProjectLabel => 'Thêm dự án';
+
+  @override
+  String get createNoteLabel => 'Thêm ghi chú';
+
+  @override
+  String get createTaskLabel => 'Thêm nhiệm vụ';
+
+  @override
+  String get deleteLabel => 'Xóa';
+
+  @override
+  String get editLabel => 'Sửa';
 
 
 }

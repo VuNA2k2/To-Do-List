@@ -38,56 +38,58 @@ class LanguageEn extends BaseLanguage {
   String get hintTextUserName => '@username';
 
   @override
-  // TODO: implement dateOfBirthLabel
   String get dateOfBirthLabel => 'Date of birth';
 
   @override
-  // TODO: implement emailLabel
   String get emailLabel => 'Email';
 
   @override
-  // TODO: implement fullNameLabel
   String get fullNameLabel => 'Full name';
 
   @override
-  // TODO: implement phoneNumberLabel
   String get phoneNumberLabel => 'Phone number';
 
   @override
-  // TODO: implement saveLabel
   String get saveLabel => 'Save';
 
   @override
-  // TODO: implement skipLabel
   String get skipLabel => 'Skip';
 
   @override
-  // TODO: implement todayLabel
   String get todayLabel => 'Today';
 
   @override
-  // TODO: implement projectLabel
   String get projectLabel => 'My projects';
 
   @override
-  // TODO: implement hintTextSearch
   String get hintTextSearch => 'Search';
 
   @override
-  // TODO: implement todayTaskLabel
   String get todayTaskLabel => 'Today task';
 
   @override
-  // TODO: implement unknown
   String get unknown => 'Unknown';
 
   @override
-  // TODO: implement countNoteLabel
   String get countNoteLabel => 'Notes';
 
   @override
-  // TODO: implement seeAllLabel
   String get seeAllLabel => 'See all';
+
+  @override
+  String get createProjectLabel => 'Create project';
+
+  @override
+  String get createNoteLabel => 'Create note';
+
+  @override
+  String get createTaskLabel => 'Create task';
+
+  @override
+  String get deleteLabel => 'Delete';
+
+  @override
+  String get editLabel => 'Edit';
 
 
 }

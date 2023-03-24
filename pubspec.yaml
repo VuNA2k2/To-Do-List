@@ -42,6 +42,8 @@ dependencies:
   responsive_notebook_background: ^0.1.5
   table_calendar: ^3.0.9
   dotted_border: ^2.0.0+3
+  flutter_expandable_fab: ^1.7.1
+  font_awesome_flutter: ^10.4.0
 
 
 

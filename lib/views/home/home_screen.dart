@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/format_utils.dart';
@@ -31,38 +32,46 @@ class HomeScreen extends StatelessWidget {
           ),
           backgroundColor: ColorUtils.bgColor,
           bottomNavigationBuilder: (_, tabsRouter) {
-            return BottomNavigationBar(
-              currentIndex: tabsRouter.activeIndex,
-              onTap: tabsRouter.setActiveIndex,
-              items: const [
-                BottomNavigationBarItem(
-                  label: 'Home',
-                  icon: Icon(
-                    Icons.home,
-                  ),
+            return BottomAppBar(
+              notchMargin: 10,
+              child: SizedBox(
+                height: 60,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    _bottomNavigationItem(_, Icons.home, const DashboardScreenRoute()),
+                    _bottomNavigationItem(_, Icons.folder, const ProjectScreenRoute()),
+                    _bottomNavigationItem(_, Icons.calendar_month, const CalendarScreenRoute()),
+                    _bottomNavigationItem(_, Icons.person, const CalendarScreenRoute()),
+                  ],
                 ),
-                BottomNavigationBarItem(
-                  label: 'Project',
-                  icon: Icon(
-                    Icons.folder,
-                  ),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.calendar_month,
-                  ),
-                  label: "Calendar",
-                ),
-              ],
+              ),
             );
           },
+          floatingActionButton: ExpandableFab(
+            child: const Icon(Icons.add),
+            backgroundColor: ColorUtils.primaryColor,
+            type: ExpandableFabType.up,
+            distance: 60,
+            closeButtonStyle: const ExpandableFabCloseButtonStyle(
+              backgroundColor: ColorUtils.primaryColor,
+            ),
+            children: [
+              _fabChild(context, L.current.createNoteLabel),
+              _fabChild(context, L.current.createTaskLabel),
+              _fabChild(context, L.current.createProjectLabel),
+            ],
+          ),
+          floatingActionButtonLocation: ExpandableFab.location,
         ),
       ),
     );
   }
 
   double _getHeightAppBar(TabsRouter tabsRouter) {
-    if ([DashboardScreenRoute.name, CalendarScreenRoute.name].any((element) => element == tabsRouter.current.name)) {
+    if ([DashboardScreenRoute.name, CalendarScreenRoute.name]
+        .any((element) => element == tabsRouter.current.name)) {
       return 100;
     } else if (tabsRouter.current.name == ProjectScreenRoute.name) {
       return 145;
@@ -87,7 +96,7 @@ class HomeScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   // TODO: implement avatar
-                  Icon(Icons.person_2_outlined),
+                  const Icon(Icons.person_2_outlined),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
@@ -96,14 +105,15 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   // TODO: implement icon
-                  Icon(Icons.waving_hand_rounded),
+                  const Icon(Icons.waving_hand_rounded),
                 ],
               ),
               // TODO: implement icon
-              Icon(Icons.notifications_active_outlined),
+              const Icon(Icons.notifications_active_outlined),
             ],
           ),
-          if ([DashboardScreenRoute.name, CalendarScreenRoute.name].any((element) => element == tabsRouter.current.name)) ...[
+          if ([DashboardScreenRoute.name, CalendarScreenRoute.name]
+              .any((element) => element == tabsRouter.current.name)) ...[
             Text(
               L.current.todayLabel,
               style: TextStyleUtils.textStyleOpenSans22W400,
@@ -124,6 +134,32 @@ class HomeScreen extends StatelessWidget {
           ]
         ],
       ),
+    );
+  }
+  
+  Widget _bottomNavigationItem(BuildContext context, IconData icon, PageRouteInfo route) {
+    return IconButton(
+      icon: Icon(
+        icon,
+        color:
+        context.tabsRouter.current.name == route.routeName
+            ? ColorUtils.primaryColor
+            : null,
+      ),
+      onPressed: () {
+        context.tabsRouter.navigate(route);
+      },
+    );
+  }
+
+  Widget _fabChild(BuildContext context, String label, [Function()? onPressed]) {
+    return FloatingActionButton.extended(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      onPressed: onPressed,
+      label: Text(label, style: TextStyleUtils.textStyleOpenSans13W400,),
+      backgroundColor: ColorUtils.primaryColor,
     );
   }
 }

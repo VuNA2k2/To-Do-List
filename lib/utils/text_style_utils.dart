@@ -28,6 +28,8 @@ class TextStyleUtils {
 
   static TextStyle textStyleOpenSans13W400 = textStyleOpenSansW400.copyWith(fontSize: 13);
 
+  static TextStyle textStyleOpenSans16W400 = textStyleOpenSansW400.copyWith(fontSize: 16);
+
   static TextStyle textStyleOpenSans20W400 = textStyleOpenSansW400.copyWith(fontSize: 20);
 
   static TextStyle textStyleOpenSans22W400 = textStyleOpenSansW400.copyWith(fontSize: 22);
@@ -67,4 +69,8 @@ class TextStyleUtils {
   static TextStyle textStyleOpenSans16W600White = textStyleOpenSans16W600.copyWith(color: ColorUtils.white);
 
   static TextStyle textStyleOpenSans24W700White = textStyleOpenSans24W700.copyWith(color: ColorUtils.white);
+
+  static TextStyle textStyleOpenSans16W400Grey78 = textStyleOpenSans16W400.copyWith(color: ColorUtils.grey78);
+
+
 }

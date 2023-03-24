@@ -1,4 +1,5 @@
 abstract class BaseLanguage {
+
   String get appName;
 
   String get loginScreenTitle;
@@ -25,4 +26,14 @@ abstract class BaseLanguage {
   String get unknown;
   String get countNoteLabel;
   String get seeAllLabel;
+
+  String get createProjectLabel;
+
+  String get createTaskLabel;
+
+  String get createNoteLabel;
+
+  String get editLabel;
+
+  String get deleteLabel;
 }
