@@ -23,6 +23,8 @@ class TextFieldCommon extends TextField {
     InputBorder? enabledBorder,
     InputBorder? disabledBorder,
     Color? fillColor,
+    super.readOnly,
+    super.onTap,
   }) : super(
           decoration: InputDecoration(
             border: border ?? OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: ColorUtils.greyCE)),

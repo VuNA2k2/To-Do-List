@@ -163,7 +163,7 @@ class TaskDetailScreen extends StatelessWidget {
 
   Widget _priority(BuildContext context) {
     return _contentItem(
-      L.current.deadlineLabel,
+      L.current.priorityLabel,
       Row(
         children: [
           ClipRRect(

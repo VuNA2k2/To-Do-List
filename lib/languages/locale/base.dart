@@ -48,4 +48,18 @@ abstract class BaseLanguage {
   String get deadlineLabel;
 
   String get projectLabel;
+
+  String get createNewNoteTitle;
+
+  String get hintTextTitle;
+
+  String get hintTextSubtitle;
+
+  String get hintTextDescription;
+
+  String get createNewTaskTitle;
+
+  String get priorityLabel;
+
+  String get createNewProjectTitle;
 }

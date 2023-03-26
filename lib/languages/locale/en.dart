@@ -109,5 +109,26 @@ class LanguageEn extends BaseLanguage {
   @override
   String get projectLabel => 'Project';
 
+  @override
+  String get createNewNoteTitle => 'Create a new note';
+
+  @override
+  String get hintTextTitle => 'Title...';
+
+  @override
+  String get hintTextSubtitle => 'Subtitle';
+
+  @override
+  String get hintTextDescription => 'Description';
+
+  @override
+  String get createNewTaskTitle => 'Create a new task';
+
+  @override
+  String get priorityLabel => 'Priority';
+
+  @override
+  String get createNewProjectTitle => 'Create a new project';
+
 
 }

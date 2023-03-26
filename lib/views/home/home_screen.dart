@@ -62,9 +62,15 @@ class HomeScreen extends StatelessWidget {
               backgroundColor: ColorUtils.primaryColor,
             ),
             children: [
-              _fabChild(context, L.current.createNoteLabel),
-              _fabChild(context, L.current.createTaskLabel),
-              _fabChild(context, L.current.createProjectLabel),
+              _fabChild(context, L.current.createNoteLabel, () {
+                context.router.navigate(const CreateNoteScreenRoute());
+              }),
+              _fabChild(context, L.current.createTaskLabel, () {
+                context.router.navigate(const CreateTaskScreenRoute());
+              }),
+              _fabChild(context, L.current.createProjectLabel, () {
+                context.router.navigate(const CreateProjectScreenRoute());
+              }),
             ],
           ),
           floatingActionButtonLocation: ExpandableFab.location,

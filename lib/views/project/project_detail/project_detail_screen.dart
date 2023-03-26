@@ -63,7 +63,7 @@ class ProjectDetailScreen extends StatelessWidget {
               // TODO: add task to project
             },
             icon: const Icon(
-              Icons.add,
+              Icons.save,
               color: ColorUtils.black,
             )),
       ],

@@ -44,6 +44,7 @@ dependencies:
   dotted_border: ^2.0.0+3
   flutter_expandable_fab: ^1.7.1
   font_awesome_flutter: ^10.4.0
+  flutter_rating_bar: ^4.0.1
 
 
 

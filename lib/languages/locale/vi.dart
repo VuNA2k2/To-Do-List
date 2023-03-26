@@ -109,5 +109,26 @@ class LanguageVi extends BaseLanguage {
   @override
   String get projectLabel => 'Dự án';
 
+  @override
+  String get createNewNoteTitle => 'Tạo ghi chú mới';
+
+  @override
+  String get hintTextTitle => 'TIêu đề';
+
+  @override
+  String get hintTextSubtitle => 'Phụ đề';
+
+  @override
+  String get hintTextDescription => 'Mô tả';
+
+  @override
+  String get createNewTaskTitle => 'Tạo nhiệm vụ mới';
+
+  @override
+  String get priorityLabel => 'Độ ưu tiên';
+
+  @override
+  String get createNewProjectTitle => 'Tạo dự án mới';
+
 
 }
