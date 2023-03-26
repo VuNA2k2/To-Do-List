@@ -59,7 +59,7 @@ class LanguageEn extends BaseLanguage {
   String get todayLabel => 'Today';
 
   @override
-  String get projectLabel => 'My projects';
+  String get myProjectLabel => 'My projects';
 
   @override
   String get hintTextSearch => 'Search';
@@ -90,6 +90,24 @@ class LanguageEn extends BaseLanguage {
 
   @override
   String get editLabel => 'Edit';
+
+  @override
+  String get subtitleLabel => 'Subtitle';
+
+  @override
+  String get descriptionLabel => 'Description';
+
+  @override
+  String get numberOfPomodoroLabel => 'Number of Pomodoro';
+
+  @override
+  String get progressLabel => 'Progress';
+
+  @override
+  String get deadlineLabel => 'Deadline';
+
+  @override
+  String get projectLabel => 'Project';
 
 
 }

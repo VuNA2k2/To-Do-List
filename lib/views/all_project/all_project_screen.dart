@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/views/widgets/project_item.dart';
 
-class ProjectScreen extends StatelessWidget {
-  const ProjectScreen({Key? key}) : super(key: key);
+class AllProjectScreen extends StatelessWidget {
+  const AllProjectScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

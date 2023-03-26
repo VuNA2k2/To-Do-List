@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
         child: AutoTabsScaffold(
           routes: const [
             DashboardScreenRoute(),
-            ProjectScreenRoute(),
+            AllProjectScreenRoute(),
             CalendarScreenRoute(),
           ],
           appBarBuilder: (context, tabsRouter) => PreferredSize(
@@ -40,10 +40,14 @@ class HomeScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    _bottomNavigationItem(_, Icons.home, const DashboardScreenRoute()),
-                    _bottomNavigationItem(_, Icons.folder, const ProjectScreenRoute()),
-                    _bottomNavigationItem(_, Icons.calendar_month, const CalendarScreenRoute()),
-                    _bottomNavigationItem(_, Icons.person, const CalendarScreenRoute()),
+                    _bottomNavigationItem(
+                        _, Icons.home, const DashboardScreenRoute()),
+                    _bottomNavigationItem(
+                        _, Icons.folder, const AllProjectScreenRoute()),
+                    _bottomNavigationItem(
+                        _, Icons.calendar_month, const CalendarScreenRoute()),
+                    _bottomNavigationItem(
+                        _, Icons.person, const CalendarScreenRoute()),
                   ],
                 ),
               ),
@@ -73,7 +77,7 @@ class HomeScreen extends StatelessWidget {
     if ([DashboardScreenRoute.name, CalendarScreenRoute.name]
         .any((element) => element == tabsRouter.current.name)) {
       return 100;
-    } else if (tabsRouter.current.name == ProjectScreenRoute.name) {
+    } else if (tabsRouter.current.name == AllProjectScreenRoute.name) {
       return 145;
     } else {
       return 50;
@@ -122,9 +126,9 @@ class HomeScreen extends StatelessWidget {
               FormatUtils.dateFormat.format(DateTime.now()),
               style: TextStyleUtils.textStyleOpenSans20W400,
             ),
-          ] else if (tabsRouter.current.name == ProjectScreenRoute.name) ...[
+          ] else if (tabsRouter.current.name == AllProjectScreenRoute.name) ...[
             Text(
-              L.current.projectLabel,
+              L.current.myProjectLabel,
               style: TextStyleUtils.textStyleOpenSans22W400,
             ),
             Padding(
@@ -136,13 +140,13 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-  
-  Widget _bottomNavigationItem(BuildContext context, IconData icon, PageRouteInfo route) {
+
+  Widget _bottomNavigationItem(
+      BuildContext context, IconData icon, PageRouteInfo route) {
     return IconButton(
       icon: Icon(
         icon,
-        color:
-        context.tabsRouter.current.name == route.routeName
+        color: context.tabsRouter.current.name == route.routeName
             ? ColorUtils.primaryColor
             : null,
       ),
@@ -152,13 +156,18 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _fabChild(BuildContext context, String label, [Function()? onPressed]) {
+  Widget _fabChild(BuildContext context, String label,
+      [Function()? onPressed]) {
     return FloatingActionButton.extended(
+      heroTag: label,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
       onPressed: onPressed,
-      label: Text(label, style: TextStyleUtils.textStyleOpenSans13W400,),
+      label: Text(
+        label,
+        style: TextStyleUtils.textStyleOpenSans13W400,
+      ),
       backgroundColor: ColorUtils.primaryColor,
     );
   }

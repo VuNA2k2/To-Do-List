@@ -20,7 +20,7 @@ abstract class BaseLanguage {
   String get saveLabel;
   String get skipLabel;
   String get todayLabel;
-  String get projectLabel;
+  String get myProjectLabel;
   String get hintTextSearch;
   String get todayTaskLabel;
   String get unknown;
@@ -36,4 +36,16 @@ abstract class BaseLanguage {
   String get editLabel;
 
   String get deleteLabel;
+
+  String get subtitleLabel;
+
+  String get descriptionLabel;
+
+  String get numberOfPomodoroLabel;
+
+  String get progressLabel;
+
+  String get deadlineLabel;
+
+  String get projectLabel;
 }

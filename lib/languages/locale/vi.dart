@@ -38,39 +38,30 @@ class LanguageVi extends BaseLanguage {
   String get hintTextUserName => 'Nick name';
 
   @override
-  // TODO: implement dateOfBirthLabel
   String get dateOfBirthLabel => throw UnimplementedError();
 
   @override
-  // TODO: implement emailLabel
   String get emailLabel => throw UnimplementedError();
 
   @override
-  // TODO: implement fullNameLabel
   String get fullNameLabel => throw UnimplementedError();
 
   @override
-  // TODO: implement phoneNumberLabel
   String get phoneNumberLabel => throw UnimplementedError();
 
   @override
-  // TODO: implement saveLabel
   String get saveLabel => 'Lưu';
 
   @override
-  // TODO: implement skipLabel
   String get skipLabel => 'Bỏ qua';
 
   @override
-  // TODO: implement todayLabel
   String get todayLabel => 'Hôm nay';
 
   @override
-  // TODO: implement projectLabel
-  String get projectLabel => 'Dự án của tôi';
+  String get myProjectLabel => 'Dự án của tôi';
 
   @override
-  // TODO: implement hintTextSearch
   String get hintTextSearch => 'Tìm kiếm';
 
   @override
@@ -99,6 +90,24 @@ class LanguageVi extends BaseLanguage {
 
   @override
   String get editLabel => 'Sửa';
+
+  @override
+  String get subtitleLabel => 'Phụ đề';
+
+  @override
+  String get descriptionLabel => 'Project';
+
+  @override
+  String get numberOfPomodoroLabel => 'Số Pomodoro';
+
+  @override
+  String get progressLabel => 'Tiến độ';
+
+  @override
+  String get deadlineLabel => 'Thời hạn';
+
+  @override
+  String get projectLabel => 'Dự án';
 
 
 }
