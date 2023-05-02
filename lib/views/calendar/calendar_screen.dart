@@ -96,7 +96,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
           child: ListView.separated(
             padding: const EdgeInsets.all(12),
             itemBuilder: (context, index) {
-              return TaskItem();
+              // return TaskItem();
+              return SizedBox();
             },
             separatorBuilder: (context, index) {
               return const SizedBox(

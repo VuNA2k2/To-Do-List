@@ -45,6 +45,12 @@ dependencies:
   flutter_expandable_fab: ^1.7.1
   font_awesome_flutter: ^10.4.0
   flutter_rating_bar: ^4.0.1
+  dio: ^5.1.1
+  data:
+    path: data
+  domain:
+    path: domain
+  equatable: ^2.0.5
 
 
 

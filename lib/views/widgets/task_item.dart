@@ -6,11 +6,12 @@ import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/icon_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/dashboard/view_model/task/task_view_model.dart';
 import 'package:todo_list/views/widgets/circular_percent_indicator_by_color.dart';
 
 class TaskItem extends StatelessWidget {
-  TaskItem({Key? key}) : super(key: key);
-
+  TaskItem({Key? key, required this.taskViewModel}) : super(key: key);
+  final TaskViewModel taskViewModel;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -34,7 +35,7 @@ class TaskItem extends StatelessWidget {
           children: [
             CircularPercentIndicatorByColor(
               radius: 30,
-              percent: 0.53,
+              percent: (taskViewModel.progress ?? 0) / 100,
               textStyle: TextStyleUtils.textStyleOpenSans12W600,
             ),
             const SizedBox(
@@ -46,8 +47,8 @@ class TaskItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Text(L.current.unknown, style: TextStyleUtils.textStyleOpenSans16W600,),
-                  Text(L.current.unknown, style: TextStyleUtils.textStyleOpenSans13W400Grey81,),
+                  Text(taskViewModel.title ?? '', style: TextStyleUtils.textStyleOpenSans16W600,),
+                  Text(taskViewModel.subtitle ?? '', style: TextStyleUtils.textStyleOpenSans13W400Grey81,),
                   SizedBox(
                     height: 15,
                     child: ListView.separated(
@@ -60,7 +61,7 @@ class TaskItem extends StatelessWidget {
                           width: 3,
                         );
                       },
-                      itemCount: 3,
+                      itemCount: taskViewModel.numberOfPomodoro ?? 0,
                     ),
                   ),
                 ],

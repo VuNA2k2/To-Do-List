@@ -25,6 +25,7 @@ class HomeScreen extends StatelessWidget {
             DashboardScreenRoute(),
             AllProjectScreenRoute(),
             CalendarScreenRoute(),
+            ProfileScreenRoute()
           ],
           appBarBuilder: (context, tabsRouter) => PreferredSize(
             preferredSize: Size.fromHeight(_getHeightAppBar(tabsRouter)),
@@ -47,7 +48,8 @@ class HomeScreen extends StatelessWidget {
                     _bottomNavigationItem(
                         _, Icons.calendar_month, const CalendarScreenRoute()),
                     _bottomNavigationItem(
-                        _, Icons.person, const CalendarScreenRoute()),
+                        _, Icons.person, const ProfileScreenRoute()),
+
                   ],
                 ),
               ),

@@ -1,10 +1,15 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:data/data.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/login/bloc/login_bloc.dart';
 import 'package:todo_list/views/widgets/elevated_button_common.dart';
 import 'package:todo_list/views/widgets/text_field_common.dart';
 
@@ -13,14 +18,23 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocProvider(
+  create: (context) => LoginBloc(),
+  child: Scaffold(
       backgroundColor: Colors.white,
       body: _body(context),
-    );
+    ),
+);
   }
 
   Widget _body(BuildContext context) {
-    return GestureDetector(
+    return BlocListener<LoginBloc, LoginState>(
+  listener: (context, state) {
+    if(state is LoginSuccess) {
+      context.router.replace(const HomeScreenRoute());
+    }
+  },
+  child: GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
       },
@@ -54,7 +68,8 @@ class LoginScreen extends StatelessWidget {
           ],
         ),
       )),
-    );
+    ),
+);
   }
 
   Widget _footer(BuildContext context) {
@@ -80,9 +95,12 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget _formLogin(BuildContext context) {
+    return BlocBuilder<LoginBloc, LoginState>(
+  builder: (context, state) {
     return Column(
       children: [
         TextFieldCommon(
+          controller: context.read<LoginBloc>().usernameController,
           hintText: L.current.hintTextEmail,
           hintStyle: TextStyleUtils.textStyleOpenSans16W300Grey9B,
           prefixIcon: const Icon(
@@ -95,6 +113,7 @@ class LoginScreen extends StatelessWidget {
           height: 20,
         ),
         TextFieldCommon(
+          controller: context.read<LoginBloc>().passwordController,
           hintText: L.current.hintTextPassword,
           hintStyle: TextStyleUtils.textStyleOpenSans16W300Grey9B,
           prefixIcon: const Icon(
@@ -125,11 +144,15 @@ class LoginScreen extends StatelessWidget {
         ElevatedButtonCommon(
           width: double.infinity,
           onPressed: () {
-            context.router.replace(const HomeScreenRoute());
+            String? username = context.read<LoginBloc>().usernameController.text;
+            String? password = context.read<LoginBloc>().passwordController.text;
+            context.read<LoginBloc>().add(LoginEventLogin(username, password));
           },
           child: Text(L.current.loginLabel, style: TextStyleUtils.textStyleOpenSans24W700White,),
         ),
       ],
     );
+  },
+);
   }
 }

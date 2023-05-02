@@ -9,6 +9,7 @@ import 'package:todo_list/views/home/home_screen.dart';
 import 'package:todo_list/views/login/login_screen.dart';
 import 'package:todo_list/views/note/create_note/create_note_screen.dart';
 import 'package:todo_list/views/note/note_detail/note_detail_screen.dart';
+import 'package:todo_list/views/profile/profile_screen.dart';
 import 'package:todo_list/views/project/create_project/create_project_screen.dart';
 import 'package:todo_list/views/project/project_detail/project_detail_screen.dart';
 import 'package:todo_list/views/sign_up/sign_up_screen.dart';
@@ -35,6 +36,9 @@ import 'package:todo_list/views/today_task/today_task_screen.dart';
         ),
         MaterialRoute(
           page: CalendarScreen,
+        ),
+        MaterialRoute(
+          page: ProfileScreen,
         ),
       ],
     ),
@@ -74,6 +78,7 @@ import 'package:todo_list/views/today_task/today_task_screen.dart';
     MaterialRoute(
       page: CreateProjectScreen,
     ),
+
   ],
 )
 class $AppRouter {}

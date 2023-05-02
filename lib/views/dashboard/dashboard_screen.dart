@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/dashboard/bloc/dashboard_bloc.dart';
 import 'package:todo_list/views/widgets/note_item.dart';
 import 'package:todo_list/views/widgets/search_bar_common.dart';
 import 'package:todo_list/views/widgets/task_item.dart';
@@ -16,32 +18,44 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _body(context);
+    return BlocProvider(
+      create: (context) =>
+      DashboardBloc()
+        ..add(DashboardInitialEvent()),
+      child: _body(context),
+    );
   }
 
   Widget _body(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-      children: [
-        _todayProgress(context),
-        SearchBarCommon(),
-        _count(
-          context,
-          '${L.current.todayTaskLabel} (20)',
-          () {
-            context.router.push(const TodayTaskScreenRoute());
-          },
-        ),
-        _listTaskInDay(context),
-        _count(
-          context,
-          '${L.current.countNoteLabel} (20)',
-          () {
-            context.router.push(const AllNotesScreenRoute());
-          },
-        ),
-        _staggeredGridNotes(context),
-      ],
+    return BlocBuilder<DashboardBloc, DashboardState>(
+      builder: (context, state) {
+        if(state is DashboardStableState) {
+          return ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            children: [
+              _todayProgress(context),
+              SearchBarCommon(),
+              _count(
+                context,
+                '${L.current.todayTaskLabel} (${state.countTask})',
+                    () {
+                  context.router.push(const TodayTaskScreenRoute());
+                },
+              ),
+              _listTaskInDay(context),
+              _count(
+                context,
+                '${L.current.countNoteLabel} (${state.countNote})',
+                    () {
+                  context.router.push(const AllNotesScreenRoute());
+                },
+              ),
+              _staggeredGridNotes(context),
+            ],
+          );
+        }
+        return SizedBox();
+      },
     );
   }
 
@@ -138,34 +152,44 @@ class DashboardScreen extends StatelessWidget {
   }
 
   Widget _listTaskInDay(BuildContext context) {
-    return ListView.separated(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return TaskItem();
-      },
-      itemCount: 5,
-      separatorBuilder: (BuildContext context, int index) {
-        return const SizedBox(
-          height: 8,
-        );
-      },
-    );
+    DashboardState state = context.select((DashboardBloc value) => value.state);
+    if(state is DashboardStableState) {
+      return ListView.separated(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return TaskItem(taskViewModel: state.taskViewModels[index]);
+        },
+        itemCount: state.taskViewModels.length > 5 ? 5 : state.taskViewModels.length,
+        separatorBuilder: (BuildContext context, int index) {
+          return const SizedBox(
+            height: 8,
+          );
+        },
+      );
+    }
+    return const SizedBox();
   }
 
   Widget _staggeredGridNotes(BuildContext context) {
-    return MasonryGridView.count(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: 2,
-      mainAxisSpacing: 8,
-      crossAxisSpacing: 8,
-      itemBuilder: (context, index) {
-        return NoteItem();
-      },
-      itemCount: 5,
-    );
+    DashboardState state = context.select((DashboardBloc value) => value.state);
+    if(state is DashboardStableState) {
+      return MasonryGridView.count(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        crossAxisCount: 2,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
+        itemBuilder: (context, index) {
+          return NoteItem(
+            noteViewModel: state.noteViewModels[index],
+          );
+        },
+        itemCount: state.noteViewModels.length > 5 ? 5 : state.noteViewModels.length,
+      );
+    }
+    return const SizedBox();
   }
 }

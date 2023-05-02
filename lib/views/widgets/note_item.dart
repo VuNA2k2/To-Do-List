@@ -1,14 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:responsive_notebook_background/responsive_notebook_background.dart';
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/dashboard/view_model/note/note_view_model.dart';
 
 class NoteItem extends StatelessWidget {
-  const NoteItem({Key? key}) : super(key: key);
-
+  const NoteItem({Key? key, required this.noteViewModel}) : super(key: key);
+  final NoteViewModel noteViewModel;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -16,6 +16,7 @@ class NoteItem extends StatelessWidget {
         context.router.navigate(const NoteDetailScreenRoute());
       },
       child: Container(
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           color: ColorUtils.primaryColor.withOpacity(0.1),
@@ -30,9 +31,11 @@ class NoteItem extends StatelessWidget {
                 styleForHeightCalculation: TextStyleUtils.textStyleOpenSans14W500,
               ),
               child: Text(
-                loremIpsum(words: 5),
+                noteViewModel.title ?? '',
                 style: TextStyleUtils.textStyleOpenSans14W500,
                 textAlign: TextAlign.start,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             const SizedBox(height: 8,),
@@ -43,8 +46,10 @@ class NoteItem extends StatelessWidget {
                 styleForHeightCalculation: TextStyleUtils.textStyleOpenSans12W300,
               ),
               child: Text(
-                loremIpsum(words: 50),
+                noteViewModel.description ?? '',
                 style: TextStyleUtils.textStyleOpenSans12W300,
+                maxLines: 10,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],

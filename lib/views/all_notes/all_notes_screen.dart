@@ -60,7 +60,8 @@ class AllNotesScreen extends StatelessWidget {
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
                 itemBuilder: (context, index) {
-                  return NoteItem();
+                  // return NoteItem();
+                  return SizedBox();
                 },
                 itemCount: 20,
               ),

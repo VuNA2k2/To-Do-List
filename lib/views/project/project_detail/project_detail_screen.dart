@@ -28,7 +28,8 @@ class ProjectDetailScreen extends StatelessWidget {
           Expanded(
             child: ListView.separated(
                 itemBuilder: (context, index) {
-                  return TaskItem();
+                  // return TaskItem();
+                  return SizedBox();
                 },
                 separatorBuilder: (context, index) {
                   return const SizedBox(height: 8,);
