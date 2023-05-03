@@ -8,7 +8,7 @@ class SearchNoteInputDto {
   });
 
   Map<String, dynamic> toJson() => {
-        "title": title,
+        "keyword": title,
       };
 
   factory SearchNoteInputDto.fromEntity(SearchNote searchNote) {

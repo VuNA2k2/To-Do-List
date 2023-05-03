@@ -1,19 +1,32 @@
 import 'package:domain/src/entities/status.dart';
 
-class SearchTask {
+class Search {
   String? title;
+  Search(
+  {
+    this.title,
+}
+      );
+}
+
+class SearchTask extends Search {
   Status? status;
   DateTime? deadline;
   SearchTask({
-    this.title,
+    super.title,
     this.status,
     this.deadline,
   });
 }
 
-class SearchNote {
-  String? title;
+class SearchNote extends Search {
   SearchNote({
-    this.title,
+    super.title,
+  });
+}
+
+class SearchProject extends Search {
+  SearchProject({
+    super.title,
   });
 }

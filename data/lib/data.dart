@@ -10,6 +10,8 @@ export 'src/remote/task_remote.dart';
 export 'src/repositories/task/task_repository_impl.dart';
 export 'src/repositories/note/note_repository_impl.dart';
 export 'src/remote/note_remote.dart';
+export 'src/remote/project_remote.dart';
+export 'src/repositories/project/project_repository_impl.dart';
 
 initDataLayer() {
   StorageService().init();

@@ -5,9 +5,12 @@ import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 
 class ProjectItem extends StatelessWidget {
-  ProjectItem({Key? key}) : super(key: key);
+  const ProjectItem({Key? key, required this.projectViewModel})
+      : super(key: key);
+  final ProjectViewModel projectViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -35,27 +38,37 @@ class ProjectItem extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Flutter project", style: TextStyleUtils.textStyleOpenSans24W700, maxLines: 1, overflow: TextOverflow.ellipsis,),
-                DropdownButton(items: [
-                  DropdownMenuItem(
-                    value: 1,
-                    child: Text(L.current.editLabel), onTap: () {
-
-                  },),
-                  DropdownMenuItem(
-                    value: 2,
-                    child: Text(L.current.deleteLabel), onTap: () {
-
-                  },),
-                ], onChanged: (value) {
-
-                },
+                Text(
+                  projectViewModel.name,
+                  style: TextStyleUtils.textStyleOpenSans24W700,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                DropdownButton(
+                  items: [
+                    DropdownMenuItem(
+                      value: 1,
+                      child: Text(L.current.editLabel),
+                      onTap: () {},
+                    ),
+                    DropdownMenuItem(
+                      value: 2,
+                      child: Text(L.current.deleteLabel),
+                      onTap: () {},
+                    ),
+                  ],
+                  onChanged: (value) {},
                   icon: const Icon(Icons.more_horiz_rounded),
+                  elevation: 0,
                 ),
               ],
             ),
-            Text("data", style: TextStyleUtils.textStyleOpenSans16W400Grey78, maxLines: 2, overflow: TextOverflow.ellipsis,),
-
+            Text(
+              projectViewModel.description ?? '',
+              style: TextStyleUtils.textStyleOpenSans16W400Grey78,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -66,9 +79,10 @@ class ProjectItem extends StatelessWidget {
                   ),
                   padding: const EdgeInsets.all(4),
                   margin: const EdgeInsets.symmetric(vertical: 16),
-                  child: const Text("80/90"),
+                  child: Text(
+                      "${projectViewModel.countDoneTask ?? 0}/${projectViewModel.countAllTask ?? 0}"),
                 ),
-                const Text("data"),
+                Text("${projectViewModel.progress}%"),
               ],
             ),
             LinearPercentIndicator(

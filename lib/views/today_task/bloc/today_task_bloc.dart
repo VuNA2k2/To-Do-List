@@ -30,6 +30,7 @@ class TodayTaskBloc extends Bloc<TodayTaskEvent, TodayTaskState> {
 
   FutureOr<void> _initData(
       TodayTaskInitialEvent event, Emitter<TodayTaskState> emit) async {
+    emit(TodayTaskLoadingState());
     page = 0;
     hasLoad = true;
     final PageRS<TaskEntity> taskEntities = await _getTaskUseCase.call(

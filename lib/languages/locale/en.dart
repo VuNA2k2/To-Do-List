@@ -130,5 +130,8 @@ class LanguageEn extends BaseLanguage {
   @override
   String get createNewProjectTitle => 'Create a new project';
 
+  @override
+  String get allNote => 'All notes';
+
 
 }

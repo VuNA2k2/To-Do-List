@@ -130,5 +130,8 @@ class LanguageVi extends BaseLanguage {
   @override
   String get createNewProjectTitle => 'Tạo dự án mới';
 
+  @override
+  String get allNote => 'Tất cả ghi chú';
+
 
 }

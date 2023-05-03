@@ -62,4 +62,6 @@ abstract class BaseLanguage {
   String get priorityLabel;
 
   String get createNewProjectTitle;
+
+  String get allNote;
 }

@@ -8,7 +8,6 @@ import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/dashboard/bloc/dashboard_bloc.dart';
 import 'package:todo_list/views/widgets/note_item.dart';
-import 'package:todo_list/views/widgets/search_bar_common.dart';
 import 'package:todo_list/views/widgets/task_item.dart';
 
 import '../widgets/circular_percent_indicator_by_color.dart';
@@ -34,7 +33,6 @@ class DashboardScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
             children: [
               _todayProgress(context),
-              SearchBarCommon(),
               _count(
                 context,
                 '${L.current.todayTaskLabel} (${state.countTask})',

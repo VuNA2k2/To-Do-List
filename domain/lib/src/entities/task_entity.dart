@@ -1,3 +1,4 @@
+import 'package:domain/src/entities/priority.dart';
 import 'package:domain/src/entities/status.dart';
 import 'package:equatable/equatable.dart';
 
@@ -13,6 +14,7 @@ class TaskEntity extends Equatable {
   Status status;
   bool? reminder;
   double? progress;
+  Priority? priority;
 
   TaskEntity({
     required this.id,
@@ -26,6 +28,7 @@ class TaskEntity extends Equatable {
     required this.status,
     this.reminder,
     this.progress = 0.0,
+    this.priority,
   });
 
   @override
