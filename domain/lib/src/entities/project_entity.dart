@@ -10,6 +10,8 @@ class ProjectEntity extends Equatable {
   Priority priority;
   Status status;
   double? progress;
+  int? countAllTask;
+  int? countDoneTask;
   ProjectEntity({
     required this.id,
     required this.name,
@@ -18,6 +20,8 @@ class ProjectEntity extends Equatable {
     required this.priority,
     required this.status,
     this.progress = 0.0,
+    this.countAllTask = 0,
+    this.countDoneTask = 0,
   });
 
   @override

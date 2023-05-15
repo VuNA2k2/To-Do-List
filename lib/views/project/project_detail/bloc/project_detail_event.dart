@@ -7,3 +7,5 @@ class ProjectDetailInitialEvent extends ProjectDetailEvent {
   final ProjectViewModel projectViewModel;
   ProjectDetailInitialEvent(this.projectViewModel);
 }
+
+class ProjectDetailLoadMoreEvent extends ProjectDetailEvent {}

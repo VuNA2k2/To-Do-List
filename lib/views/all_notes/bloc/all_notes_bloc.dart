@@ -8,7 +8,6 @@ import 'package:todo_list/views/view_model/note/note_mapper.dart';
 import 'package:todo_list/views/view_model/note/note_view_model.dart';
 
 part 'all_notes_event.dart';
-
 part 'all_notes_state.dart';
 
 class AllNotesBloc extends Bloc<AllNotesEvent, AllNotesState> {
@@ -55,23 +54,23 @@ class AllNotesBloc extends Bloc<AllNotesEvent, AllNotesState> {
 
   FutureOr<void> _loadMore(
       AllNotesLoadMoreEvent event, Emitter<AllNotesState> emit) async {
-    if (state is! AllNotesLoadMoreState &&
-        state is! AllNotesLoadingState &&
-        hasLoad) {
-      List<NoteViewModel> noteViewModels =
-          (state as AllNotesStableState).noteViewModels;
-      emit(AllNotesLoadMoreState(noteViewModels: noteViewModels));
-      final PageRS<NoteEntity> noteEntities = await _getNoteUseCase.call(
-        pageRQEntity: PageRQEntity(
-          page: page,
-          size: _limit,
-        ),
-      );
-      noteViewModels.addAll(
-          noteEntities.items.map(NoteMapper.getNoteViewModelFromNoteEntity));
-      page++;
-      hasLoad = noteEntities.items.length == _limit;
-      emit(AllNotesStableState(noteViewModels: noteViewModels));
-    }
+    if (state is AllNotesLoadMoreState ||
+        state is AllNotesLoadingState ||
+        !hasLoad) return;
+
+    List<NoteViewModel> noteViewModels =
+        (state as AllNotesStableState).noteViewModels;
+    emit(AllNotesLoadMoreState(noteViewModels: noteViewModels));
+    final PageRS<NoteEntity> noteEntities = await _getNoteUseCase.call(
+      pageRQEntity: PageRQEntity(
+        page: page,
+        size: _limit,
+      ),
+    );
+    noteViewModels.addAll(
+        noteEntities.items.map(NoteMapper.getNoteViewModelFromNoteEntity));
+    page++;
+    hasLoad = noteEntities.items.length == _limit;
+    emit(AllNotesStableState(noteViewModels: noteViewModels));
   }
 }

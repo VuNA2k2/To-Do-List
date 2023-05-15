@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 import 'package:todo_list/views/project/project_detail/bloc/project_detail_bloc.dart';
 import 'package:todo_list/views/widgets/circular_percent_indicator_by_color.dart';
 import 'package:todo_list/views/widgets/search_bar_common.dart';
+import 'package:todo_list/views/widgets/task_item.dart';
 
 class ProjectDetailScreen extends StatelessWidget {
   const ProjectDetailScreen({Key? key, required this.projectViewModel})
@@ -21,11 +24,7 @@ class ProjectDetailScreen extends StatelessWidget {
         ..add(ProjectDetailInitialEvent(projectViewModel)),
       child: Scaffold(
         appBar: _appBar(context),
-        body: BlocBuilder<ProjectDetailBloc, ProjectDetailState>(
-          builder: (context, state) {
-            return _body(context);
-          },
-        ),
+        body:  _body(context),
         backgroundColor: ColorUtils.bgColor,
       ),
     );
@@ -38,16 +37,28 @@ class ProjectDetailScreen extends StatelessWidget {
         children: [
           _projectProgress(context),
           SearchBarCommon(),
-          Expanded(
-            child: ListView.separated(
-                itemBuilder: (context, index) {
-                  // return TaskItem();
-                  return SizedBox();
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(height: 8,);
-                },
-                itemCount: 5),
+          BlocBuilder<ProjectDetailBloc, ProjectDetailState>(
+            builder: (context, state) {
+              log('list rebuild');
+              if (state is ProjectDetailStableState) {
+                return Expanded(
+                  child: ListView.separated(
+                    controller: context.select((ProjectDetailBloc bloc) => bloc).scrollController,
+                      itemBuilder: (context, index) {
+                        return TaskItem(
+                          taskViewModel: state.taskViewModels[index],
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(
+                          height: 8,
+                        );
+                      },
+                      itemCount: state.taskViewModels.length),
+                );
+              }
+              return const SizedBox();
+            },
           ),
         ],
       ),
@@ -85,62 +96,69 @@ class ProjectDetailScreen extends StatelessWidget {
   }
 
   Widget _projectProgress(BuildContext context) {
-    ProjectDetailState state = context.select((ProjectDetailBloc bloc) => bloc.state);
-    if(state is ProjectDetailStableState) {
-      return Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 10,
-              color: ColorUtils.black.withOpacity(0.1),
+    // ProjectDetailState state = context.select((ProjectDetailBloc bloc) =>
+    // bloc.state);
+    return BlocBuilder<ProjectDetailBloc, ProjectDetailState>(
+      builder: (context, state) {
+        log('progress rebuild');
+        if (state is ProjectDetailStableState) {
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 10,
+                  color: ColorUtils.black.withOpacity(0.1),
+                ),
+              ],
+              color: ColorUtils.bgColor,
             ),
-          ],
-          color: ColorUtils.bgColor,
-        ),
-        margin: const EdgeInsets.symmetric(vertical: 8),
-        padding: const EdgeInsets.all(8),
-        child: Row(
-          children: [
-            CircularPercentIndicatorByColor(radius: 60, percent: state.projectViewModel.progress / 100),
-            const SizedBox(
-              width: 10,
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              children: [
+                CircularPercentIndicatorByColor(
+                    radius: 60, percent: state.projectViewModel.progress / 100),
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        state.projectViewModel.name,
+                        style: TextStyleUtils.textStyleOpenSans20W800,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        state.projectViewModel.description ?? '',
+                        style: TextStyleUtils.textStyleOpenSans16W600,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "${state.projectViewModel.progress}%",
+                        style: TextStyleUtils.textStyleOpenSans12W300Grey81,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    state.projectViewModel.name,
-                    style: TextStyleUtils.textStyleOpenSans20W800,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    state.projectViewModel.description ?? '',
-                    style: TextStyleUtils.textStyleOpenSans16W600,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    "${state.projectViewModel.progress}%",
-                    style: TextStyleUtils.textStyleOpenSans12W300Grey81,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-    return const SizedBox();
+          );
+        }
+        return const SizedBox();
+      },
+    );
   }
 }

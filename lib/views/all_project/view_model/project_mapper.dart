@@ -8,6 +8,8 @@ class ProjectMapper {
       name: project.name,
       description: project.description,
       progress: project.progress ?? 0,
+      countAllTask: project.countAllTask ?? 0,
+      countDoneTask: project.countDoneTask ?? 0,
     );
   }
 }

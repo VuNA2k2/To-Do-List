@@ -16,6 +16,8 @@ class ProjectMapper {
         orElse: () => Priority.values.first,
       ),
       progress: projectOutputDto.progress,
+      countAllTask: projectOutputDto.countAllTask,
+      countDoneTask: projectOutputDto.countDoneTask,
     );
   }
 }
