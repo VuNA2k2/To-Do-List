@@ -30,6 +30,28 @@ class TaskRemote {
       );
   }
 
+  Future<Response<Page<TaskOutputDto>>> getTasksInProject({
+    required int projectId,
+    PageRQ? pageRQ,
+    SearchTaskInputDto? searchTaskInputDto,
+  }) async {
+    final response = await _apiService.get(
+      ApiPath.searchTaskInProject(projectId),
+      queryParameters: {
+        "page": pageRQ?.page,
+        "size": pageRQ?.size,
+        if(searchTaskInputDto != null) ...searchTaskInputDto.toJson(),
+      },
+    );
+    return Response.fromJson(
+      response.data,
+          (json) => Page.fromJson(
+        json,
+            (json) => TaskOutputDto.fromJson(json),
+      ),
+    );
+  }
+
   Future<Response<TaskDetailOutputDto?>> getTaskDetail({required int taskId}) async {
     final response = await _apiService.get(
       ApiPath.taskDetail,

@@ -15,4 +15,5 @@ export 'src/repositories/project_repository.dart';
 export 'src/use_case/get_project_use_case.dart';
 export 'src/entities/priority.dart';
 export 'src/use_case/get_task_detail_use_case.dart';
+export 'src/use_case/get_task_in_project_use_case.dart';
 

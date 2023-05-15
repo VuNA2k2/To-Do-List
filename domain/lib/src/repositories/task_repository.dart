@@ -8,5 +8,11 @@ abstract class TaskRepository {
     SearchTask? searchTask,
   });
 
+  Future<PageRS<TaskEntity>> getTasksByProjectId({
+    required int projectId,
+    PageRQEntity? pageRQEntity,
+    SearchTask? searchTask,
+  });
+
   Future<TaskEntity?> getTaskDetail({required int taskId});
 }

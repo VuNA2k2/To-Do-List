@@ -27,4 +27,17 @@ class TaskRepositoryImpl implements TaskRepository {
       return null;
     }
   }
+
+  @override
+  Future<PageRS<TaskEntity>> getTasksByProjectId({required int projectId, PageRQEntity? pageRQEntity, SearchTask? searchTask}) async {
+    final res = await _taskRemote.getTasksInProject(
+      projectId: projectId,
+      pageRQ: pageRQEntity != null ? PageMapper.fromEntity(pageRQEntity) : null,
+      searchTaskInputDto: searchTask != null ? SearchTaskInputDto.fromEntity(searchTask) : null,
+    );
+    return PageRS(
+      total: res.data?.totals ?? 0,
+      items: res.data?.items.map(TaskMapper.getTaskEntityFromTaskOutputDto).toList() ?? [],
+    );
+  }
 }

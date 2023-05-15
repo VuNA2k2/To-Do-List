@@ -16,6 +16,7 @@ import 'package:flutter/material.dart' as _i20;
 
 import '../views/all_notes/all_notes_screen.dart' as _i7;
 import '../views/all_project/all_project_screen.dart' as _i16;
+import '../views/all_project/view_model/project_view_model.dart' as _i22;
 import '../views/calendar/calendar_screen.dart' as _i17;
 import '../views/dashboard/dashboard_screen.dart' as _i15;
 import '../views/do_task/do_task_screen.dart' as _i8;
@@ -93,9 +94,13 @@ class AppRouter extends _i19.RootStackRouter {
       );
     },
     ProjectDetailScreenRoute.name: (routeData) {
+      final args = routeData.argsAs<ProjectDetailScreenRouteArgs>();
       return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i9.ProjectDetailScreen(),
+        child: _i9.ProjectDetailScreen(
+          key: args.key,
+          projectViewModel: args.projectViewModel,
+        ),
       );
     },
     TaskDetailScreenRoute.name: (routeData) {
@@ -362,14 +367,37 @@ class DoTaskScreenRouteArgs {
 
 /// generated route for
 /// [_i9.ProjectDetailScreen]
-class ProjectDetailScreenRoute extends _i19.PageRouteInfo<void> {
-  const ProjectDetailScreenRoute()
-      : super(
+class ProjectDetailScreenRoute
+    extends _i19.PageRouteInfo<ProjectDetailScreenRouteArgs> {
+  ProjectDetailScreenRoute({
+    _i20.Key? key,
+    required _i22.ProjectViewModel projectViewModel,
+  }) : super(
           ProjectDetailScreenRoute.name,
           path: '/project-detail-screen',
+          args: ProjectDetailScreenRouteArgs(
+            key: key,
+            projectViewModel: projectViewModel,
+          ),
         );
 
   static const String name = 'ProjectDetailScreenRoute';
+}
+
+class ProjectDetailScreenRouteArgs {
+  const ProjectDetailScreenRouteArgs({
+    this.key,
+    required this.projectViewModel,
+  });
+
+  final _i20.Key? key;
+
+  final _i22.ProjectViewModel projectViewModel;
+
+  @override
+  String toString() {
+    return 'ProjectDetailScreenRouteArgs{key: $key, projectViewModel: $projectViewModel}';
+  }
 }
 
 /// generated route for

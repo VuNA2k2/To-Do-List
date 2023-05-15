@@ -4,6 +4,8 @@ class ApiPath {
 
   static String tasks = "/tasks/search";
 
+  static String searchTaskInProject(int projectId) => "$tasks/$projectId";
+
   static String notes = "/notes/search";
 
   static String projects = "/projects/search";

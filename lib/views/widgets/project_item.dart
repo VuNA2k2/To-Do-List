@@ -16,7 +16,7 @@ class ProjectItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.router.navigate(const ProjectDetailScreenRoute());
+        context.router.navigate(ProjectDetailScreenRoute(projectViewModel: projectViewModel));
       },
       child: Container(
         padding: const EdgeInsets.all(8),
@@ -90,6 +90,7 @@ class ProjectItem extends StatelessWidget {
             LinearPercentIndicator(
               padding: EdgeInsets.zero,
               barRadius: const Radius.circular(10),
+              percent: projectViewModel.progress / 100,
             ),
           ],
         ),
