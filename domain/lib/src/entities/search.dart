@@ -26,7 +26,9 @@ class SearchNote extends Search {
 }
 
 class SearchProject extends Search {
+  Status? status;
   SearchProject({
     super.title,
+    this.status,
   });
 }

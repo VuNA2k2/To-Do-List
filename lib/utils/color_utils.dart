@@ -44,4 +44,10 @@ class ColorUtils {
   static const Color grey9F = Color(0xff9F9F9F);
 
   static const Color greyA3 = Color(0xffA3A3A3);
+
+  static const Color lowPriorityColor = greyED;
+
+  static const Color mediumPriorityColor = yellow;
+
+  static const Color highPriorityColor = redEE;
 }

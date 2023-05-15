@@ -2,6 +2,7 @@ import 'package:data/data.dart';
 import 'package:data/src/data_source/api/api_path.dart';
 import 'package:data/src/remote/dto/task/search_task_input_dto.dart';
 import 'package:data/src/remote/dto/task/task_detail_output_dto.dart';
+import 'package:data/src/remote/dto/task/task_input_dto.dart';
 import 'package:data/src/remote/dto/task/task_output_dto.dart';
 import 'package:data/src/remote/response/page.dart';
 import 'package:data/src/remote/response/response.dart';
@@ -14,7 +15,7 @@ class TaskRemote {
     SearchTaskInputDto? searchTaskInputDto,
 }) async {
       final response = await _apiService.get(
-        ApiPath.tasks,
+        ApiPath.tasksSearch,
         queryParameters: {
           "page": pageRQ?.page,
           "size": pageRQ?.size,
@@ -58,6 +59,17 @@ class TaskRemote {
       queryParameters: {
         "id": taskId,
       },
+    );
+    return Response.fromJson(
+      response.data,
+      (json) => TaskDetailOutputDto.fromJson(json),
+    );
+  }
+
+  Future<Response<TaskDetailOutputDto?>> createTask({required TaskInputDto taskInputDto}) async {
+    final response = await _apiService.post(
+      ApiPath.tasks,
+      data: taskInputDto.toJson(),
     );
     return Response.fromJson(
       response.data,

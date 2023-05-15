@@ -1,10 +1,12 @@
 class ApiPath {
-  static String host = "http://192.168.2.2:8000/api/v1";
+  static String host = "http://192.168.1.55:8000/api/v1";
   static String login = "/auth/login";
 
-  static String tasks = "/tasks/search";
+  static String tasks = "/tasks";
 
-  static String searchTaskInProject(int projectId) => "$tasks/$projectId";
+  static String tasksSearch = "/tasks/search";
+
+  static String searchTaskInProject(int projectId) => "$tasksSearch/$projectId";
 
   static String notes = "/notes/search";
 

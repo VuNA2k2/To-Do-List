@@ -5,7 +5,7 @@ class TaskDetailMapper {
   static TaskDetailViewModel getTaskDetailViewModelFromTaskEntity(
       TaskEntity taskEntity) {
     return TaskDetailViewModel(
-      id: taskEntity.id,
+      id: taskEntity.id!,
       title: taskEntity.title,
       projectName: taskEntity.project?.name ?? '',
       numberOfPomodoro: taskEntity.numberOfPomodoro,

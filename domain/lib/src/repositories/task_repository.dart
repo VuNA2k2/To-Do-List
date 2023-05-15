@@ -15,4 +15,6 @@ abstract class TaskRepository {
   });
 
   Future<TaskEntity?> getTaskDetail({required int taskId});
+
+  Future<TaskEntity?> createTask({required TaskEntity taskEntity});
 }

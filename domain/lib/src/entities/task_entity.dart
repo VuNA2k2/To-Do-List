@@ -4,7 +4,7 @@ import 'package:domain/src/entities/status.dart';
 import 'package:equatable/equatable.dart';
 
 class TaskEntity extends Equatable {
-  int id;
+  int? id;
   int projectId;
   ProjectEntity? project;
   String title;
@@ -19,7 +19,7 @@ class TaskEntity extends Equatable {
   Priority? priority;
 
   TaskEntity({
-    required this.id,
+    this.id,
     required this.projectId,
     this.project,
     required this.title,

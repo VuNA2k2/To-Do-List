@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
-import 'package:todo_list/views/widgets/form_create_common.dart';
 import 'package:todo_list/views/widgets/text_field_common.dart';
 
 class CreateProjectScreen extends StatelessWidget {
@@ -58,7 +57,7 @@ class CreateProjectScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                FormCreateCommon(),
+                // FormCreateCommon(),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Column(

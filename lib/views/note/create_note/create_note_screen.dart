@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
-import 'package:todo_list/views/widgets/form_create_common.dart';
 
 class CreateNoteScreen extends StatelessWidget {
   const CreateNoteScreen({Key? key}) : super(key: key);
@@ -54,7 +53,7 @@ class CreateNoteScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Column(
               children: [
-                FormCreateCommon(),
+                // FormCreateCommon(),
               ],
             ),
           ),

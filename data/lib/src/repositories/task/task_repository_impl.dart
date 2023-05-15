@@ -19,6 +19,7 @@ class TaskRepositoryImpl implements TaskRepository {
     );
   }
 
+  @override
   Future<TaskEntity?> getTaskDetail({required int taskId}) async {
     final res = await _taskRemote.getTaskDetail(taskId: taskId);
     if(res.data != null) {
@@ -39,5 +40,17 @@ class TaskRepositoryImpl implements TaskRepository {
       total: res.data?.totals ?? 0,
       items: res.data?.items.map(TaskMapper.getTaskEntityFromTaskOutputDto).toList() ?? [],
     );
+  }
+
+  @override
+  Future<TaskEntity?> createTask({required TaskEntity taskEntity}) async {
+    final res = await _taskRemote.createTask(
+      taskInputDto: TaskMapper.getTaskInputDtoFromTaskEntity(taskEntity),
+    );
+    if(res.data != null) {
+      return TaskMapper.getTaskEntityFromTaskDetailOutputDto(res.data!);
+    } else {
+      return null;
+    }
   }
 }
