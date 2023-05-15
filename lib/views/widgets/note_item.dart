@@ -4,7 +4,7 @@ import 'package:responsive_notebook_background/responsive_notebook_background.da
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
-import 'package:todo_list/views/dashboard/view_model/note/note_view_model.dart';
+import 'package:todo_list/views/view_model/note/note_view_model.dart';
 
 class NoteItem extends StatelessWidget {
   const NoteItem({Key? key, required this.noteViewModel}) : super(key: key);

@@ -5,8 +5,8 @@ import 'package:domain/domain.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'package:todo_list/di/config_di.dart';
-import 'package:todo_list/views/dashboard/view_model/task/task_mapper.dart';
-import 'package:todo_list/views/dashboard/view_model/task/task_view_model.dart';
+import 'package:todo_list/views/view_model/task/task_mapper.dart';
+import 'package:todo_list/views/view_model/task/task_view_model.dart';
 
 part 'today_task_event.dart';
 

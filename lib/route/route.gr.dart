@@ -32,6 +32,7 @@ import '../views/splash_screen/splash_screen.dart' as _i1;
 import '../views/task/create_task/create_task_screen.dart' as _i13;
 import '../views/task/task_detail/task_detail_screen.dart' as _i10;
 import '../views/today_task/today_task_screen.dart' as _i6;
+import '../views/view_model/task/task_view_model.dart' as _i21;
 
 class AppRouter extends _i19.RootStackRouter {
   AppRouter([_i20.GlobalKey<_i20.NavigatorState>? navigatorKey])
@@ -82,9 +83,13 @@ class AppRouter extends _i19.RootStackRouter {
       );
     },
     DoTaskScreenRoute.name: (routeData) {
+      final args = routeData.argsAs<DoTaskScreenRouteArgs>();
       return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i8.DoTaskScreen(),
+        child: _i8.DoTaskScreen(
+          key: args.key,
+          taskViewModel: args.taskViewModel,
+        ),
       );
     },
     ProjectDetailScreenRoute.name: (routeData) {
@@ -94,9 +99,13 @@ class AppRouter extends _i19.RootStackRouter {
       );
     },
     TaskDetailScreenRoute.name: (routeData) {
+      final args = routeData.argsAs<TaskDetailScreenRouteArgs>();
       return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i10.TaskDetailScreen(),
+        child: _i10.TaskDetailScreen(
+          key: args.key,
+          taskViewModel: args.taskViewModel,
+        ),
       );
     },
     NoteDetailScreenRoute.name: (routeData) {
@@ -319,14 +328,36 @@ class AllNotesScreenRoute extends _i19.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.DoTaskScreen]
-class DoTaskScreenRoute extends _i19.PageRouteInfo<void> {
-  const DoTaskScreenRoute()
-      : super(
+class DoTaskScreenRoute extends _i19.PageRouteInfo<DoTaskScreenRouteArgs> {
+  DoTaskScreenRoute({
+    _i20.Key? key,
+    required _i21.TaskViewModel taskViewModel,
+  }) : super(
           DoTaskScreenRoute.name,
           path: '/do-task-screen',
+          args: DoTaskScreenRouteArgs(
+            key: key,
+            taskViewModel: taskViewModel,
+          ),
         );
 
   static const String name = 'DoTaskScreenRoute';
+}
+
+class DoTaskScreenRouteArgs {
+  const DoTaskScreenRouteArgs({
+    this.key,
+    required this.taskViewModel,
+  });
+
+  final _i20.Key? key;
+
+  final _i21.TaskViewModel taskViewModel;
+
+  @override
+  String toString() {
+    return 'DoTaskScreenRouteArgs{key: $key, taskViewModel: $taskViewModel}';
+  }
 }
 
 /// generated route for
@@ -343,14 +374,37 @@ class ProjectDetailScreenRoute extends _i19.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.TaskDetailScreen]
-class TaskDetailScreenRoute extends _i19.PageRouteInfo<void> {
-  const TaskDetailScreenRoute()
-      : super(
+class TaskDetailScreenRoute
+    extends _i19.PageRouteInfo<TaskDetailScreenRouteArgs> {
+  TaskDetailScreenRoute({
+    _i20.Key? key,
+    required _i21.TaskViewModel taskViewModel,
+  }) : super(
           TaskDetailScreenRoute.name,
           path: '/task-detail-screen',
+          args: TaskDetailScreenRouteArgs(
+            key: key,
+            taskViewModel: taskViewModel,
+          ),
         );
 
   static const String name = 'TaskDetailScreenRoute';
+}
+
+class TaskDetailScreenRouteArgs {
+  const TaskDetailScreenRouteArgs({
+    this.key,
+    required this.taskViewModel,
+  });
+
+  final _i20.Key? key;
+
+  final _i21.TaskViewModel taskViewModel;
+
+  @override
+  String toString() {
+    return 'TaskDetailScreenRouteArgs{key: $key, taskViewModel: $taskViewModel}';
+  }
 }
 
 /// generated route for

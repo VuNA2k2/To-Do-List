@@ -1,3 +1,4 @@
+import 'package:domain/domain.dart';
 import 'package:domain/src/entities/priority.dart';
 import 'package:domain/src/entities/status.dart';
 import 'package:equatable/equatable.dart';
@@ -5,11 +6,12 @@ import 'package:equatable/equatable.dart';
 class TaskEntity extends Equatable {
   int id;
   int projectId;
+  ProjectEntity? project;
   String title;
   String? subtitle;
   String? description;
   int numberOfPomodoro;
-  DateTime? currentDoingTime;
+  Duration? currentDoingTime;
   DateTime deadline;
   Status status;
   bool? reminder;
@@ -19,6 +21,7 @@ class TaskEntity extends Equatable {
   TaskEntity({
     required this.id,
     required this.projectId,
+    this.project,
     required this.title,
     this.subtitle,
     this.description,

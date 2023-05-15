@@ -38,11 +38,13 @@ class ProjectItem extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  projectViewModel.name,
-                  style: TextStyleUtils.textStyleOpenSans24W700,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                Expanded(
+                  child: Text(
+                    projectViewModel.name,
+                    style: TextStyleUtils.textStyleOpenSans24W700,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 DropdownButton(
                   items: [

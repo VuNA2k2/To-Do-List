@@ -18,7 +18,7 @@ class SearchTaskInputDto {
   }
   factory SearchTaskInputDto.fromEntity(domain.SearchTask searchTask) {
     return SearchTaskInputDto(
-      status: searchTask != null ? Status.values.firstWhere(
+      status: searchTask.status != null ? Status.values.firstWhere(
         (element) => element.name == searchTask.status?.name,
         orElse: () => Status.values.first,
       ) : null,

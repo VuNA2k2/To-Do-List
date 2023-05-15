@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
-import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/view_model/note_task_content_view_model.dart';
 
 class NoteTaskContentCommon extends StatelessWidget {
-  const NoteTaskContentCommon({Key? key}) : super(key: key);
-
+  final NoteTaskContentViewModel noteTaskContentViewModel;
+  const NoteTaskContentCommon({Key? key, required this.noteTaskContentViewModel}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _contentItem(L.current.subtitleLabel, "Task subtitle", TextStyleUtils.textStyleOpenSans16W600,),
-        _contentItem(L.current.descriptionLabel, loremIpsum(words: 50),),
-        _contentItem(L.current.projectLabel, "Thực tập cơ sở"),
+        if(noteTaskContentViewModel.subtitle.isNotEmpty) _contentItem(L.current.subtitleLabel, noteTaskContentViewModel.subtitle, TextStyleUtils.textStyleOpenSans16W600,),
+        if(noteTaskContentViewModel.description.isNotEmpty) _contentItem(L.current.descriptionLabel, noteTaskContentViewModel.description,),
+        if(noteTaskContentViewModel.project.isNotEmpty) _contentItem(L.current.projectLabel, noteTaskContentViewModel.project),
       ],
     );
   }

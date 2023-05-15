@@ -1,12 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/icon_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
-import 'package:todo_list/views/dashboard/view_model/task/task_view_model.dart';
+import 'package:todo_list/views/view_model/task/task_view_model.dart';
 import 'package:todo_list/views/widgets/circular_percent_indicator_by_color.dart';
 
 class TaskItem extends StatelessWidget {
@@ -16,7 +15,7 @@ class TaskItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.router.navigate(const TaskDetailScreenRoute());
+        context.router.navigate(TaskDetailScreenRoute(taskViewModel: taskViewModel));
       },
       child: Container(
         padding: const EdgeInsets.all(8),
@@ -68,7 +67,7 @@ class TaskItem extends StatelessWidget {
               ),
             ),
             IconButton(onPressed: () {
-              context.navigateTo(const DoTaskScreenRoute());
+              context.navigateTo(DoTaskScreenRoute(taskViewModel: taskViewModel));
             }, icon: const Icon(Icons.play_circle_rounded, size: 36, color: ColorUtils.greenOA,),),
           ],
         ),

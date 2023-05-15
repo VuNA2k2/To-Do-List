@@ -18,4 +18,13 @@ class TaskRepositoryImpl implements TaskRepository {
       items: res.data?.items.map(TaskMapper.getTaskEntityFromTaskOutputDto).toList() ?? [],
     );
   }
+
+  Future<TaskEntity?> getTaskDetail({required int taskId}) async {
+    final res = await _taskRemote.getTaskDetail(taskId: taskId);
+    if(res.data != null) {
+      return TaskMapper.getTaskEntityFromTaskDetailOutputDto(res.data!);
+    } else {
+      return null;
+    }
+  }
 }

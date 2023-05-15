@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/view_model/note_task_content_view_model.dart';
 import 'package:todo_list/views/widgets/note_task_content_common.dart';
 
 class NoteDetailScreen extends StatelessWidget {
@@ -46,10 +47,16 @@ class NoteDetailScreen extends StatelessWidget {
   }
 
   Widget _body(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12.0),
-        child: NoteTaskContentCommon(),
+        child: NoteTaskContentCommon(
+          noteTaskContentViewModel: NoteTaskContentViewModel(
+            subtitle: 'subtitle',
+            description: 'description',
+            project: 'project',
+          ),
+        ),
       ),
     );
   }

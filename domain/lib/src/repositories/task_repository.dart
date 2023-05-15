@@ -7,4 +7,6 @@ abstract class TaskRepository {
     PageRQEntity? pageRQEntity,
     SearchTask? searchTask,
   });
+
+  Future<TaskEntity?> getTaskDetail({required int taskId});
 }

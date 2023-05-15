@@ -23,6 +23,7 @@ class ConfigDI {
     injector.registerSingleton<ProjectRemote>(ProjectRemote(injector.get()));
     injector.registerLazySingleton<ProjectRepository>(() => ProjectRepositoryImpl(injector.get()));
     injector.registerLazySingleton<GetProjectUseCase>(() => GetProjectUseCase(injector.get()));
+    injector.registerLazySingleton<GetTaskDetailUseCase>(() => GetTaskDetailUseCase(injector.get()));
   }
   GetIt injector = GetIt.instance;
 

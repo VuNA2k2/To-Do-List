@@ -4,10 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:meta/meta.dart';
 import 'package:todo_list/di/config_di.dart';
-import 'package:todo_list/views/dashboard/view_model/note/note_mapper.dart';
-import 'package:todo_list/views/dashboard/view_model/note/note_view_model.dart';
-import 'package:todo_list/views/dashboard/view_model/task/task_mapper.dart';
-import 'package:todo_list/views/dashboard/view_model/task/task_view_model.dart';
+import 'package:todo_list/views/view_model/note/note_mapper.dart';
+import 'package:todo_list/views/view_model/note/note_view_model.dart';
+import 'package:todo_list/views/view_model/task/task_mapper.dart';
+import 'package:todo_list/views/view_model/task/task_view_model.dart';
 
 part 'dashboard_event.dart';
 

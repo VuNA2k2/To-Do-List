@@ -1,5 +1,5 @@
 import 'package:domain/domain.dart';
-import 'package:todo_list/views/dashboard/view_model/task/task_view_model.dart';
+import 'package:todo_list/views/view_model/task/task_view_model.dart';
 
 class TaskMapper {
   static TaskViewModel getTaskViewModelFromTaskEntity(TaskEntity taskEntity) {

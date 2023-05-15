@@ -3,11 +3,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/icon_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/view_model/task/task_view_model.dart';
 import 'package:todo_list/views/widgets/circular_percent_indicator_common.dart';
 
 class DoTaskScreen extends StatelessWidget {
-  const DoTaskScreen({Key? key}) : super(key: key);
-
+  const DoTaskScreen({Key? key, required this.taskViewModel}) : super(key: key);
+  final TaskViewModel taskViewModel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
