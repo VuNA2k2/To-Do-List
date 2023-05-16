@@ -1,8 +1,12 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/project/create_project/bloc/create_project_bloc.dart';
+import 'package:todo_list/views/widgets/form_create_common.dart';
 import 'package:todo_list/views/widgets/text_field_common.dart';
 
 class CreateProjectScreen extends StatelessWidget {
@@ -10,10 +14,14 @@ class CreateProjectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBar(context),
-      body: _body(context),
-      backgroundColor: ColorUtils.bgColor,
+    return BlocProvider(
+      create: (context) =>
+          CreateProjectBloc()..add(CreateProjectInitialEvent()),
+      child: Scaffold(
+        appBar: _appBar(context),
+        body: _body(context),
+        backgroundColor: ColorUtils.bgColor,
+      ),
     );
   }
 
@@ -35,14 +43,23 @@ class CreateProjectScreen extends StatelessWidget {
       backgroundColor: ColorUtils.bgColor,
       elevation: 0,
       actions: [
-        IconButton(
-            onPressed: () {
-              // TODO: add task to project
-            },
-            icon: const Icon(
-              Icons.save,
-              color: ColorUtils.black,
-            )),
+        BlocBuilder<CreateProjectBloc, CreateProjectState>(
+          builder: (context, state) {
+            if (state is CreateProjectStableState) {
+              return IconButton(
+                  onPressed: () {
+                    context
+                        .read<CreateProjectBloc>()
+                        .add(CreateProjectSaveEvent());
+                  },
+                  icon: const Icon(
+                    Icons.save,
+                    color: ColorUtils.black,
+                  ));
+            }
+            return const SizedBox();
+          },
+        ),
       ],
     );
   }
@@ -57,45 +74,142 @@ class CreateProjectScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // FormCreateCommon(),
+                BlocBuilder<CreateProjectBloc, CreateProjectState>(
+                  builder: (context, state) {
+                    if (state is CreateProjectStableState) {
+                      return FormCreateCommon(
+                        titleController: context.select(
+                            (CreateProjectBloc bloc) =>
+                                bloc.projectNameController),
+                        descriptionController: context.select(
+                            (CreateProjectBloc bloc) =>
+                                bloc.projectDescriptionController),
+                      );
+                    }
+                    return const SizedBox();
+                  },
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      _fieldTaskCommon(
-                        L.current.priorityLabel,
-                        Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Container(
-                                width: 10,
-                                height: 10,
-                                color: ColorUtils.greyED,
+                      BlocBuilder<CreateProjectBloc, CreateProjectState>(
+                        builder: (context, state) {
+                          if (state is CreateProjectStableState) {
+                            return _fieldTaskCommon(
+                              L.current.priorityLabel,
+                              DropdownButtonHideUnderline(
+                                child: DropdownButton<Priority>(
+                                  icon: const SizedBox(),
+                                  value: state.createProjectViewModel.priority,
+                                  items: Priority.values
+                                      .map(
+                                        (e) => DropdownMenuItem(
+                                          value: e,
+                                          child: Row(
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child: Container(
+                                                  width: 10,
+                                                  height: 10,
+                                                  color: e == Priority.LOW
+                                                      ? ColorUtils
+                                                          .lowPriorityColor
+                                                      : e == Priority.MEDIUM
+                                                          ? ColorUtils
+                                                              .mediumPriorityColor
+                                                          : ColorUtils
+                                                              .highPriorityColor,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                e.name,
+                                                style: TextStyleUtils
+                                                    .textStyleOpenSans16W400,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                      .toList(),
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      context.read<CreateProjectBloc>().add(
+                                          CreateProjectPriorityChangedEvent(
+                                              priority: value));
+                                    }
+                                  },
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'Low',
-                              style: TextStyleUtils.textStyleOpenSans16W400,
-                            )
-                          ],
-                        ),
+                            );
+                          }
+                          return const SizedBox();
+                        },
                       ),
-                      _fieldTaskCommon(
-                        L.current.deadlineLabel,
-                        TextFieldCommon(
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-                          suffixIcon: const Icon(Icons.edit_calendar_rounded, color: ColorUtils.black,),
-                          readOnly: true,
-                          onTap: () {
-
-                          },
-                        ),
+                      BlocBuilder<CreateProjectBloc, CreateProjectState>(
+                        builder: (context, state) {
+                          if (state is CreateProjectStableState) {
+                            return _fieldTaskCommon(
+                              L.current.deadlineLabel,
+                              TextFieldCommon(
+                                controller: context
+                                    .read<CreateProjectBloc>()
+                                    .deadlineController,
+                                contentPadding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                suffixIcon: const Icon(
+                                  Icons.edit_calendar_rounded,
+                                  color: ColorUtils.black,
+                                ),
+                                readOnly: true,
+                                onTap: () {
+                                  showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.fromDateTime(
+                                        state.createProjectViewModel.deadline),
+                                  ).then(
+                                    (time) {
+                                      if (time != null) {
+                                        showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime.now(),
+                                          lastDate: DateTime(2100),
+                                        ).then(
+                                          (date) {
+                                            if (date != null) {
+                                              context
+                                                  .read<CreateProjectBloc>()
+                                                  .add(
+                                                    CreateProjectDeadlineChangedEvent(
+                                                      deadline: DateTime(
+                                                        date.year,
+                                                        date.month,
+                                                        date.day,
+                                                        time.hour,
+                                                        time.minute,
+                                                      ),
+                                                    ),
+                                                  );
+                                            }
+                                          },
+                                        );
+                                      }
+                                    },
+                                  );
+                                },
+                              ),
+                            );
+                          }
+                          return const SizedBox();
+                        },
                       ),
                     ],
                   ),

@@ -5,13 +5,13 @@ import 'package:todo_list/utils/text_style_utils.dart';
 class FormCreateCommon extends StatelessWidget {
   FormCreateCommon({
     Key? key,
-    required this.titleController,
-    required this.subtitleController,
-    required this.descriptionController,
+    this.titleController,
+    this.subtitleController,
+    this.descriptionController,
   }) : super(key: key);
-  final TextEditingController titleController;
-  final TextEditingController subtitleController;
-  final TextEditingController descriptionController;
+  final TextEditingController? titleController;
+  final TextEditingController? subtitleController;
+  final TextEditingController? descriptionController;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class FormCreateCommon extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Flexible(
+        if(titleController != null) Flexible(
           child: TextField(
             controller: titleController,
             decoration: InputDecoration(
@@ -31,7 +31,7 @@ class FormCreateCommon extends StatelessWidget {
             maxLines: 1,
           ),
         ),
-        Flexible(
+        if(subtitleController != null) Flexible(
           child: TextField(
             controller: subtitleController,
             decoration: InputDecoration(
@@ -43,7 +43,7 @@ class FormCreateCommon extends StatelessWidget {
             style: TextStyleUtils.textStyleOpenSans16W600,
           ),
         ),
-        Flexible(
+        if(descriptionController != null) Flexible(
           child: TextField(
             controller: descriptionController,
             decoration: InputDecoration(
