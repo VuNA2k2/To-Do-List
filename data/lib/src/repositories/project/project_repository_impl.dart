@@ -37,4 +37,23 @@ class ProjectRepositoryImpl implements ProjectRepository {
       (value) => ProjectMapper.getProjectEntityFromProjectOutputDto(value.data!),
     );
   }
+
+  @override
+  Future<void> deleteProject({required int projectId}) {
+    return _projectRemote.deleteProject(projectId: projectId);
+  }
+
+  @override
+  Future<ProjectEntity?> updateProject({required int projectId, required ProjectEntity projectEntity}) async {
+    final res = await _projectRemote.updateProject(
+      projectId: projectId,
+      projectInputDto: ProjectMapper.getProjectInputDtoFromProjectEntity(
+        projectEntity,
+      ),
+    );
+    if(res.data != null) {
+      return ProjectMapper.getProjectEntityFromProjectOutputDto(res.data!);
+    }
+    return null;
+  }
 }

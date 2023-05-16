@@ -10,9 +10,11 @@ import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 import 'package:todo_list/views/task/create_task/view_model/create_task_mapper.dart';
 import 'package:todo_list/views/task/create_task/view_model/create_task_view_model.dart';
 import 'package:todo_list/views/task/create_task/view_model/task_mode.dart';
+import 'package:todo_list/views/task/task_detail/view_model/task_detail_mapper.dart';
 import 'package:todo_list/views/task/task_detail/view_model/task_detail_view_model.dart';
 
 part 'create_task_event.dart';
+
 part 'create_task_state.dart';
 
 class CreateTaskBloc extends Bloc<CreateTaskEvent, CreateTaskState> {
@@ -21,8 +23,8 @@ class CreateTaskBloc extends Bloc<CreateTaskEvent, CreateTaskState> {
   TextEditingController subtitleController = TextEditingController();
 
   TextEditingController deadlineController = TextEditingController();
-  final TaskMode taskMode;
-  final TaskDetailViewModel? taskDetailViewModel;
+  TaskMode taskMode;
+  TaskDetailViewModel? taskDetailViewModel;
 
   CreateTaskBloc({
     required this.taskMode,
@@ -54,13 +56,13 @@ class CreateTaskBloc extends Bloc<CreateTaskEvent, CreateTaskState> {
       ConfigDI().injector.get<CreateTaskUseCase>();
   final UpdateTaskUseCase _updateTaskUseCase =
       ConfigDI().injector.get<UpdateTaskUseCase>();
+
   FutureOr<void> _initData(
       CreateTaskInitialEvent event, Emitter<CreateTaskState> emit) async {
     emit(CreateTaskLoading());
     try {
-
       final PageRS<ProjectEntity> listProject =
-      await _getProjectUseCase.call(search: SearchProject());
+          await _getProjectUseCase.call(search: SearchProject());
       final List<ProjectViewModel> listProjectViewModel = listProject.items
           .map(ProjectMapper.getProjectViewModelFromProjectEntity)
           .toList();
@@ -69,12 +71,17 @@ class CreateTaskBloc extends Bloc<CreateTaskEvent, CreateTaskState> {
         // emit(CreateTaskEmpty());
         // return;
       }
-      if(taskMode == TaskMode.edit && taskDetailViewModel != null) {
-        emit(CreateTaskStableState(listProject: listProjectViewModel, createTaskViewModel: CreateTaskViewModel.fromTaskViewModel(taskDetailViewModel!), projectSelected: taskDetailViewModel?.project));
+      if (taskMode == TaskMode.edit && taskDetailViewModel != null) {
+        emit(CreateTaskStableState(
+            listProject: listProjectViewModel,
+            createTaskViewModel:
+                CreateTaskViewModel.fromTaskViewModel(taskDetailViewModel!),
+            projectSelected: taskDetailViewModel?.project));
         titleController.text = taskDetailViewModel!.title;
         descriptionController.text = taskDetailViewModel!.description ?? '';
         subtitleController.text = taskDetailViewModel!.subtitle ?? '';
-        deadlineController.text = FormatUtils.dateTimeFormat.format(taskDetailViewModel!.deadline);
+        deadlineController.text =
+            FormatUtils.dateTimeFormat.format(taskDetailViewModel!.deadline);
         return;
       }
       emit(
@@ -94,9 +101,7 @@ class CreateTaskBloc extends Bloc<CreateTaskEvent, CreateTaskState> {
         ),
       );
       add(CreateTaskChangeDeadlineEvent(DateTime.now()));
-    } catch(e) {
-
-    }
+    } catch (e) {}
   }
 
   FutureOr<void> _changeDeadline(
@@ -144,26 +149,46 @@ class CreateTaskBloc extends Bloc<CreateTaskEvent, CreateTaskState> {
       CreateTaskStableState stableState = state as CreateTaskStableState;
       emit(
         CreateTaskStableState(
-            listProject: stableState.listProject,
-            createTaskViewModel: stableState.createTaskViewModel
-              ..numberOfPomodoro = event.numberOfPomodoro,
-            projectSelected: stableState.projectSelected),
+          listProject: stableState.listProject,
+          createTaskViewModel: stableState.createTaskViewModel
+            ..numberOfPomodoro = event.numberOfPomodoro,
+          projectSelected: stableState.projectSelected,
+        ),
       );
     }
   }
 
-  FutureOr<void> _saveTask(CreateTaskSaveEvent event, Emitter<CreateTaskState> emit) {
+  FutureOr<void> _saveTask(
+      CreateTaskSaveEvent event, Emitter<CreateTaskState> emit) {
     try {
-      if(state is CreateTaskStableState) {
-        if(titleController.text.isNotEmpty && (state as CreateTaskStableState).createTaskViewModel.numberOfPomodoro > 0) {
-          CreateTaskViewModel createTaskViewModel = (state as CreateTaskStableState).createTaskViewModel;
+      if (state is CreateTaskStableState) {
+        if (titleController.text.isNotEmpty &&
+            (state as CreateTaskStableState)
+                    .createTaskViewModel
+                    .numberOfPomodoro >
+                0) {
+          CreateTaskViewModel createTaskViewModel =
+              (state as CreateTaskStableState).createTaskViewModel;
           createTaskViewModel.title = titleController.text;
           createTaskViewModel.description = descriptionController.text;
           createTaskViewModel.subtitle = subtitleController.text;
-          if(taskMode == TaskMode.create) {
-            _createTaskUseCase.call(CreateTaskMapper.getTaskEntityFromCreateTaskViewModel(createTaskViewModel));
+          if (taskMode == TaskMode.create) {
+            _createTaskUseCase
+                .call(CreateTaskMapper.getTaskEntityFromCreateTaskViewModel(
+                    createTaskViewModel))
+                .then((value) {
+              if (value != null) {
+                taskMode = TaskMode.edit;
+                taskDetailViewModel =
+                    TaskDetailMapper.getTaskDetailViewModelFromTaskEntity(
+                        value);
+              }
+            });
           } else {
-            _updateTaskUseCase.call(taskDetailViewModel!.id, CreateTaskMapper.getTaskEntityFromCreateTaskViewModel(createTaskViewModel));
+            _updateTaskUseCase.call(
+                taskDetailViewModel!.id,
+                CreateTaskMapper.getTaskEntityFromCreateTaskViewModel(
+                    createTaskViewModel));
           }
         }
       }

@@ -18,13 +18,19 @@ class AllProjectScreen extends StatelessWidget {
     return BlocBuilder<AllProjectBloc, AllProjectState>(
       builder: (context, state) {
         if(state is AllProjectStableState) {
-          return ListView.builder(
-            controller: context.read<AllProjectBloc>().scrollController,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            itemBuilder: (context, index) {
-              return ProjectItem( projectViewModel: state.projectViewModels[index],);
+          return RefreshIndicator(
+            onRefresh: () async {
+              context.read<AllProjectBloc>().add(AllProjectInitialEvent());
             },
-            itemCount: state.projectViewModels.length,
+            child: ListView.builder(
+              physics: const AlwaysScrollableScrollPhysics(),
+              controller: context.read<AllProjectBloc>().scrollController,
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              itemBuilder: (context, index) {
+                return ProjectItem( projectViewModel: state.projectViewModels[index],);
+              },
+              itemCount: state.projectViewModels.length,
+            ),
           );
         }
         return const SizedBox();

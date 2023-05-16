@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
@@ -20,11 +21,10 @@ class ProjectDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-      ProjectDetailBloc()
-        ..add(ProjectDetailInitialEvent(projectViewModel)),
+          ProjectDetailBloc()..add(ProjectDetailInitialEvent(projectViewModel)),
       child: Scaffold(
         appBar: _appBar(context),
-        body:  _body(context),
+        body: _body(context),
         backgroundColor: ColorUtils.bgColor,
       ),
     );
@@ -43,7 +43,9 @@ class ProjectDetailScreen extends StatelessWidget {
               if (state is ProjectDetailStableState) {
                 return Expanded(
                   child: ListView.separated(
-                    controller: context.select((ProjectDetailBloc bloc) => bloc).scrollController,
+                      controller: context
+                          .select((ProjectDetailBloc bloc) => bloc)
+                          .scrollController,
                       itemBuilder: (context, index) {
                         return TaskItem(
                           taskViewModel: state.taskViewModels[index],
@@ -83,14 +85,44 @@ class ProjectDetailScreen extends StatelessWidget {
       backgroundColor: ColorUtils.bgColor,
       elevation: 0,
       actions: [
-        IconButton(
-            onPressed: () {
-              // TODO: add task to project
-            },
-            icon: const Icon(
-              Icons.save,
-              color: ColorUtils.black,
-            )),
+        BlocBuilder<ProjectDetailBloc, ProjectDetailState>(
+          builder: (context, state) {
+            if (state is ProjectDetailStableState) {
+              return PopupMenuButton(
+                child: const Icon(
+                  Icons.more_vert_rounded,
+                  color: ColorUtils.black,
+                ),
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                      value: 0,
+                      onTap: () {
+                        // context.router.replace(CreateTaskScreenRoute(
+                        //     taskMode: TaskMode.edit,
+                        //     taskDetailViewModel: state.taskDetailViewModel));
+                      },
+                      child: Text(
+                        L.current.edit,
+                        style: TextStyleUtils.textStyleOpenSans16W600Blue05,
+                      )),
+                  PopupMenuItem(
+                    onTap: () {
+                      context.read<ProjectDetailBloc>().add(ProjectDetailDeleteProjectEvent(
+                          projectViewModel: state.projectViewModel));
+                      context.router.navigateBack();
+                    },
+                    value: 1,
+                    child: Text(
+                      L.current.delete,
+                      style: TextStyleUtils.textStyleOpenSans16W600Blue05,
+                    ),
+                  ),
+                ],
+              );
+            }
+            return const SizedBox();
+          },
+        )
       ],
     );
   }
