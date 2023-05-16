@@ -27,6 +27,7 @@ class ConfigDI {
     injector.registerLazySingleton<GetTaskInProjectUseCase>(() => GetTaskInProjectUseCase(injector.get()));
     injector.registerLazySingleton<CreateTaskUseCase>(() => CreateTaskUseCase(injector.get()));
     injector.registerLazySingleton<UpdateTaskUseCase>(() => UpdateTaskUseCase(injector.get()));
+    injector.registerLazySingleton<DeleteTaskUseCase>(() => DeleteTaskUseCase(injector.get()));
   }
   GetIt injector = GetIt.instance;
 

@@ -19,4 +19,6 @@ abstract class TaskRepository {
   Future<TaskEntity?> createTask({required TaskEntity taskEntity});
 
   Future<TaskEntity?> updateTask({required int id,required TaskEntity taskEntity});
+
+  Future<void> deleteTask(int taskId);
 }

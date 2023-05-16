@@ -8,3 +8,9 @@ class TaskDetailInitialEvent extends TaskDetailEvent {
 
   final TaskViewModel taskViewModel;
 }
+
+class TaskDetailDeleteEvent extends TaskDetailEvent {
+  TaskDetailDeleteEvent({required this.taskDetailViewModel});
+
+  final TaskDetailViewModel taskDetailViewModel;
+}

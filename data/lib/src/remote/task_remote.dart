@@ -90,4 +90,13 @@ class TaskRemote {
       (json) => TaskDetailOutputDto.fromJson(json),
     );
   }
+
+  Future<void> deleteTask(int taskId) async {
+    await _apiService.delete(
+      ApiPath.tasks,
+      queryParameters: {
+        "id": taskId,
+      },
+    );
+  }
 }

@@ -17,8 +17,12 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
     on<TaskDetailInitialEvent>(
       _initData,
     );
+    on<TaskDetailDeleteEvent>(
+      _deleteTask,
+    );
   }
   final GetTaskDetailUseCase _getTaskDetailUseCase = ConfigDI().injector.get<GetTaskDetailUseCase>();
+  final DeleteTaskUseCase _deleteTaskUseCase = ConfigDI().injector.get<DeleteTaskUseCase>();
   FutureOr<void> _initData(TaskDetailInitialEvent event, Emitter<TaskDetailState> emit) async {
     emit(TaskDetailLoadingState());
     try {
@@ -28,6 +32,15 @@ class TaskDetailBloc extends Bloc<TaskDetailEvent, TaskDetailState> {
       } else {
         // emit(TaskDetailErrorState());
       }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  FutureOr<void> _deleteTask(TaskDetailDeleteEvent event, Emitter<TaskDetailState> emit) {
+    emit(TaskDetailLoadingState());
+    try {
+      _deleteTaskUseCase.call(event.taskDetailViewModel.id);
     } catch (e) {
       log(e.toString());
     }

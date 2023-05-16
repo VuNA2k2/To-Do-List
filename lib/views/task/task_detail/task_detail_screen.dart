@@ -120,6 +120,10 @@ class TaskDetailScreen extends StatelessWidget {
                         style: TextStyleUtils.textStyleOpenSans16W600Blue05,
                       )),
                   PopupMenuItem(
+                    onTap: () {
+                      context.read<TaskDetailBloc>().add(TaskDetailDeleteEvent(taskDetailViewModel: state.taskDetailViewModel));
+                      context.router.navigateBack();
+                    },
                     value: 1,
                     child: Text(
                       L.current.delete,

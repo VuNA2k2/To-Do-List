@@ -66,4 +66,9 @@ class TaskRepositoryImpl implements TaskRepository {
       return null;
     }
   }
+
+  @override
+  Future<void> deleteTask(int taskId) {
+    return _taskRemote.deleteTask(taskId);
+  }
 }
