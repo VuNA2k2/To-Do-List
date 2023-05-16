@@ -1,3 +1,4 @@
+import 'package:data/src/remote/dto/enum/priority.dart';
 import 'package:data/src/remote/dto/enum/status.dart';
 import 'package:data/src/remote/dto/project/project_output_dto.dart';
 import 'package:equatable/equatable.dart';
@@ -8,9 +9,11 @@ class TaskDetailOutputDto extends Equatable {
   final String title;
   final String subtitle;
   final String description;
+  final Priority priority;
   final int numberOfPomodoro;
   final DateTime deadline;
   final Duration currentDoingTime;
+  final double progress;
   final Status status;
   final bool reminder;
 
@@ -20,9 +23,11 @@ class TaskDetailOutputDto extends Equatable {
     required this.title,
     required this.subtitle,
     required this.description,
+    required this.priority,
     required this.numberOfPomodoro,
     required this.deadline,
     required this.currentDoingTime,
+    required this.progress,
     required this.status,
     required this.reminder,
   });
@@ -34,9 +39,11 @@ class TaskDetailOutputDto extends Equatable {
       title: json['title'],
       subtitle: json['subtitle'],
       description: json['description'],
+      priority: Priority.values.firstWhere((element) => element.name == json['priority'], orElse: () => Priority.values.first),
       numberOfPomodoro: json['numberOfPomodoro'],
       deadline: DateTime.parse(json['deadline']),
       currentDoingTime: _parseDuration(json['currentDoingTime'] ?? '00:00:00'),
+      progress: json['progress'],
       status: Status.values.firstWhere((element) => element.name == json['status'], orElse: () => Status.values.first),
       reminder: json['reminder'],
     );

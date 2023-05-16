@@ -9,6 +9,9 @@ class TaskMapper {
       subtitle: taskEntity.subtitle,
       progress: taskEntity.progress,
       numberOfPomodoro: taskEntity.numberOfPomodoro,
+      deadline: taskEntity.deadline,
+      projectId: taskEntity.projectId,
+      status: taskEntity.status,
     );
   }
 }

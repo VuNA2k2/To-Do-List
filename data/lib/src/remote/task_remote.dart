@@ -76,4 +76,18 @@ class TaskRemote {
       (json) => TaskDetailOutputDto.fromJson(json),
     );
   }
+
+  Future<Response<TaskDetailOutputDto?>> updateTask({required int id, required TaskInputDto taskInputDto}) async {
+    final response = await _apiService.put(
+      ApiPath.tasks,
+      queryParameters: {
+        "id": id,
+      },
+      data: taskInputDto.toJson(),
+    );
+    return Response.fromJson(
+      response.data,
+      (json) => TaskDetailOutputDto.fromJson(json),
+    );
+  }
 }

@@ -31,7 +31,10 @@ import '../views/project/project_detail/project_detail_screen.dart' as _i9;
 import '../views/sign_up/sign_up_screen.dart' as _i4;
 import '../views/splash_screen/splash_screen.dart' as _i1;
 import '../views/task/create_task/create_task_screen.dart' as _i13;
+import '../views/task/create_task/view_model/task_mode.dart' as _i23;
 import '../views/task/task_detail/task_detail_screen.dart' as _i10;
+import '../views/task/task_detail/view_model/task_detail_view_model.dart'
+    as _i24;
 import '../views/today_task/today_task_screen.dart' as _i6;
 import '../views/view_model/task/task_view_model.dart' as _i21;
 
@@ -126,9 +129,14 @@ class AppRouter extends _i19.RootStackRouter {
       );
     },
     CreateTaskScreenRoute.name: (routeData) {
+      final args = routeData.argsAs<CreateTaskScreenRouteArgs>();
       return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i13.CreateTaskScreen(),
+        child: _i13.CreateTaskScreen(
+          key: args.key,
+          taskMode: args.taskMode,
+          taskDetailViewModel: args.taskDetailViewModel,
+        ),
       );
     },
     CreateProjectScreenRoute.name: (routeData) {
@@ -461,14 +469,42 @@ class CreateNoteScreenRoute extends _i19.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i13.CreateTaskScreen]
-class CreateTaskScreenRoute extends _i19.PageRouteInfo<void> {
-  const CreateTaskScreenRoute()
-      : super(
+class CreateTaskScreenRoute
+    extends _i19.PageRouteInfo<CreateTaskScreenRouteArgs> {
+  CreateTaskScreenRoute({
+    _i20.Key? key,
+    required _i23.TaskMode taskMode,
+    _i24.TaskDetailViewModel? taskDetailViewModel,
+  }) : super(
           CreateTaskScreenRoute.name,
           path: '/create-task-screen',
+          args: CreateTaskScreenRouteArgs(
+            key: key,
+            taskMode: taskMode,
+            taskDetailViewModel: taskDetailViewModel,
+          ),
         );
 
   static const String name = 'CreateTaskScreenRoute';
+}
+
+class CreateTaskScreenRouteArgs {
+  const CreateTaskScreenRouteArgs({
+    this.key,
+    required this.taskMode,
+    this.taskDetailViewModel,
+  });
+
+  final _i20.Key? key;
+
+  final _i23.TaskMode taskMode;
+
+  final _i24.TaskDetailViewModel? taskDetailViewModel;
+
+  @override
+  String toString() {
+    return 'CreateTaskScreenRouteArgs{key: $key, taskMode: $taskMode, taskDetailViewModel: $taskDetailViewModel}';
+  }
 }
 
 /// generated route for

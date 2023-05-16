@@ -133,5 +133,11 @@ class LanguageEn extends BaseLanguage {
   @override
   String get allNote => 'All notes';
 
+  @override
+  String get delete => "Delete";
+
+  @override
+  String get edit => "Edit";
+
 
 }

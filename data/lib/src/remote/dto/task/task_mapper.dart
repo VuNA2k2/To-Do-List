@@ -46,8 +46,12 @@ class TaskMapper {
         id: taskDetailOutputDto.id,
         projectId: taskDetailOutputDto.project.id,
         title: taskDetailOutputDto.title,
+        priority: domain.Priority.values.firstWhere(
+            (element) => element.name == taskDetailOutputDto.priority.name,
+            orElse: () => domain.Priority.values.first),
         numberOfPomodoro: taskDetailOutputDto.numberOfPomodoro,
         deadline: taskDetailOutputDto.deadline,
+        progress: taskDetailOutputDto.progress,
         status: domain.Status.values.firstWhere(
             (element) => element.name == taskDetailOutputDto.status.name,
             orElse: () => domain.Status.values.first),

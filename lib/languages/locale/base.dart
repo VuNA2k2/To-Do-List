@@ -64,4 +64,8 @@ abstract class BaseLanguage {
   String get createNewProjectTitle;
 
   String get allNote;
+
+  String get edit;
+
+  String get delete;
 }

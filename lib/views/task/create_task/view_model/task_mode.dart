@@ -1,0 +1,4 @@
+enum TaskMode {
+  create,
+  edit,
+}

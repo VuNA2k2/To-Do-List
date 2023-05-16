@@ -133,5 +133,11 @@ class LanguageVi extends BaseLanguage {
   @override
   String get allNote => 'Tất cả ghi chú';
 
+  @override
+  String get delete => "Xóa";
+
+  @override
+  String get edit => "Sửa";
+
 
 }

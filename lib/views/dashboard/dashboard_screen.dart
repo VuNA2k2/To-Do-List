@@ -29,27 +29,32 @@ class DashboardScreen extends StatelessWidget {
     return BlocBuilder<DashboardBloc, DashboardState>(
       builder: (context, state) {
         if(state is DashboardStableState) {
-          return ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-            children: [
-              _todayProgress(context),
-              _count(
-                context,
-                '${L.current.todayTaskLabel} (${state.countTask})',
-                    () {
-                  context.router.push(const TodayTaskScreenRoute());
-                },
-              ),
-              _listTaskInDay(context),
-              _count(
-                context,
-                '${L.current.countNoteLabel} (${state.countNote})',
-                    () {
-                  context.router.push(const AllNotesScreenRoute());
-                },
-              ),
-              _staggeredGridNotes(context),
-            ],
+          return RefreshIndicator(
+            onRefresh: () async {
+              context.read<DashboardBloc>().add(DashboardInitialEvent());
+            },
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              children: [
+                _todayProgress(context),
+                _count(
+                  context,
+                  '${L.current.todayTaskLabel} (${state.countTask})',
+                      () {
+                    context.router.push(const TodayTaskScreenRoute());
+                  },
+                ),
+                _listTaskInDay(context),
+                _count(
+                  context,
+                  '${L.current.countNoteLabel} (${state.countNote})',
+                      () {
+                    context.router.push(const AllNotesScreenRoute());
+                  },
+                ),
+                _staggeredGridNotes(context),
+              ],
+            ),
           );
         }
         return SizedBox();

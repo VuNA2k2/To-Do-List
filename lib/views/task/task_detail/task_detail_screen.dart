@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:domain/src/entities/priority.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +10,7 @@ import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/format_utils.dart';
 import 'package:todo_list/utils/icon_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/task/create_task/view_model/task_mode.dart';
 import 'package:todo_list/views/task/task_detail/bloc/task_detail_bloc.dart';
 import 'package:todo_list/views/view_model/note_task_content_view_model.dart';
 import 'package:todo_list/views/view_model/task/task_view_model.dart';
@@ -32,7 +34,7 @@ class TaskDetailScreen extends StatelessWidget {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: state is TaskDetailStableState ? FloatingActionButton(
           onPressed: () {
-            context.router.navigate(DoTaskScreenRoute(taskViewModel: taskViewModel));
+            context.router.replace(DoTaskScreenRoute(taskViewModel: taskViewModel));
           },
           backgroundColor: ColorUtils.greenOA,
           child: const Icon(Icons.play_arrow_rounded),
@@ -55,11 +57,14 @@ class TaskDetailScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    NoteTaskContentCommon(noteTaskContentViewModel: NoteTaskContentViewModel(
-                      subtitle: state.taskDetailViewModel.subtitle ?? '',
-                      description: state.taskDetailViewModel.description ?? '',
-                      project: state.taskDetailViewModel.projectName,
-                    ),),
+                    NoteTaskContentCommon(
+                      noteTaskContentViewModel: NoteTaskContentViewModel(
+                        subtitle: state.taskDetailViewModel.subtitle ?? '',
+                        description:
+                            state.taskDetailViewModel.description ?? '',
+                        project: state.taskDetailViewModel.project.name,
+                      ),
+                    ),
                     _numberOfPomodoro(context),
                     _progress(context),
                     _deadline(context),
@@ -94,14 +99,39 @@ class TaskDetailScreen extends StatelessWidget {
       backgroundColor: ColorUtils.bgColor,
       elevation: 0,
       actions: [
-        IconButton(
-            onPressed: () {
-              // TODO: add task to project
-            },
-            icon: const Icon(
-              Icons.more_vert_rounded,
-              color: ColorUtils.black,
-            )),
+        BlocBuilder<TaskDetailBloc, TaskDetailState>(
+          builder: (context, state) {
+            if (state is TaskDetailStableState) {
+              return PopupMenuButton(
+                child: const Icon(
+                  Icons.more_vert_rounded,
+                  color: ColorUtils.black,
+                ),
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                      value: 0,
+                      onTap: () {
+                        context.router.replace(CreateTaskScreenRoute(
+                            taskMode: TaskMode.edit,
+                            taskDetailViewModel: state.taskDetailViewModel));
+                      },
+                      child: Text(
+                        L.current.edit,
+                        style: TextStyleUtils.textStyleOpenSans16W600Blue05,
+                      )),
+                  PopupMenuItem(
+                    value: 1,
+                    child: Text(
+                      L.current.delete,
+                      style: TextStyleUtils.textStyleOpenSans16W600Blue05,
+                    ),
+                  ),
+                ],
+              );
+            }
+            return const SizedBox();
+          },
+        ),
       ],
     );
   }
@@ -215,7 +245,7 @@ class TaskDetailScreen extends StatelessWidget {
               child: Container(
                 width: 10,
                 height: 10,
-                color: ColorUtils.greyED,
+                color: _colorByPriority(state.taskDetailViewModel.priority),
               ),
             ),
             const SizedBox(
@@ -230,5 +260,16 @@ class TaskDetailScreen extends StatelessWidget {
       );
     }
     return const SizedBox();
+  }
+
+  Color _colorByPriority(Priority priority) {
+    switch (priority) {
+      case Priority.LOW:
+        return ColorUtils.greyED;
+      case Priority.MEDIUM:
+        return ColorUtils.yellow;
+      case Priority.HIGH:
+        return ColorUtils.red;
+    }
   }
 }

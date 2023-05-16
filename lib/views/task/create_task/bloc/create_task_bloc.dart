@@ -9,9 +9,10 @@ import 'package:todo_list/views/all_project/view_model/project_mapper.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 import 'package:todo_list/views/task/create_task/view_model/create_task_mapper.dart';
 import 'package:todo_list/views/task/create_task/view_model/create_task_view_model.dart';
+import 'package:todo_list/views/task/create_task/view_model/task_mode.dart';
+import 'package:todo_list/views/task/task_detail/view_model/task_detail_view_model.dart';
 
 part 'create_task_event.dart';
-
 part 'create_task_state.dart';
 
 class CreateTaskBloc extends Bloc<CreateTaskEvent, CreateTaskState> {
@@ -20,8 +21,13 @@ class CreateTaskBloc extends Bloc<CreateTaskEvent, CreateTaskState> {
   TextEditingController subtitleController = TextEditingController();
 
   TextEditingController deadlineController = TextEditingController();
+  final TaskMode taskMode;
+  final TaskDetailViewModel? taskDetailViewModel;
 
-  CreateTaskBloc() : super(CreateTaskInitial()) {
+  CreateTaskBloc({
+    required this.taskMode,
+    this.taskDetailViewModel,
+  }) : super(CreateTaskInitial()) {
     on<CreateTaskInitialEvent>(
       _initData,
     );
@@ -46,36 +52,51 @@ class CreateTaskBloc extends Bloc<CreateTaskEvent, CreateTaskState> {
       ConfigDI().injector.get<GetProjectUseCase>();
   final CreateTaskUseCase _createTaskUseCase =
       ConfigDI().injector.get<CreateTaskUseCase>();
+  final UpdateTaskUseCase _updateTaskUseCase =
+      ConfigDI().injector.get<UpdateTaskUseCase>();
   FutureOr<void> _initData(
       CreateTaskInitialEvent event, Emitter<CreateTaskState> emit) async {
     emit(CreateTaskLoading());
-    final PageRS<ProjectEntity> listProject =
-        await _getProjectUseCase.call(search: SearchProject());
-    final List<ProjectViewModel> listProjectViewModel = listProject.items
-        .map(ProjectMapper.getProjectViewModelFromProjectEntity)
-        .toList();
-    if (listProjectViewModel.isEmpty) {
-      //TODO: handle empty project
-      // emit(CreateTaskEmpty());
-      // return;
-    }
-    emit(
-      CreateTaskStableState(
-        listProject: listProjectViewModel,
-        projectSelected: listProjectViewModel.first,
-        createTaskViewModel: CreateTaskViewModel(
-          title: '',
-          description: '',
-          subtitle: '',
-          deadline: DateTime.now(),
-          projectId: listProjectViewModel.first.id,
-          priority: Priority.LOW,
-          numberOfPomodoro: 0,
-          status: Status.TODO,
+    try {
+
+      final PageRS<ProjectEntity> listProject =
+      await _getProjectUseCase.call(search: SearchProject());
+      final List<ProjectViewModel> listProjectViewModel = listProject.items
+          .map(ProjectMapper.getProjectViewModelFromProjectEntity)
+          .toList();
+      if (listProjectViewModel.isEmpty) {
+        //TODO: handle empty project
+        // emit(CreateTaskEmpty());
+        // return;
+      }
+      if(taskMode == TaskMode.edit && taskDetailViewModel != null) {
+        emit(CreateTaskStableState(listProject: listProjectViewModel, createTaskViewModel: CreateTaskViewModel.fromTaskViewModel(taskDetailViewModel!), projectSelected: taskDetailViewModel?.project));
+        titleController.text = taskDetailViewModel!.title;
+        descriptionController.text = taskDetailViewModel!.description ?? '';
+        subtitleController.text = taskDetailViewModel!.subtitle ?? '';
+        deadlineController.text = FormatUtils.dateTimeFormat.format(taskDetailViewModel!.deadline);
+        return;
+      }
+      emit(
+        CreateTaskStableState(
+          listProject: listProjectViewModel,
+          projectSelected: listProjectViewModel.first,
+          createTaskViewModel: CreateTaskViewModel(
+            title: '',
+            description: '',
+            subtitle: '',
+            deadline: DateTime.now(),
+            projectId: listProjectViewModel.first.id,
+            priority: Priority.LOW,
+            numberOfPomodoro: 0,
+            status: Status.TODO,
+          ),
         ),
-      ),
-    );
-    add(CreateTaskChangeDeadlineEvent(DateTime.now()));
+      );
+      add(CreateTaskChangeDeadlineEvent(DateTime.now()));
+    } catch(e) {
+
+    }
   }
 
   FutureOr<void> _changeDeadline(
@@ -139,7 +160,11 @@ class CreateTaskBloc extends Bloc<CreateTaskEvent, CreateTaskState> {
           createTaskViewModel.title = titleController.text;
           createTaskViewModel.description = descriptionController.text;
           createTaskViewModel.subtitle = subtitleController.text;
-          _createTaskUseCase.call(CreateTaskMapper.getTaskEntityFromCreateTaskViewModel(createTaskViewModel));
+          if(taskMode == TaskMode.create) {
+            _createTaskUseCase.call(CreateTaskMapper.getTaskEntityFromCreateTaskViewModel(createTaskViewModel));
+          } else {
+            _updateTaskUseCase.call(taskDetailViewModel!.id, CreateTaskMapper.getTaskEntityFromCreateTaskViewModel(createTaskViewModel));
+          }
         }
       }
     } catch (e) {

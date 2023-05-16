@@ -1,4 +1,6 @@
-class ProjectViewModel {
+import 'package:equatable/equatable.dart';
+
+class ProjectViewModel extends Equatable {
   int id;
   String name;
   String? description;
@@ -13,4 +15,7 @@ class ProjectViewModel {
     this.countDoneTask = 0,
     required this.progress,
   });
+
+  @override
+  List<Object?> get props => [id];
 }

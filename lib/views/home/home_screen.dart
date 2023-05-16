@@ -5,6 +5,7 @@ import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/format_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/task/create_task/view_model/task_mode.dart';
 import 'package:todo_list/views/widgets/search_bar_common.dart';
 
 import '../../route/route.gr.dart';
@@ -68,7 +69,11 @@ class HomeScreen extends StatelessWidget {
                 context.router.navigate(const CreateNoteScreenRoute());
               }),
               _fabChild(context, L.current.createTaskLabel, () {
-                context.router.navigate(const CreateTaskScreenRoute());
+                context.router.navigate(
+                  CreateTaskScreenRoute(
+                    taskMode: TaskMode.create,
+                  ),
+                );
               }),
               _fabChild(context, L.current.createProjectLabel, () {
                 context.router.navigate(const CreateProjectScreenRoute());

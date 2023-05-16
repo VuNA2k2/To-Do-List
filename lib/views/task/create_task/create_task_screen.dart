@@ -10,16 +10,19 @@ import 'package:todo_list/utils/icon_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 import 'package:todo_list/views/task/create_task/bloc/create_task_bloc.dart';
+import 'package:todo_list/views/task/create_task/view_model/task_mode.dart';
+import 'package:todo_list/views/task/task_detail/view_model/task_detail_view_model.dart';
 import 'package:todo_list/views/widgets/form_create_common.dart';
 import 'package:todo_list/views/widgets/text_field_common.dart';
 
 class CreateTaskScreen extends StatelessWidget {
-  const CreateTaskScreen({Key? key}) : super(key: key);
-
+  const CreateTaskScreen({Key? key, required this.taskMode, this.taskDetailViewModel}) : super(key: key);
+  final TaskMode taskMode;
+  final TaskDetailViewModel? taskDetailViewModel;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CreateTaskBloc()..add(CreateTaskInitialEvent()),
+      create: (context) => CreateTaskBloc(taskMode: taskMode, taskDetailViewModel: taskDetailViewModel)..add(CreateTaskInitialEvent()),
       child: Scaffold(
         appBar: _appBar(context),
         body: _body(context),
@@ -185,7 +188,7 @@ class CreateTaskScreen extends StatelessWidget {
           return _fieldTaskCommon(
             L.current.numberOfPomodoroLabel,
             RatingBar(
-              initialRating: 0,
+              initialRating: state.createTaskViewModel.numberOfPomodoro.toDouble(),
               direction: Axis.horizontal,
               itemCount: 5,
               ratingWidget: RatingWidget(

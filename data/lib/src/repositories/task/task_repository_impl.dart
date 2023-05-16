@@ -53,4 +53,17 @@ class TaskRepositoryImpl implements TaskRepository {
       return null;
     }
   }
+
+  @override
+  Future<TaskEntity?> updateTask({required int id, required TaskEntity taskEntity}) async {
+    final res = await _taskRemote.updateTask(
+      id: id,
+      taskInputDto: TaskMapper.getTaskInputDtoFromTaskEntity(taskEntity),
+    );
+    if(res.data != null) {
+      return TaskMapper.getTaskEntityFromTaskDetailOutputDto(res.data!);
+    } else {
+      return null;
+    }
+  }
 }
