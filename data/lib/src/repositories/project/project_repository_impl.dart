@@ -26,4 +26,15 @@ class ProjectRepositoryImpl implements ProjectRepository {
       items: items,
     );
   }
+
+  @override
+  Future<ProjectEntity> createProject({required ProjectEntity projectEntity}) {
+    return _projectRemote.createProject(
+      projectInputDto: ProjectMapper.getProjectInputDtoFromProjectEntity(
+        projectEntity,
+      ),
+    ).then(
+      (value) => ProjectMapper.getProjectEntityFromProjectOutputDto(value.data!),
+    );
+  }
 }

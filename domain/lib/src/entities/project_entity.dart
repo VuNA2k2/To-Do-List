@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:domain/src/entities/priority.dart';
 
 class ProjectEntity extends Equatable {
-  int id;
+  int? id;
   String name;
   String? description;
   DateTime deadline;
@@ -13,7 +13,7 @@ class ProjectEntity extends Equatable {
   int? countAllTask;
   int? countDoneTask;
   ProjectEntity({
-    required this.id,
+    this.id,
     required this.name,
     this.description,
     required this.deadline,

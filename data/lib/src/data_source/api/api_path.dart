@@ -10,7 +10,9 @@ class ApiPath {
 
   static String notes = "/notes/search";
 
-  static String projects = "/projects/search";
+  static String projects = "/projects";
+
+  static String projectsSearch = "/projects/search";
 
   static String taskDetail = "/tasks/detail";
 }

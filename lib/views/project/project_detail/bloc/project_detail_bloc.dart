@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
 import 'package:todo_list/di/config_di.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 import 'package:todo_list/views/view_model/task/task_mapper.dart';
@@ -40,7 +39,7 @@ class ProjectDetailBloc extends Bloc<ProjectDetailEvent, ProjectDetailState> {
       taskViewModels: [],
     ));
     final List<TaskViewModel> taskViewModels = [];
-    try {
+    // try {
       final PageRS<TaskEntity> pageRS = await _getTaskInProjectUseCase.call(
         pageRQEntity: PageRQEntity(size: _limit, page: _page),
         projectId: event.projectViewModel.id,
@@ -52,9 +51,9 @@ class ProjectDetailBloc extends Bloc<ProjectDetailEvent, ProjectDetailState> {
         projectViewModel: event.projectViewModel,
         taskViewModels: taskViewModels,
       ));
-    } catch (e) {
-
-    }
+    // } catch (e) {
+    //   log("$e");
+    // }
   }
 
   FutureOr<void> _loadMore(ProjectDetailLoadMoreEvent event, Emitter<ProjectDetailState> emit) async {

@@ -28,7 +28,7 @@ class TaskOutputDto extends Equatable {
       subtitle: json['subtitle'],
       numberOfPomodoro: json['numberOfPomodoro'],
       deadline: DateTime.parse(json['deadline']),
-      progress: json['progress'],
+      progress: json['progress'] ?? 0.0,
       status: Status.values.firstWhere((element) => element.name == json['status'], orElse: () => Status.values.first),
     );
   }

@@ -152,7 +152,7 @@ class CreateTaskBloc extends Bloc<CreateTaskEvent, CreateTaskState> {
     }
   }
 
-  FutureOr<void> _saveTask(CreateTaskSaveEvent event, Emitter<CreateTaskState> emit) async {
+  FutureOr<void> _saveTask(CreateTaskSaveEvent event, Emitter<CreateTaskState> emit) {
     try {
       if(state is CreateTaskStableState) {
         if(titleController.text.isNotEmpty && (state as CreateTaskStableState).createTaskViewModel.numberOfPomodoro > 0) {

@@ -1,5 +1,6 @@
 import 'package:data/data.dart';
 import 'package:data/src/data_source/api/api_path.dart';
+import 'package:data/src/remote/dto/project/project_input_dto.dart';
 import 'package:data/src/remote/dto/project/project_output_dto.dart';
 import 'package:data/src/remote/dto/project/search_project_input_dto.dart';
 import 'package:data/src/remote/response/page.dart';
@@ -13,7 +14,7 @@ class ProjectRemote {
   SearchProjectInputDto? searchProjectInputDto,
 }) async {
     final res = await _apiService.get(
-      ApiPath.projects,
+      ApiPath.projectsSearch,
       queryParameters: {
         "page": pageRQ?.page,
         "size": pageRQ?.size,
@@ -24,5 +25,15 @@ class ProjectRemote {
       json,
       (json) => ProjectOutputDto.fromJson(json),
     ));
+  }
+
+  Future<Response<ProjectOutputDto>> createProject({
+    required ProjectInputDto projectInputDto,
+  }) async {
+    final res = await _apiService.post(
+      ApiPath.projects,
+      data: projectInputDto.toJson(),
+    );
+    return Response.fromJson(res.data, (json) => ProjectOutputDto.fromJson(json));
   }
 }

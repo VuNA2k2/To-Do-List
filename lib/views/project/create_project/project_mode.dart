@@ -1,0 +1,4 @@
+enum ProjectMode {
+  create,
+  edit,
+}

@@ -46,22 +46,24 @@ class ProjectItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                DropdownButton(
-                  items: [
-                    DropdownMenuItem(
-                      value: 1,
-                      child: Text(L.current.editLabel),
-                      onTap: () {},
-                    ),
-                    DropdownMenuItem(
-                      value: 2,
-                      child: Text(L.current.deleteLabel),
-                      onTap: () {},
-                    ),
-                  ],
-                  onChanged: (value) {},
-                  icon: const Icon(Icons.more_horiz_rounded),
-                  elevation: 0,
+                DropdownButtonHideUnderline(
+                  child: DropdownButton(
+                    items: [
+                      DropdownMenuItem(
+                        value: 1,
+                        child: Text(L.current.editLabel),
+                        onTap: () {},
+                      ),
+                      DropdownMenuItem(
+                        value: 2,
+                        child: Text(L.current.deleteLabel),
+                        onTap: () {},
+                      ),
+                    ],
+                    onChanged: (value) {},
+                    icon: const Icon(Icons.more_horiz_rounded),
+                    elevation: 0,
+                  ),
                 ),
               ],
             ),
