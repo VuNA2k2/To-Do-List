@@ -14,3 +14,8 @@ class ProjectDetailDeleteProjectEvent extends ProjectDetailEvent {
   final ProjectViewModel projectViewModel;
   ProjectDetailDeleteProjectEvent({required this.projectViewModel});
 }
+
+class ProjectDetailUpdateProjectEvent extends ProjectDetailEvent {
+  final ProjectViewModel projectViewModel;
+  ProjectDetailUpdateProjectEvent({required this.projectViewModel});
+}

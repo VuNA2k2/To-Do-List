@@ -27,6 +27,7 @@ import '../views/note/create_note/create_note_screen.dart' as _i12;
 import '../views/note/note_detail/note_detail_screen.dart' as _i11;
 import '../views/profile/profile_screen.dart' as _i18;
 import '../views/project/create_project/create_project_screen.dart' as _i14;
+import '../views/project/create_project/project_mode.dart' as _i25;
 import '../views/project/project_detail/project_detail_screen.dart' as _i9;
 import '../views/sign_up/sign_up_screen.dart' as _i4;
 import '../views/splash_screen/splash_screen.dart' as _i1;
@@ -140,9 +141,14 @@ class AppRouter extends _i19.RootStackRouter {
       );
     },
     CreateProjectScreenRoute.name: (routeData) {
+      final args = routeData.argsAs<CreateProjectScreenRouteArgs>();
       return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i14.CreateProjectScreen(),
+        child: _i14.CreateProjectScreen(
+          key: args.key,
+          projectMode: args.projectMode,
+          projectViewModel: args.projectViewModel,
+        ),
       );
     },
     DashboardScreenRoute.name: (routeData) {
@@ -509,14 +515,42 @@ class CreateTaskScreenRouteArgs {
 
 /// generated route for
 /// [_i14.CreateProjectScreen]
-class CreateProjectScreenRoute extends _i19.PageRouteInfo<void> {
-  const CreateProjectScreenRoute()
-      : super(
+class CreateProjectScreenRoute
+    extends _i19.PageRouteInfo<CreateProjectScreenRouteArgs> {
+  CreateProjectScreenRoute({
+    _i20.Key? key,
+    required _i25.ProjectMode projectMode,
+    _i22.ProjectViewModel? projectViewModel,
+  }) : super(
           CreateProjectScreenRoute.name,
           path: '/create-project-screen',
+          args: CreateProjectScreenRouteArgs(
+            key: key,
+            projectMode: projectMode,
+            projectViewModel: projectViewModel,
+          ),
         );
 
   static const String name = 'CreateProjectScreenRoute';
+}
+
+class CreateProjectScreenRouteArgs {
+  const CreateProjectScreenRouteArgs({
+    this.key,
+    required this.projectMode,
+    this.projectViewModel,
+  });
+
+  final _i20.Key? key;
+
+  final _i25.ProjectMode projectMode;
+
+  final _i22.ProjectViewModel? projectViewModel;
+
+  @override
+  String toString() {
+    return 'CreateProjectScreenRouteArgs{key: $key, projectMode: $projectMode, projectViewModel: $projectViewModel}';
+  }
 }
 
 /// generated route for

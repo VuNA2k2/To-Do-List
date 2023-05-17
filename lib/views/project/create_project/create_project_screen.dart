@@ -5,22 +5,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 import 'package:todo_list/views/project/create_project/bloc/create_project_bloc.dart';
+import 'package:todo_list/views/project/create_project/project_mode.dart';
 import 'package:todo_list/views/widgets/form_create_common.dart';
 import 'package:todo_list/views/widgets/text_field_common.dart';
 
 class CreateProjectScreen extends StatelessWidget {
-  const CreateProjectScreen({Key? key}) : super(key: key);
+  const CreateProjectScreen(
+      {Key? key, required this.projectMode, this.projectViewModel})
+      : super(key: key);
+  final ProjectMode projectMode;
+  final ProjectViewModel? projectViewModel;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          CreateProjectBloc()..add(CreateProjectInitialEvent()),
-      child: Scaffold(
-        appBar: _appBar(context),
-        body: _body(context),
-        backgroundColor: ColorUtils.bgColor,
+      create: (context) => CreateProjectBloc(
+          projectMode: projectMode, projectViewModel: projectViewModel)
+        ..add(CreateProjectInitialEvent()),
+      child: BlocBuilder<CreateProjectBloc, CreateProjectState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: _appBar(context),
+            body: _body(context),
+            backgroundColor: ColorUtils.bgColor,
+          );
+        },
       ),
     );
   }
@@ -29,7 +40,8 @@ class CreateProjectScreen extends StatelessWidget {
     return AppBar(
       leading: InkWell(
         onTap: () {
-          context.router.navigateBack();
+          context.router
+              .pop(context.read<CreateProjectBloc>().projectViewModel);
         },
         child: const Icon(
           Icons.arrow_back_ios_new_rounded,

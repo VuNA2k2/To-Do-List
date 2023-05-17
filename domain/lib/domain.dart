@@ -21,3 +21,4 @@ export 'src/use_case/update_task_use_case.dart';
 export 'src/use_case/delete_task_use_case.dart';
 export 'src/use_case/create_project_use_case.dart';
 export 'src/use_case/delete_project_use_case.dart';
+export 'src/use_case/update_project_use_case.dart';

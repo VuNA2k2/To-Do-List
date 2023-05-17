@@ -8,6 +8,7 @@ import 'package:todo_list/views/all_project/view_model/project_mapper.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 
 part 'all_project_event.dart';
+
 part 'all_project_state.dart';
 
 class AllProjectBloc extends Bloc<AllProjectEvent, AllProjectState> {
@@ -18,13 +19,17 @@ class AllProjectBloc extends Bloc<AllProjectEvent, AllProjectState> {
     on<AllProjectLoadMoreEvent>(
       _loadMore,
     );
+    on<AllProjectDeleteProjectEvent>(
+      _deleteProject,
+    );
   }
+
   static const int _limit = 20;
   int page = 0;
   bool hasLoad = true;
   ScrollController scrollController = ScrollController();
-  final GetProjectUseCase _getProjectUseCase =
-  ConfigDI().injector.get();
+  final GetProjectUseCase _getProjectUseCase = ConfigDI().injector.get();
+  final DeleteProjectUseCase _deleteProjectUseCase = ConfigDI().injector.get();
 
   FutureOr<void> _initData(
       AllProjectInitialEvent event, Emitter<AllProjectState> emit) async {
@@ -71,5 +76,14 @@ class AllProjectBloc extends Bloc<AllProjectEvent, AllProjectState> {
     page++;
     hasLoad = projectEntities.items.length == _limit;
     emit(AllProjectStableState(projectViewModels: projectViewModels));
+  }
+
+  FutureOr<void> _deleteProject(
+      AllProjectDeleteProjectEvent event, Emitter<AllProjectState> emit) {
+    try {
+      _deleteProjectUseCase.call(event.projectId).then((value) {
+        add(AllProjectInitialEvent());
+      });
+    } catch (e) {}
   }
 }

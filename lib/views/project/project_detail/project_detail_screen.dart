@@ -4,9 +4,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/languages/language.dart';
+import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
+import 'package:todo_list/views/project/create_project/project_mode.dart';
 import 'package:todo_list/views/project/project_detail/bloc/project_detail_bloc.dart';
 import 'package:todo_list/views/widgets/circular_percent_indicator_by_color.dart';
 import 'package:todo_list/views/widgets/search_bar_common.dart';
@@ -71,7 +73,7 @@ class ProjectDetailScreen extends StatelessWidget {
     return AppBar(
       leading: InkWell(
         onTap: () {
-          context.router.navigateBack();
+          context.router.pop();
         },
         child: const Icon(
           Icons.arrow_back_ios_new_rounded,
@@ -97,9 +99,12 @@ class ProjectDetailScreen extends StatelessWidget {
                   PopupMenuItem(
                       value: 0,
                       onTap: () {
-                        // context.router.replace(CreateTaskScreenRoute(
-                        //     taskMode: TaskMode.edit,
-                        //     taskDetailViewModel: state.taskDetailViewModel));
+                        context.router.push(CreateProjectScreenRoute(projectMode: ProjectMode.edit, projectViewModel: state.projectViewModel)).then((value) {
+                          log("value: $value");
+                          if (value != null) {
+                            context.read<ProjectDetailBloc>().add(ProjectDetailUpdateProjectEvent(projectViewModel: value as ProjectViewModel));
+                          }
+                        });
                       },
                       child: Text(
                         L.current.edit,

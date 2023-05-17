@@ -8,10 +8,11 @@ import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 
 class ProjectItem extends StatelessWidget {
-  const ProjectItem({Key? key, required this.projectViewModel})
+  const ProjectItem({Key? key, required this.projectViewModel, this.onDelete, this.onEdit})
       : super(key: key);
   final ProjectViewModel projectViewModel;
-
+  final Function(ProjectViewModel)? onDelete;
+  final Function(ProjectViewModel)? onEdit;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -52,12 +53,16 @@ class ProjectItem extends StatelessWidget {
                       DropdownMenuItem(
                         value: 1,
                         child: Text(L.current.editLabel),
-                        onTap: () {},
+                        onTap: () {
+                          onEdit?.call(projectViewModel);
+                        },
                       ),
                       DropdownMenuItem(
                         value: 2,
                         child: Text(L.current.deleteLabel),
-                        onTap: () {},
+                        onTap: () {
+                          onDelete?.call(projectViewModel);
+                        },
                       ),
                     ],
                     onChanged: (value) {},

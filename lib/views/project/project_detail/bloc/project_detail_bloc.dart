@@ -31,6 +31,9 @@ class ProjectDetailBloc extends Bloc<ProjectDetailEvent, ProjectDetailState> {
     on<ProjectDetailDeleteProjectEvent>(
       _deleteProject,
     );
+    on<ProjectDetailUpdateProjectEvent>(
+      _updateProject,
+    );
   }
 
   static const int _limit = 20;
@@ -101,5 +104,11 @@ class ProjectDetailBloc extends Bloc<ProjectDetailEvent, ProjectDetailState> {
     try {
       _deleteProjectUseCase.call(event.projectViewModel.id);
     } catch (e) {}
+  }
+
+  FutureOr<void> _updateProject(ProjectDetailUpdateProjectEvent event, Emitter<ProjectDetailState> emit) {
+    if(state is ProjectDetailStableState) {
+      emit(ProjectDetailStableState(projectViewModel: event.projectViewModel, taskViewModels: (state as ProjectDetailStableState).taskViewModels));
+    }
   }
 }
