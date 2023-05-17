@@ -28,4 +28,26 @@ class NoteRepositoryImpl implements NoteRepository {
     }
     return null;
   }
+
+  @override
+  Future<NoteEntity?> createNote({required NoteEntity noteEntity}) async {
+    final res = await _noteRemote.createNote(
+      noteInputDto: NoteMapper.getNoteInputDtoFromNoteEntity(noteEntity),
+    );
+    if(res.data != null) {
+      return NoteMapper.getNoteEntityFromNoteDetailOutputDto(res.data!);
+    }
+    return null;
+  }
+
+  @override
+  Future<NoteEntity?> updateNote({required int id, required NoteEntity noteEntity}) async {
+    final res = await _noteRemote.updateNote(
+      id: id,
+      noteInputDto: NoteMapper.getNoteInputDtoFromNoteEntity(noteEntity),
+    );
+    if(res.data != null) {
+      return NoteMapper.getNoteEntityFromNoteDetailOutputDto(res.data!);
+    }
+  }
 }

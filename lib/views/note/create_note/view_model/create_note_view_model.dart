@@ -1,23 +1,23 @@
-import 'package:todo_list/views/view_model/note/note_view_model.dart';
+import 'package:todo_list/views/note/note_detail/view_model/note_detail_view_model.dart';
 
 class CreateNoteViewModel {
   String title;
-  String? subtile;
+  String? subtitle;
   String? description;
   int projectId;
   CreateNoteViewModel({
     required this.title,
-    this.subtile,
+    this.subtitle,
     this.description,
     required this.projectId,
   });
 
-  factory CreateNoteViewModel.fromNoteViewModel(NoteViewModel noteViewModel) {
+  factory CreateNoteViewModel.fromNoteDetailViewModel(NoteDetailViewModel noteDetailViewModel) {
     return CreateNoteViewModel(
-      title: noteViewModel.title,
-      subtile: noteViewModel.subtitle,
-      description: noteViewModel.description,
-      projectId: noteViewModel.projectId,
+      title: noteDetailViewModel.title,
+      subtitle: noteDetailViewModel.subtitle,
+      description: noteDetailViewModel.description,
+      projectId: noteDetailViewModel.projectViewModel.id,
     );
   }
 }

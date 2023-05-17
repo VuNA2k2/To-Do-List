@@ -8,4 +8,8 @@ abstract class NoteRepository {
   Future<NoteEntity?> getNoteDetail({
     required int id,
   });
+
+  Future<NoteEntity?> createNote({required NoteEntity noteEntity});
+
+  Future<NoteEntity?> updateNote({required int id, required NoteEntity noteEntity});
 }

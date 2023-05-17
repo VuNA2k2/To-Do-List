@@ -12,6 +12,7 @@ import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 import 'package:todo_list/views/task/create_task/bloc/create_task_bloc.dart';
 import 'package:todo_list/views/task/create_task/view_model/task_mode.dart';
 import 'package:todo_list/views/task/task_detail/view_model/task_detail_view_model.dart';
+import 'package:todo_list/views/widgets/field_common.dart';
 import 'package:todo_list/views/widgets/form_create_common.dart';
 import 'package:todo_list/views/widgets/text_field_common.dart';
 
@@ -96,22 +97,6 @@ class CreateTaskScreen extends StatelessWidget {
     );
   }
 
-  Widget _fieldTaskCommon(String label, Widget content) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyleUtils.textStyleOpenSans16W600Blue05,
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        content,
-      ],
-    );
-  }
-
   Widget _formData(BuildContext context) {
     return BlocBuilder<CreateTaskBloc, CreateTaskState>(
       builder: (context, state) {
@@ -129,7 +114,7 @@ class CreateTaskScreen extends StatelessWidget {
     return BlocBuilder<CreateTaskBloc, CreateTaskState>(
       builder: (context, state) {
         if (state is CreateTaskStableState) {
-          return _fieldTaskCommon(
+          return FieldCommon(
             L.current.priorityLabel,
             DropdownButtonHideUnderline(
               child: DropdownButton<Priority>(
@@ -185,7 +170,7 @@ class CreateTaskScreen extends StatelessWidget {
     return BlocBuilder<CreateTaskBloc, CreateTaskState>(
       builder: (context, state) {
         if (state is CreateTaskStableState) {
-          return _fieldTaskCommon(
+          return FieldCommon(
             L.current.numberOfPomodoroLabel,
             RatingBar(
               initialRating: state.createTaskViewModel.numberOfPomodoro.toDouble(),
@@ -216,7 +201,7 @@ class CreateTaskScreen extends StatelessWidget {
     return BlocBuilder<CreateTaskBloc, CreateTaskState>(
       builder: (context, state) {
         if (state is CreateTaskStableState) {
-          return _fieldTaskCommon(
+          return FieldCommon(
             L.current.deadlineLabel,
             TextFieldCommon(
               controller: context
@@ -274,7 +259,7 @@ class CreateTaskScreen extends StatelessWidget {
     return BlocBuilder<CreateTaskBloc, CreateTaskState>(
       builder: (context, state) {
         if (state is CreateTaskStableState) {
-          return _fieldTaskCommon(
+          return FieldCommon(
             L.current.projectLabel,
             Container(
               decoration: BoxDecoration(

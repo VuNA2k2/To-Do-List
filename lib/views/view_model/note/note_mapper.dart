@@ -6,7 +6,7 @@ class NoteMapper {
   static NoteViewModel getNoteViewModelFromNoteEntity(
       NoteEntity noteEntity) {
     return NoteViewModel(
-      id: noteEntity.id,
+      id: noteEntity.id!,
       projectId: noteEntity.projectId,
       title: noteEntity.title,
       subtitle: noteEntity.subtitle,

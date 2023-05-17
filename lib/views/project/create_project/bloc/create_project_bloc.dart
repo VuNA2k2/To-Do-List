@@ -81,6 +81,9 @@ class CreateProjectBloc extends Bloc<CreateProjectEvent, CreateProjectState> {
     if (state is CreateProjectStableState) {
       CreateProjectViewModel createProjectViewModel =
           (state as CreateProjectStableState).createProjectViewModel;
+      if(projectNameController.text.isEmpty) {
+        return;
+      }
       try {
       createProjectViewModel.title = projectNameController.text;
       createProjectViewModel.description = projectDescriptionController.text;

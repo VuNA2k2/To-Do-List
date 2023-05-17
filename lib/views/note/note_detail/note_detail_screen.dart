@@ -84,4 +84,5 @@ class NoteDetailScreen extends StatelessWidget {
       ),
     );
   }
+
 }

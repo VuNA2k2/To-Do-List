@@ -8,6 +8,7 @@ import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 import 'package:todo_list/views/project/create_project/bloc/create_project_bloc.dart';
 import 'package:todo_list/views/project/create_project/view_model/project_mode.dart';
+import 'package:todo_list/views/widgets/field_common.dart';
 import 'package:todo_list/views/widgets/form_create_common.dart';
 import 'package:todo_list/views/widgets/text_field_common.dart';
 
@@ -110,7 +111,7 @@ class CreateProjectScreen extends StatelessWidget {
                       BlocBuilder<CreateProjectBloc, CreateProjectState>(
                         builder: (context, state) {
                           if (state is CreateProjectStableState) {
-                            return _fieldTaskCommon(
+                            return FieldCommon(
                               L.current.priorityLabel,
                               DropdownButtonHideUnderline(
                                 child: DropdownButton<Priority>(
@@ -168,7 +169,7 @@ class CreateProjectScreen extends StatelessWidget {
                       BlocBuilder<CreateProjectBloc, CreateProjectState>(
                         builder: (context, state) {
                           if (state is CreateProjectStableState) {
-                            return _fieldTaskCommon(
+                            return FieldCommon(
                               L.current.deadlineLabel,
                               TextFieldCommon(
                                 controller: context
@@ -231,22 +232,6 @@ class CreateProjectScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _fieldTaskCommon(String label, Widget content) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyleUtils.textStyleOpenSans16W600Blue05,
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        content,
-      ],
     );
   }
 }

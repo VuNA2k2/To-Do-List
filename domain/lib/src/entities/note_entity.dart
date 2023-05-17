@@ -2,7 +2,7 @@ import 'package:domain/domain.dart';
 import 'package:equatable/equatable.dart';
 
 class NoteEntity extends Equatable {
-  int id;
+  int? id;
   int projectId;
   ProjectEntity? projectEntity;
   String title;
@@ -10,7 +10,7 @@ class NoteEntity extends Equatable {
   String? description;
 
   NoteEntity({
-    required this.id,
+    this.id,
     required this.projectId,
     this.projectEntity,
     required this.title,

@@ -62,7 +62,7 @@ class CreateTaskBloc extends Bloc<CreateTaskEvent, CreateTaskState> {
     emit(CreateTaskLoading());
     try {
       final PageRS<ProjectEntity> listProject =
-          await _getProjectUseCase.call(search: SearchProject());
+          await _getProjectUseCase.call();
       final List<ProjectViewModel> listProjectViewModel = listProject.items
           .map(ProjectMapper.getProjectViewModelFromProjectEntity)
           .toList();
