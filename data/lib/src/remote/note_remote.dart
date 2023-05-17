@@ -1,5 +1,6 @@
 import 'package:data/data.dart';
 import 'package:data/src/data_source/api/api_path.dart';
+import 'package:data/src/remote/dto/note/note_detail_output_dto.dart';
 import 'package:data/src/remote/dto/note/note_output_dto.dart';
 import 'package:data/src/remote/dto/note/search_note_input_dto.dart';
 import 'package:data/src/remote/response/page.dart';
@@ -13,7 +14,7 @@ class NoteRemote {
     SearchNoteInputDto? searchNote,
 }) async {
     final response = await _apiService.get(
-      ApiPath.notes,
+      ApiPath.notesSearch,
       queryParameters: {
         "page": pageRQ?.page,
         "size": pageRQ?.size,
@@ -29,4 +30,18 @@ class NoteRemote {
     );
   }
 
+  Future<Response<NoteDetailOutputDto?>> getNoteDetail({
+    required int id,
+  }) async {
+    final response = await _apiService.get(
+      ApiPath.noteDetail,
+      queryParameters: {
+        "id": id,
+      },
+    );
+    return Response.fromJson(
+      response.data,
+      (json) => NoteDetailOutputDto.fromJson(json),
+    );
+  }
 }

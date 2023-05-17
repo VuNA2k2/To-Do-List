@@ -1,4 +1,6 @@
+import 'package:data/src/remote/dto/note/note_detail_output_dto.dart';
 import 'package:data/src/remote/dto/note/note_output_dto.dart';
+import 'package:data/src/remote/dto/project/project_mapper.dart';
 import 'package:domain/domain.dart';
 
 class NoteMapper {
@@ -9,6 +11,17 @@ class NoteMapper {
       description: noteOutputDto.description,
       projectId: noteOutputDto.projectId,
       subtitle: noteOutputDto.subtitle,
+    );
+  }
+
+  static NoteEntity getNoteEntityFromNoteDetailOutputDto(NoteDetailOutputDto noteDetailOutputDto) {
+    return NoteEntity(
+      id: noteDetailOutputDto.id,
+      title: noteDetailOutputDto.title,
+      description: noteDetailOutputDto.description,
+      projectId: noteDetailOutputDto.project.id,
+      subtitle: noteDetailOutputDto.subtitle,
+      projectEntity: ProjectMapper.getProjectEntityFromProjectOutputDto(noteDetailOutputDto.project),
     );
   }
 }

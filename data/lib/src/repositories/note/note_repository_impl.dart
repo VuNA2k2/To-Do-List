@@ -20,4 +20,12 @@ class NoteRepositoryImpl implements NoteRepository {
     );
   }
 
+  @override
+  Future<NoteEntity?> getNoteDetail({required int id}) async {
+    final res = await _noteRemote.getNoteDetail(id: id);
+    if(res.data != null) {
+      return NoteMapper.getNoteEntityFromNoteDetailOutputDto(res.data!);
+    }
+    return null;
+  }
 }

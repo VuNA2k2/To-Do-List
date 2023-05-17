@@ -8,7 +8,7 @@ import 'package:todo_list/di/config_di.dart';
 import 'package:todo_list/utils/format_utils.dart';
 import 'package:todo_list/views/all_project/view_model/project_mapper.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
-import 'package:todo_list/views/project/create_project/project_mode.dart';
+import 'package:todo_list/views/project/create_project/view_model/project_mode.dart';
 import 'package:todo_list/views/project/create_project/view_model/create_project_mapper.dart';
 import 'package:todo_list/views/project/create_project/view_model/create_project_view_model.dart';
 

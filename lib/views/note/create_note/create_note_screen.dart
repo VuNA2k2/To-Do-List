@@ -1,17 +1,27 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/note/create_note/bloc/create_note_bloc.dart';
+import 'package:todo_list/views/widgets/form_create_common.dart';
 
 class CreateNoteScreen extends StatelessWidget {
   const CreateNoteScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBar(context),
-      body: _body(context),
+    return BlocProvider(
+      create: (context) => CreateNoteBloc(),
+      child: BlocBuilder<CreateNoteBloc, CreateNoteState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: _appBar(context),
+            body: _body(context),
+          );
+        },
+      ),
     );
   }
 
@@ -19,7 +29,7 @@ class CreateNoteScreen extends StatelessWidget {
     return AppBar(
       leading: InkWell(
         onTap: () {
-          context.router.navigateBack();
+          context.router.pop();
         },
         child: const Icon(
           Icons.arrow_back_ios_new_rounded,
@@ -53,7 +63,9 @@ class CreateNoteScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Column(
               children: [
-                // FormCreateCommon(),
+                FormCreateCommon(
+
+                ),
               ],
             ),
           ),

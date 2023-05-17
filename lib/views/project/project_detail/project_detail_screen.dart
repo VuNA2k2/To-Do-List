@@ -8,7 +8,7 @@ import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
-import 'package:todo_list/views/project/create_project/project_mode.dart';
+import 'package:todo_list/views/project/create_project/view_model/project_mode.dart';
 import 'package:todo_list/views/project/project_detail/bloc/project_detail_bloc.dart';
 import 'package:todo_list/views/widgets/circular_percent_indicator_by_color.dart';
 import 'package:todo_list/views/widgets/search_bar_common.dart';

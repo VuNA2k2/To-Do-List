@@ -1,0 +1,4 @@
+enum NoteMode {
+  create,
+  edit,
+}

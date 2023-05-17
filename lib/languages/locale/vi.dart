@@ -139,5 +139,8 @@ class LanguageVi extends BaseLanguage {
   @override
   String get edit => "Sửa";
 
+  @override
+  String get loading => "Đang tải...";
+
 
 }

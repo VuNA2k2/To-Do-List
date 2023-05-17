@@ -13,7 +13,7 @@ class NoteItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.router.navigate(const NoteDetailScreenRoute());
+        context.router.navigate(NoteDetailScreenRoute(noteViewModel: noteViewModel));
       },
       child: Container(
         padding: const EdgeInsets.all(8),
@@ -31,7 +31,7 @@ class NoteItem extends StatelessWidget {
                 styleForHeightCalculation: TextStyleUtils.textStyleOpenSans14W500,
               ),
               child: Text(
-                noteViewModel.title ?? '',
+                noteViewModel.title,
                 style: TextStyleUtils.textStyleOpenSans14W500,
                 textAlign: TextAlign.start,
                 maxLines: 2,

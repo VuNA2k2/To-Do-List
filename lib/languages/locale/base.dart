@@ -68,4 +68,6 @@ abstract class BaseLanguage {
   String get edit;
 
   String get delete;
+
+  String get loading;
 }

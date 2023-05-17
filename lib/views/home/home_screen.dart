@@ -5,7 +5,7 @@ import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/format_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
-import 'package:todo_list/views/project/create_project/project_mode.dart';
+import 'package:todo_list/views/project/create_project/view_model/project_mode.dart';
 import 'package:todo_list/views/task/create_task/view_model/task_mode.dart';
 import 'package:todo_list/views/widgets/search_bar_common.dart';
 

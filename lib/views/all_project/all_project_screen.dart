@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/views/all_project/bloc/all_project_bloc.dart';
-import 'package:todo_list/views/project/create_project/project_mode.dart';
+import 'package:todo_list/views/project/create_project/view_model/project_mode.dart';
 import 'package:todo_list/views/widgets/project_item.dart';
 
 class AllProjectScreen extends StatelessWidget {

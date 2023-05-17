@@ -8,7 +8,11 @@ class ApiPath {
 
   static String searchTaskInProject(int projectId) => "$tasksSearch/$projectId";
 
-  static String notes = "/notes/search";
+  static String notesSearch = "/notes/search";
+
+  static String notes = "/notes";
+
+  static String noteDetail = "/notes/detail";
 
   static String projects = "/projects";
 
