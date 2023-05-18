@@ -35,6 +35,16 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         deadline: DateTime.now(),
       ),
     );
+    final PageRS<TaskEntity> taskDoneEntities = await _getTaskUseCase.call(
+      pageRQEntity: PageRQEntity(
+        page: 0,
+        size: 0,
+      ),
+      searchTask: SearchTask(
+        deadline: DateTime.now(),
+        status: Status.DONE,
+      ),
+    );
     final PageRS<NoteEntity> noteEntities = await _getNoteUseCase.call(
       pageRQEntity: PageRQEntity(
         page: 0,
@@ -50,6 +60,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     emit(DashboardStableState(
         taskViewModels: taskViewModels,
         countTask: taskEntities.total,
+        countDoneTask: taskDoneEntities.total,
         noteViewModels: noteViewModels,
         countNote: noteEntities.total));
   }

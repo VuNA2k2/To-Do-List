@@ -63,59 +63,63 @@ class DashboardScreen extends StatelessWidget {
   }
 
   Widget _todayProgress(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 5),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: ColorUtils.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: Offset.zero,
-          ),
-        ],
-        borderRadius: BorderRadius.circular(10),
-        color: ColorUtils.bgColor,
-      ),
-      child: Row(
-        children: [
-          CircularPercentIndicatorByColor(
-            radius: 60,
-            percent: 0.8,
-            textStyle: TextStyleUtils.textStyleOpenSans18W700,
-          ),
-          const SizedBox(
-            width: 16,
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "You are doing well!",
-                  style: TextStyleUtils.textStyleOpenSans20W800,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "Keep it up!",
-                  style: TextStyleUtils.textStyleOpenSans16W600,
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                Text(
-                  "16/20 tasks is complete",
-                  maxLines: 2,
-                  style: TextStyleUtils.textStyleOpenSans12W300,
-                ),
-              ],
+    DashboardState state = context.select((DashboardBloc bloc) => bloc.state);
+    if(state is DashboardStableState) {
+      return Container(
+        margin: const EdgeInsets.only(bottom: 5),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: ColorUtils.black.withOpacity(0.1),
+              blurRadius: 10,
+              offset: Offset.zero,
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+          borderRadius: BorderRadius.circular(10),
+          color: ColorUtils.bgColor,
+        ),
+        child: Row(
+          children: [
+            CircularPercentIndicatorByColor(
+              radius: 60,
+              percent: state.countTask == 0 ? 1 : state.countDoneTask / state.countTask,
+              textStyle: TextStyleUtils.textStyleOpenSans18W700,
+            ),
+            const SizedBox(
+              width: 16,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    L.current.youAreDoingWell,
+                    style: TextStyleUtils.textStyleOpenSans20W800,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    L.current.keepItUp,
+                    style: TextStyleUtils.textStyleOpenSans16W600,
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    "${state.countDoneTask}/${state.countTask} ${L.current.taskIsCompleted}",
+                    maxLines: 2,
+                    style: TextStyleUtils.textStyleOpenSans12W300,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+    return const SizedBox();
   }
 
   Widget _count(BuildContext context, String title, Function() seeAll) {

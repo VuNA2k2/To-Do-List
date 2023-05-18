@@ -70,4 +70,10 @@ abstract class BaseLanguage {
   String get delete;
 
   String get loading;
+
+  String get youAreDoingWell;
+
+  String get keepItUp;
+
+  String get taskIsCompleted;
 }

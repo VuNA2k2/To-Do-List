@@ -192,7 +192,7 @@ class CreateProjectScreen extends StatelessWidget {
                                       if (time != null) {
                                         showDatePicker(
                                           context: context,
-                                          initialDate: DateTime.now(),
+                                          initialDate: state.createProjectViewModel.deadline,
                                           firstDate: DateTime.now(),
                                           lastDate: DateTime(2100),
                                         ).then(

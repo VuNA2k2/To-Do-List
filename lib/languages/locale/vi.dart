@@ -142,5 +142,14 @@ class LanguageVi extends BaseLanguage {
   @override
   String get loading => "Đang tải...";
 
+  @override
+  String get youAreDoingWell => "Bạn đang làm tốt lắm!";
+
+  @override
+  String get keepItUp => "Tiếp tục nhé!";
+
+  @override
+  String get taskIsCompleted => "nhiệm vụ đã hoàn thành!";
+
 
 }

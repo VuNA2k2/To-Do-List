@@ -31,7 +31,7 @@ class TaskInputDto {
       'priority': priority?.name ?? Priority.LOW.name,
       'numberOfPomodoro': numberOfPomodoro,
       'currentDoingTime': currentDoingTime != null ? "${currentDoingTime?.inHours}:${currentDoingTime?.inMinutes.remainder(60)}:${currentDoingTime?.inSeconds.remainder(60)}" : null,
-      'deadline': DateTime.utc(deadline.year, deadline.month, deadline.day, deadline.hour, deadline.minute, deadline.second, deadline.millisecond, deadline.microsecond).toIso8601String(),
+      'deadline': deadline.toUtc().toIso8601String(),
       'status': status?.name ?? Status.TODO.name,
       'projectId': projectId,
     };

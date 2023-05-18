@@ -19,7 +19,7 @@ class ProjectInputDto {
       "name": name,
       "description": description,
       "priority": priority.name,
-      "deadline": DateTime.utc(deadline.year, deadline.month, deadline.day, deadline.hour, deadline.minute, deadline.second).toIso8601String(),
+      "deadline": deadline.toUtc().toIso8601String(),
       "status": status.name,
     };
   }

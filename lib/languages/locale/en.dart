@@ -142,5 +142,14 @@ class LanguageEn extends BaseLanguage {
   @override
   String get loading => "Loading...";
 
+  @override
+  String get youAreDoingWell => "You are doing well";
+
+  @override
+  String get keepItUp => "Keep it up!";
+
+  @override
+  String get taskIsCompleted => "task is completed";
+
 
 }
