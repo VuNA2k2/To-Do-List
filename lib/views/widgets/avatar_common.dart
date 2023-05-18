@@ -32,10 +32,10 @@ class AvatarCommon extends StatelessWidget {
             width: 180,
             height: 180,
             decoration: BoxDecoration(
-              border: Border.all(color: ColorUtils.primaryColor, width: 10),
+              border: Border.all(color: ColorUtils.primaryColor, width: 2),
               shape: BoxShape.circle,
             ),
-            child: _avatar,
+            child: ClipOval(child: _avatar),
           ),
           _icon != null
               ? Positioned(

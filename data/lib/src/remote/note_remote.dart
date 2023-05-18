@@ -72,4 +72,13 @@ class NoteRemote {
       (json) => NoteDetailOutputDto.fromJson(json),
     );
   }
+
+  Future<void> deleteNote({required int noteId}) {
+    return _apiService.delete(
+      ApiPath.notes,
+      queryParameters: {
+        "id": noteId,
+      },
+    );
+  }
 }

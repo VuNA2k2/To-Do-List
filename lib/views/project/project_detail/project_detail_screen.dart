@@ -114,7 +114,7 @@ class ProjectDetailScreen extends StatelessWidget {
                     onTap: () {
                       context.read<ProjectDetailBloc>().add(ProjectDetailDeleteProjectEvent(
                           projectViewModel: state.projectViewModel));
-                      context.router.pop();
+                      context.router.navigateBack();
                     },
                     value: 1,
                     child: Text(

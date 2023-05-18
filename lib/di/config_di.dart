@@ -34,6 +34,11 @@ class ConfigDI {
     injector.registerLazySingleton<GetNoteDetailUseCase>(() => GetNoteDetailUseCase(injector.get()));
     injector.registerLazySingleton<CreateNoteUseCase>(() => CreateNoteUseCase(injector.get()));
     injector.registerLazySingleton<UpdateNoteUseCase>(() => UpdateNoteUseCase(injector.get()));
+    injector.registerLazySingleton<DeleteNoteUseCase>(() => DeleteNoteUseCase(injector.get()));
+    injector.registerSingleton<FirebaseStorageRemote>(FirebaseStorageRemote());
+    injector.registerLazySingleton<StorageRepository>(() => StorageRepositoryImpl(injector.get()));
+    injector.registerLazySingleton<UploadImageUseCase>(() => UploadImageUseCase(injector.get()));
+    injector.registerLazySingleton<CheckLoggedUseCase>(() => CheckLoggedUseCase(injector.get()));
   }
   GetIt injector = GetIt.instance;
 

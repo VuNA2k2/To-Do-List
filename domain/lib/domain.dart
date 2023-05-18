@@ -25,3 +25,7 @@ export 'src/use_case/update_project_use_case.dart';
 export 'src/use_case/get_note_detail_use_case.dart';
 export 'src/use_case/create_note_use_case.dart';
 export 'src/use_case/update_note_use_case.dart';
+export 'src/use_case/delete_note_use_case.dart';
+export 'src/repositories/storage_repository.dart';
+export 'src/use_case/upload_image_use_case.dart';
+export 'src/use_case/check_logged_use_case.dart';

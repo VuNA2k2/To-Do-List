@@ -1,6 +1,13 @@
 
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:todo_list/di/config_di.dart';
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/widgets/avatar_common.dart';
@@ -10,13 +17,20 @@ import 'package:todo_list/views/widgets/text_field_label.dart';
 import '../../languages/language.dart';
 import '../widgets/elevated_button_common.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return _body(context);
   }
+
+  String? avatar;
 
   Widget _body(BuildContext context) {
     return GestureDetector(
@@ -49,11 +63,23 @@ class ProfileScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         AvatarCommon(
-          avatar: const Icon(
-            Icons.person,
-          ),
-          icon: const Icon(
-            Icons.camera_alt_rounded,
+          avatar: avatar != null ? CachedNetworkImage(imageUrl: avatar ?? '') : const SizedBox(),
+          icon: InkWell(
+            onTap: () async {
+              ImagePicker().pickImage(source: ImageSource.camera).then((value) async {
+                if (value != null) {
+                  UploadImageUseCase uploadImageUseCase = ConfigDI().injector.get();
+                  String url = await uploadImageUseCase.call(File(value.path));
+                  log(url);
+                  setState(() {
+                    avatar = url;
+                  });
+                }
+              });
+            },
+            child: const Icon(
+              Icons.camera_alt_rounded,
+            ),
           ),
         ),
         _formUserName(context),

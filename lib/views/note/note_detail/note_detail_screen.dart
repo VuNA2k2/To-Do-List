@@ -83,7 +83,7 @@ class NoteDetailScreen extends StatelessWidget {
                     onTap: () {
                       context.read<NoteDetailBloc>().add(NoteDetailDeleteNoteEvent(
                           noteDetailViewModel: state.noteDetailViewModel));
-                      context.router.pop();
+                      context.router.navigateBack();
                     },
                     value: 1,
                     child: Text(

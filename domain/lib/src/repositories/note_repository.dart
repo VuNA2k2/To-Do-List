@@ -12,4 +12,6 @@ abstract class NoteRepository {
   Future<NoteEntity?> createNote({required NoteEntity noteEntity});
 
   Future<NoteEntity?> updateNote({required int id, required NoteEntity noteEntity});
+
+  Future<void> deleteNote({required int noteId});
 }

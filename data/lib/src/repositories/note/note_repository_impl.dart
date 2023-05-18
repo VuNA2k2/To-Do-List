@@ -49,5 +49,13 @@ class NoteRepositoryImpl implements NoteRepository {
     if(res.data != null) {
       return NoteMapper.getNoteEntityFromNoteDetailOutputDto(res.data!);
     }
+    return null;
+  }
+
+  @override
+  Future<void> deleteNote({required int noteId}) {
+    return _noteRemote.deleteNote(
+      noteId: noteId,
+    );
   }
 }

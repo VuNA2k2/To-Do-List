@@ -21,13 +21,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   FutureOr<void> _login(LoginEventLogin event, Emitter<LoginState> emit) async {
     emit(LoginLoading());
     try {
-      final result =
           await _loginUseCase.call(LoginEntity(event.username, event.password));
-      if (result) {
         emit(LoginSuccess());
-      } else {
-        emit(LoginFailure(error: "Login failed!"));
-      }
     } catch (e) {
       emit(LoginFailure(error: e.toString()));
     }

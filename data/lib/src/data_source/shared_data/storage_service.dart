@@ -1,7 +1,7 @@
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum _StorageKey { token, locale, refreshToken }
+enum _StorageKey { token, locale, refreshToken, isLogged}
 
 class StorageService {
   late SharedPreferences _prefs;
@@ -22,6 +22,24 @@ class StorageService {
   String? get token => _prefs.getString(_StorageKey.token.name);
 
   void deleteToken() => _prefs.remove(_StorageKey.token.name);
+
+  ///refreshToken
+  set saveRefreshToken(String value) {
+    _prefs.setString(_StorageKey.refreshToken.name, value);
+  }
+
+  String? get refreshToken => _prefs.getString(_StorageKey.refreshToken.name);
+
+  void deleteRefreshToken() => _prefs.remove(_StorageKey.refreshToken.name);
+
+  ///isLogged
+  set saveIsLogged(bool value) {
+    _prefs.setBool(_StorageKey.isLogged.name, value);
+  }
+
+  bool? get isLogged => _prefs.getBool(_StorageKey.isLogged.name);
+
+  void deleteIsLogged() => _prefs.remove(_StorageKey.isLogged.name);
 
   ///locale
   set saveLocale(String locale) {

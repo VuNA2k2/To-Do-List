@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:domain/domain.dart';
 import 'package:meta/meta.dart';
+import 'package:todo_list/di/config_di.dart';
 import 'package:todo_list/route/route.gr.dart';
 
 part 'splash_event.dart';
@@ -15,7 +17,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   }
 
   Timer? timer;
-
+  final CheckLoggedUseCase _checkLoggedUseCase = ConfigDI().injector.get();
 
   FutureOr<void> _init(SplashInitEvent event, Emitter<SplashState> emit) {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -30,7 +32,11 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       if((state as SplashLoadingState).duration.inSeconds == 0) {
         timer?.cancel();
         //  TODO: navigate route default navigate login
-        add(SplashNavigateEvent(LoginScreenRoute.name));
+        if(_checkLoggedUseCase.call()) {
+          add(SplashNavigateEvent(HomeScreenRoute.name));
+        } else {
+          add(SplashNavigateEvent(LoginScreenRoute.name));
+        }
       } else {
         emit(SplashLoadingState(duration: Duration(seconds: (state as SplashLoadingState).duration.inSeconds - 1)));
       }

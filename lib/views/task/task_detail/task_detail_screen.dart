@@ -17,32 +17,36 @@ import 'package:todo_list/views/view_model/task/task_view_model.dart';
 import 'package:todo_list/views/widgets/note_task_content_common.dart';
 
 class TaskDetailScreen extends StatelessWidget {
-  const TaskDetailScreen({Key? key, required this.taskViewModel}) : super(key: key);
+  const TaskDetailScreen({Key? key, required this.taskViewModel})
+      : super(key: key);
   final TaskViewModel taskViewModel;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-      TaskDetailBloc()
+      create: (context) => TaskDetailBloc()
         ..add(TaskDetailInitialEvent(taskViewModel: taskViewModel)),
       child: BlocBuilder<TaskDetailBloc, TaskDetailState>(
-  builder: (context, state) {
-    return Scaffold(
-        appBar: _appBar(context),
-        body: _body(context),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: state is TaskDetailStableState ? FloatingActionButton(
-          onPressed: () {
-            context.router.replace(DoTaskScreenRoute(taskViewModel: taskViewModel));
-          },
-          backgroundColor: ColorUtils.greenOA,
-          child: const Icon(Icons.play_arrow_rounded),
-        ) : null,
-        backgroundColor: ColorUtils.bgColor,
-      );
-  },
-),
+        builder: (context, state) {
+          return Scaffold(
+            appBar: _appBar(context),
+            body: _body(context),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: state is TaskDetailStableState
+                ? FloatingActionButton(
+                    onPressed: () {
+                      context.router.replace(
+                          DoTaskScreenRoute(taskViewModel: taskViewModel));
+                    },
+                    backgroundColor: ColorUtils.greenOA,
+                    child: const Icon(Icons.play_arrow_rounded),
+                  )
+                : null,
+            backgroundColor: ColorUtils.bgColor,
+          );
+        },
+      ),
     );
   }
 
@@ -50,7 +54,7 @@ class TaskDetailScreen extends StatelessWidget {
     return SafeArea(
       child: BlocBuilder<TaskDetailBloc, TaskDetailState>(
         builder: (context, state) {
-          if(state is TaskDetailStableState) {
+          if (state is TaskDetailStableState) {
             return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -93,7 +97,9 @@ class TaskDetailScreen extends StatelessWidget {
         ),
       ),
       title: Text(
-        state is TaskDetailStableState ? state.taskDetailViewModel.title: 'Task Detail',
+        state is TaskDetailStableState
+            ? state.taskDetailViewModel.title
+            : 'Task Detail',
         style: TextStyleUtils.textStyleOpenSans20W400Black,
       ),
       backgroundColor: ColorUtils.bgColor,
@@ -111,9 +117,11 @@ class TaskDetailScreen extends StatelessWidget {
                   PopupMenuItem(
                       value: 0,
                       onTap: () {
-                        context.router.replace(CreateTaskScreenRoute(
-                            taskMode: TaskMode.edit,
-                            taskDetailViewModel: state.taskDetailViewModel));
+                        context.router.replace(
+                          CreateTaskScreenRoute(
+                              taskMode: TaskMode.edit,
+                              taskDetailViewModel: state.taskDetailViewModel),
+                        );
                       },
                       child: Text(
                         L.current.edit,
@@ -121,8 +129,9 @@ class TaskDetailScreen extends StatelessWidget {
                       )),
                   PopupMenuItem(
                     onTap: () {
-                      context.read<TaskDetailBloc>().add(TaskDetailDeleteEvent(taskDetailViewModel: state.taskDetailViewModel));
-                      context.router.pop();
+                      context.read<TaskDetailBloc>().add(TaskDetailDeleteEvent(
+                          taskDetailViewModel: state.taskDetailViewModel));
+                      context.router.navigateBack();
                     },
                     value: 1,
                     child: Text(
@@ -168,8 +177,9 @@ class TaskDetailScreen extends StatelessWidget {
   }
 
   Widget _numberOfPomodoro(BuildContext context) {
-    final TaskDetailState state = context.select((TaskDetailBloc bloc) => bloc.state);
-    if(state is TaskDetailStableState) {
+    final TaskDetailState state =
+        context.select((TaskDetailBloc bloc) => bloc.state);
+    if (state is TaskDetailStableState) {
       return _contentItem(
         L.current.numberOfPomodoroLabel,
         Row(
@@ -188,12 +198,11 @@ class TaskDetailScreen extends StatelessWidget {
       );
     }
     return const SizedBox();
-
   }
 
   Widget _progress(BuildContext context) {
     TaskDetailState state = context.select((TaskDetailBloc bloc) => bloc.state);
-    if(state is TaskDetailStableState) {
+    if (state is TaskDetailStableState) {
       return _contentItem(
         null,
         LinearPercentIndicator(
@@ -225,7 +234,7 @@ class TaskDetailScreen extends StatelessWidget {
 
   Widget _deadline(BuildContext context) {
     TaskDetailState state = context.select((TaskDetailBloc bloc) => bloc.state);
-    if(state is TaskDetailStableState) {
+    if (state is TaskDetailStableState) {
       return _contentItem(
         L.current.deadlineLabel,
         Text(
@@ -239,7 +248,7 @@ class TaskDetailScreen extends StatelessWidget {
 
   Widget _priority(BuildContext context) {
     TaskDetailState state = context.select((TaskDetailBloc bloc) => bloc.state);
-    if(state is TaskDetailStableState) {
+    if (state is TaskDetailStableState) {
       return _contentItem(
         L.current.priorityLabel,
         Row(

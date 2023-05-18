@@ -4,30 +4,39 @@ import 'package:data/src/remote/dto/login/login_mapper.dart';
 import 'package:domain/domain.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  AuthRemote _authRemote;
+  final AuthRemote _authRemote;
 
   AuthRepositoryImpl(this._authRemote);
 
   @override
-  Future<bool> isLoggedIn() {
-    // TODO: implement isLoggedIn
-    throw UnimplementedError();
+  bool isLoggedIn() {
+    return StorageService().isLogged ?? false;
   }
 
   @override
-  Future<bool> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  void logout() {
+    StorageService().deleteToken();
+    StorageService().deleteRefreshToken();
+    StorageService().deleteIsLogged();
   }
 
   @override
-  Future<bool> login(LoginEntity loginEntity) async {
+  Future<void> login(LoginEntity loginEntity) async {
     final response =
         await _authRemote.login(LoginMapper.getInputDtoFromEntity(loginEntity));
     if (response.error.code == "success") {
       StorageService().saveToken = response.data?.accessToken ?? "";
-      return true;
+      StorageService().saveRefreshToken = response.data?.refreshToken ?? "";
+      StorageService().saveIsLogged = true;
     }
-    return false;
+  }
+
+  @override
+  Future<void> refreshToken() async {
+    final response = await _authRemote.refreshToken();
+    if (response.error.code == "success") {
+      StorageService().saveToken = response.data?.accessToken ?? "";
+      StorageService().saveRefreshToken = response.data?.refreshToken ?? "";
+    }
   }
 }
