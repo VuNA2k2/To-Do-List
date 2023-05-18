@@ -16,6 +16,8 @@ class NoteDetailBloc extends Bloc<NoteDetailEvent, NoteDetailState> {
     on<NoteDetailInitialEvent>(
       _initData,
     );
+    on<NoteDetailUpdateNoteEvent>(_updateNote);
+    on<NoteDetailDeleteNoteEvent>(_deleteNote);
   }
   final GetNoteDetailUseCase _getNoteDetailUseCase = ConfigDI().injector.get();
   FutureOr<void> _initData(NoteDetailInitialEvent event, Emitter<NoteDetailState> emit) async {
@@ -28,5 +30,13 @@ class NoteDetailBloc extends Bloc<NoteDetailEvent, NoteDetailState> {
     } catch (e) {
 
     }
+  }
+
+  FutureOr<void> _updateNote(NoteDetailUpdateNoteEvent event, Emitter<NoteDetailState> emit) {
+
+  }
+
+  FutureOr<void> _deleteNote(NoteDetailDeleteNoteEvent event, Emitter<NoteDetailState> emit) {
+
   }
 }

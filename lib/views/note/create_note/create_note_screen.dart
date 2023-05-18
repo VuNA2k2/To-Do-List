@@ -34,7 +34,7 @@ class CreateNoteScreen extends StatelessWidget {
     return AppBar(
       leading: InkWell(
         onTap: () {
-          context.router.pop(context.read<CreateNoteBloc>().noteDetailViewModel);
+          context.router.pop();
         },
         child: const Icon(
           Icons.arrow_back_ios_new_rounded,

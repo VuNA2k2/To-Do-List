@@ -36,7 +36,7 @@ class CreateTaskScreen extends StatelessWidget {
     return AppBar(
       leading: InkWell(
         onTap: () {
-          context.router.navigateBack();
+          context.router.pop();
         },
         child: const Icon(
           Icons.arrow_back_ios_new_rounded,

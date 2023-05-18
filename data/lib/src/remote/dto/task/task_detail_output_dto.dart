@@ -43,7 +43,7 @@ class TaskDetailOutputDto extends Equatable {
       numberOfPomodoro: json['numberOfPomodoro'],
       deadline: DateTime.parse(json['deadline']),
       currentDoingTime: _parseDuration(json['currentDoingTime'] ?? '00:00:00'),
-      progress: json['progress'],
+      progress: json['progress'] ?? 0.0,
       status: Status.values.firstWhere((element) => element.name == json['status'], orElse: () => Status.values.first),
       reminder: json['reminder'],
     );

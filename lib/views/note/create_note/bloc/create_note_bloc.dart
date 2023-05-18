@@ -96,11 +96,14 @@ class CreateNoteBloc extends Bloc<CreateNoteEvent, CreateNoteState> {
             noteDetailViewModel = NoteDetailMapper.getNoteDetailViewModelFromNoteEntity(noteEntity);
           }
         } else if(noteDetailViewModel != null) {
-          _createNoteUseCase.call(
+          final noteEntity = await _createNoteUseCase.call(
             CreateNoteMapper.getNoteEntityFromCreateNoteViewModel(
               createNoteViewModel,
             ),
           );
+          if(noteEntity != null) {
+            noteDetailViewModel = NoteDetailMapper.getNoteDetailViewModelFromNoteEntity(noteEntity);
+          }
         }
       } catch(e) {
         log("Error: $e");
