@@ -39,6 +39,7 @@ class ConfigDI {
     injector.registerLazySingleton<StorageRepository>(() => StorageRepositoryImpl(injector.get()));
     injector.registerLazySingleton<UploadImageUseCase>(() => UploadImageUseCase(injector.get()));
     injector.registerLazySingleton<CheckLoggedUseCase>(() => CheckLoggedUseCase(injector.get()));
+    injector.registerLazySingleton<DoTaskUseCase>(() => DoTaskUseCase(injector.get()));
   }
   GetIt injector = GetIt.instance;
 

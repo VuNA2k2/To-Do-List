@@ -8,6 +8,7 @@ class TaskDetailViewModel extends Equatable {
   String? subtitle;
   String? description;
   ProjectViewModel project;
+  Duration? currentDoingTime;
   int numberOfPomodoro;
   double progress;
   DateTime deadline;
@@ -19,6 +20,7 @@ class TaskDetailViewModel extends Equatable {
     this.subtitle,
     this.description,
     required this.project,
+    this.currentDoingTime,
     required this.numberOfPomodoro,
     required this.progress,
     required this.deadline,

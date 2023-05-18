@@ -71,4 +71,11 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<void> deleteTask(int taskId) {
     return _taskRemote.deleteTask(taskId);
   }
+
+  Future<void> doTask({required int taskId, required TaskEntity taskEntity}) {
+    return _taskRemote.doTask(
+      taskId: taskId,
+      doTaskInputDto: TaskMapper.getDoTaskInputDtoFromTaskEntity(taskEntity),
+    );
+  }
 }

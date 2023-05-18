@@ -16,6 +16,11 @@ class TaskDetailMapper {
       deadline: taskEntity.deadline,
       priority: taskEntity.priority ?? Priority.LOW,
       status: taskEntity.status,
+      currentDoingTime: taskEntity.currentDoingTime,
     );
+  }
+
+  static TaskEntity getTaskEntityFromTaskDetailMapper(TaskDetailViewModel taskDetailViewModel) {
+    return TaskEntity(projectId: taskDetailViewModel.project.id, title: taskDetailViewModel.title, numberOfPomodoro: taskDetailViewModel.numberOfPomodoro, deadline: taskDetailViewModel.deadline, status: taskDetailViewModel.status, currentDoingTime: taskDetailViewModel.currentDoingTime);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:data/src/remote/dto/enum/priority.dart';
 import 'package:data/src/remote/dto/project/project_mapper.dart';
+import 'package:data/src/remote/dto/task/do_task_input_dto.dart';
 import 'package:data/src/remote/dto/task/task_detail_output_dto.dart';
 import 'package:data/src/remote/dto/task/task_input_dto.dart';
 import 'package:data/src/remote/dto/task/task_output_dto.dart';
@@ -61,5 +62,9 @@ class TaskMapper {
             taskDetailOutputDto.project),
         reminder: taskDetailOutputDto.reminder,
         subtitle: taskDetailOutputDto.subtitle);
+  }
+
+  static DoTaskInputDto getDoTaskInputDtoFromTaskEntity(domain.TaskEntity taskEntity) {
+    return DoTaskInputDto(duration: taskEntity.currentDoingTime ?? const Duration(seconds: 0));
   }
 }

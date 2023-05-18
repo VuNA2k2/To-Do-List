@@ -8,6 +8,8 @@ class ApiPath {
 
   static String refreshToken = "/auth/refresh";
 
+  static String doTask = "/tasks/do";
+
   static String searchTaskInProject(int projectId) => "$tasksSearch/$projectId";
 
   static String notesSearch = "/notes/search";

@@ -1,5 +1,6 @@
 import 'package:data/data.dart';
 import 'package:data/src/data_source/api/api_path.dart';
+import 'package:data/src/remote/dto/task/do_task_input_dto.dart';
 import 'package:data/src/remote/dto/task/search_task_input_dto.dart';
 import 'package:data/src/remote/dto/task/task_detail_output_dto.dart';
 import 'package:data/src/remote/dto/task/task_input_dto.dart';
@@ -97,6 +98,16 @@ class TaskRemote {
       queryParameters: {
         "id": taskId,
       },
+    );
+  }
+
+  Future<void> doTask({required int taskId,required DoTaskInputDto doTaskInputDto}) async {
+    await _apiService.put(
+      ApiPath.doTask,
+      queryParameters: {
+        "id": taskId,
+      },
+      data: doTaskInputDto.toJson(),
     );
   }
 }

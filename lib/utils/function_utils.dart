@@ -4,4 +4,8 @@ class FunctionUtils {
   static bool isSameDay(DateTime day1, DateTime day2) {
     return FormatUtils.dateFormat.format(day1) == FormatUtils.dateFormat.format(day2);
   }
+
+  static int getSecondFromDuration(Duration duration) {
+    return duration.inSeconds;
+  }
 }

@@ -29,3 +29,4 @@ export 'src/use_case/delete_note_use_case.dart';
 export 'src/repositories/storage_repository.dart';
 export 'src/use_case/upload_image_use_case.dart';
 export 'src/use_case/check_logged_use_case.dart';
+export 'src/use_case/do_task_use_case.dart';
