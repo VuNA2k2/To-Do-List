@@ -15,7 +15,6 @@ import 'package:todo_list/views/widgets/text_field_common.dart';
 import 'package:todo_list/views/widgets/text_field_label.dart';
 
 import '../../languages/language.dart';
-import '../widgets/elevated_button_common.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -52,6 +51,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 20),
               child: _formProfile(context),
             ),
+            ElevatedButton(onPressed: () async {
+              LogoutUseCase logoutUseCase = ConfigDI().injector.get();
+              await logoutUseCase.call();
+              AutoRouter.of(context).pushAndPopUntil(const LoginScreenRoute(), predicate: (route) => false);
+            }, child: Text(
+            "Logout"
+            )),
           ],
         ),
       ),

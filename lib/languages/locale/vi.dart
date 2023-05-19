@@ -151,5 +151,89 @@ class LanguageVi extends BaseLanguage {
   @override
   String get taskIsCompleted => "nhiệm vụ đã hoàn thành!";
 
+  @override
+  String get signUpScreenUsernameEmpty => "Tên người dùng không được để trống";
+
+  @override
+  String get errorDefaultMessage => "Đã xảy ra lỗi";
+
+  @override
+  String get signUpScreenPasswordEmpty => "Mật khẩu không được để trống";
+
+  @override
+  String get signUpScreenPasswordNotMatch => "Mật khẩu không khớp";
+
+  @override
+  String get cancel => "Hủy";
+
+  @override
+  String get ok => "Đồng ý";
+
+  @override
+  String get error => "Lỗi";
+
+  @override
+  String get fillProfileInvalidName => "Tên không hợp lệ";
+
+  @override
+  String get fillProfileInvalidEmail => "Email không hợp lệ";
+
+  @override
+  String get fillProfileInvalidPhone =>  "Số điện thoại không hợp lệ";
+
+  @override
+  String get askSourceImage => "Chọn ảnh từ";
+
+  @override
+  String get camera => "Máy ảnh";
+
+  @override
+  String get gallery => "Thư viện";
+
+  @override
+  String get noteNotFound => "Không tìm thấy ghi chú";
+
+  @override
+  String get projectDeadlineIsBeforeNow => "Thời hạn dự án phải sau thời gian hiện tại";
+
+  @override
+  String get projectDeadlineIsBeforeTaskDeadline => "Thời hạn dự án phải sau thời hạn nhiệm vụ";
+
+  @override
+  String get projectNotFound => "Không tìm thấy dự án";
+
+  @override
+  String get projectStatusIsDone => "Dự án đã hoàn thành";
+
+  @override
+  String get projectStatusIsTodo => "Dự án chưa hoàn thành";
+
+  @override
+  String get taskDeadlineIsBeforeNow => "Thời hạn nhiệm vụ phải sau thời gian hiện tại";
+
+  @override
+  String get taskNotFound => "Không tìm thấy nhiệm vụ";
+
+  @override
+  String get taskStatusIsDone => "Nhiệm vụ đã hoàn thành";
+
+  @override
+  String get unauthorized => "Không có quyền truy cập";
+
+  @override
+  String get userExisted => "Người dùng đã tồn tại";
+
+  @override
+  String get userNotFound => "Không tìm thấy người dùng";
+
+  @override
+  String get usernameExisted => "Tên người dùng đã tồn tại";
+
+  @override
+  String get systemError => "Lỗi hệ thống";
+
+  @override
+  String get usernameOrPasswordIncorrect => "Tên người dùng hoặc mật khẩu không chính xác";
+
 
 }

@@ -10,6 +10,8 @@ class ApiPath {
 
   static String doTask = "/tasks/do";
 
+  static String register = "/auth/register";
+
   static String searchTaskInProject(int projectId) => "$tasksSearch/$projectId";
 
   static String notesSearch = "/notes/search";

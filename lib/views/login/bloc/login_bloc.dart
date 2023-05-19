@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/di/config_di.dart';
+import 'package:todo_list/utils/exception.dart';
 
 part 'login_event.dart';
 
@@ -24,7 +25,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           await _loginUseCase.call(LoginEntity(event.username, event.password));
         emit(LoginSuccess());
     } catch (e) {
-      emit(LoginFailure(error: e.toString()));
+      final message = handleException(e);
+      emit(LoginFailure(error: message));
     }
   }
 }

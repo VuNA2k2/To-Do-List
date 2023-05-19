@@ -16,7 +16,7 @@ import 'package:flutter/material.dart' as _i20;
 
 import '../views/all_notes/all_notes_screen.dart' as _i7;
 import '../views/all_project/all_project_screen.dart' as _i16;
-import '../views/all_project/view_model/project_view_model.dart' as _i22;
+import '../views/all_project/view_model/project_view_model.dart' as _i23;
 import '../views/calendar/calendar_screen.dart' as _i17;
 import '../views/dashboard/dashboard_screen.dart' as _i15;
 import '../views/do_task/do_task_screen.dart' as _i8;
@@ -24,24 +24,25 @@ import '../views/fill_profile/fill_profile_screen.dart' as _i5;
 import '../views/home/home_screen.dart' as _i2;
 import '../views/login/login_screen.dart' as _i3;
 import '../views/note/create_note/create_note_screen.dart' as _i12;
-import '../views/note/create_note/view_model/note_mode.dart' as _i24;
+import '../views/note/create_note/view_model/note_mode.dart' as _i25;
 import '../views/note/note_detail/note_detail_screen.dart' as _i11;
 import '../views/note/note_detail/view_model/note_detail_view_model.dart'
-    as _i25;
+    as _i26;
 import '../views/profile/profile_screen.dart' as _i18;
 import '../views/project/create_project/create_project_screen.dart' as _i14;
-import '../views/project/create_project/view_model/project_mode.dart' as _i28;
+import '../views/project/create_project/view_model/project_mode.dart' as _i29;
 import '../views/project/project_detail/project_detail_screen.dart' as _i9;
 import '../views/sign_up/sign_up_screen.dart' as _i4;
+import '../views/sign_up/view_model/account_view_model.dart' as _i21;
 import '../views/splash_screen/splash_screen.dart' as _i1;
 import '../views/task/create_task/create_task_screen.dart' as _i13;
-import '../views/task/create_task/view_model/task_mode.dart' as _i26;
+import '../views/task/create_task/view_model/task_mode.dart' as _i27;
 import '../views/task/task_detail/task_detail_screen.dart' as _i10;
 import '../views/task/task_detail/view_model/task_detail_view_model.dart'
-    as _i27;
+    as _i28;
 import '../views/today_task/today_task_screen.dart' as _i6;
-import '../views/view_model/note/note_view_model.dart' as _i23;
-import '../views/view_model/task/task_view_model.dart' as _i21;
+import '../views/view_model/note/note_view_model.dart' as _i24;
+import '../views/view_model/task/task_view_model.dart' as _i22;
 
 class AppRouter extends _i19.RootStackRouter {
   AppRouter([_i20.GlobalKey<_i20.NavigatorState>? navigatorKey])
@@ -74,9 +75,13 @@ class AppRouter extends _i19.RootStackRouter {
       );
     },
     FillProfileScreenRoute.name: (routeData) {
+      final args = routeData.argsAs<FillProfileScreenRouteArgs>();
       return _i19.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i5.FillProfileScreen(),
+        child: _i5.FillProfileScreen(
+          key: args.key,
+          accountViewModel: args.accountViewModel,
+        ),
       );
     },
     TodayTaskScreenRoute.name: (routeData) {
@@ -324,14 +329,37 @@ class SignUpScreenRoute extends _i19.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.FillProfileScreen]
-class FillProfileScreenRoute extends _i19.PageRouteInfo<void> {
-  const FillProfileScreenRoute()
-      : super(
+class FillProfileScreenRoute
+    extends _i19.PageRouteInfo<FillProfileScreenRouteArgs> {
+  FillProfileScreenRoute({
+    _i20.Key? key,
+    required _i21.AccountViewModel accountViewModel,
+  }) : super(
           FillProfileScreenRoute.name,
           path: '/fill-profile-screen',
+          args: FillProfileScreenRouteArgs(
+            key: key,
+            accountViewModel: accountViewModel,
+          ),
         );
 
   static const String name = 'FillProfileScreenRoute';
+}
+
+class FillProfileScreenRouteArgs {
+  const FillProfileScreenRouteArgs({
+    this.key,
+    required this.accountViewModel,
+  });
+
+  final _i20.Key? key;
+
+  final _i21.AccountViewModel accountViewModel;
+
+  @override
+  String toString() {
+    return 'FillProfileScreenRouteArgs{key: $key, accountViewModel: $accountViewModel}';
+  }
 }
 
 /// generated route for
@@ -363,7 +391,7 @@ class AllNotesScreenRoute extends _i19.PageRouteInfo<void> {
 class DoTaskScreenRoute extends _i19.PageRouteInfo<DoTaskScreenRouteArgs> {
   DoTaskScreenRoute({
     _i20.Key? key,
-    required _i21.TaskViewModel taskViewModel,
+    required _i22.TaskViewModel taskViewModel,
   }) : super(
           DoTaskScreenRoute.name,
           path: '/do-task-screen',
@@ -384,7 +412,7 @@ class DoTaskScreenRouteArgs {
 
   final _i20.Key? key;
 
-  final _i21.TaskViewModel taskViewModel;
+  final _i22.TaskViewModel taskViewModel;
 
   @override
   String toString() {
@@ -398,7 +426,7 @@ class ProjectDetailScreenRoute
     extends _i19.PageRouteInfo<ProjectDetailScreenRouteArgs> {
   ProjectDetailScreenRoute({
     _i20.Key? key,
-    required _i22.ProjectViewModel projectViewModel,
+    required _i23.ProjectViewModel projectViewModel,
   }) : super(
           ProjectDetailScreenRoute.name,
           path: '/project-detail-screen',
@@ -419,7 +447,7 @@ class ProjectDetailScreenRouteArgs {
 
   final _i20.Key? key;
 
-  final _i22.ProjectViewModel projectViewModel;
+  final _i23.ProjectViewModel projectViewModel;
 
   @override
   String toString() {
@@ -433,7 +461,7 @@ class TaskDetailScreenRoute
     extends _i19.PageRouteInfo<TaskDetailScreenRouteArgs> {
   TaskDetailScreenRoute({
     _i20.Key? key,
-    required _i21.TaskViewModel taskViewModel,
+    required _i22.TaskViewModel taskViewModel,
   }) : super(
           TaskDetailScreenRoute.name,
           path: '/task-detail-screen',
@@ -454,7 +482,7 @@ class TaskDetailScreenRouteArgs {
 
   final _i20.Key? key;
 
-  final _i21.TaskViewModel taskViewModel;
+  final _i22.TaskViewModel taskViewModel;
 
   @override
   String toString() {
@@ -468,7 +496,7 @@ class NoteDetailScreenRoute
     extends _i19.PageRouteInfo<NoteDetailScreenRouteArgs> {
   NoteDetailScreenRoute({
     _i20.Key? key,
-    required _i23.NoteViewModel noteViewModel,
+    required _i24.NoteViewModel noteViewModel,
   }) : super(
           NoteDetailScreenRoute.name,
           path: '/note-detail-screen',
@@ -489,7 +517,7 @@ class NoteDetailScreenRouteArgs {
 
   final _i20.Key? key;
 
-  final _i23.NoteViewModel noteViewModel;
+  final _i24.NoteViewModel noteViewModel;
 
   @override
   String toString() {
@@ -503,8 +531,8 @@ class CreateNoteScreenRoute
     extends _i19.PageRouteInfo<CreateNoteScreenRouteArgs> {
   CreateNoteScreenRoute({
     _i20.Key? key,
-    required _i24.NoteMode noteMode,
-    _i25.NoteDetailViewModel? noteDetailViewModel,
+    required _i25.NoteMode noteMode,
+    _i26.NoteDetailViewModel? noteDetailViewModel,
   }) : super(
           CreateNoteScreenRoute.name,
           path: '/create-note-screen',
@@ -527,9 +555,9 @@ class CreateNoteScreenRouteArgs {
 
   final _i20.Key? key;
 
-  final _i24.NoteMode noteMode;
+  final _i25.NoteMode noteMode;
 
-  final _i25.NoteDetailViewModel? noteDetailViewModel;
+  final _i26.NoteDetailViewModel? noteDetailViewModel;
 
   @override
   String toString() {
@@ -543,8 +571,8 @@ class CreateTaskScreenRoute
     extends _i19.PageRouteInfo<CreateTaskScreenRouteArgs> {
   CreateTaskScreenRoute({
     _i20.Key? key,
-    required _i26.TaskMode taskMode,
-    _i27.TaskDetailViewModel? taskDetailViewModel,
+    required _i27.TaskMode taskMode,
+    _i28.TaskDetailViewModel? taskDetailViewModel,
   }) : super(
           CreateTaskScreenRoute.name,
           path: '/create-task-screen',
@@ -567,9 +595,9 @@ class CreateTaskScreenRouteArgs {
 
   final _i20.Key? key;
 
-  final _i26.TaskMode taskMode;
+  final _i27.TaskMode taskMode;
 
-  final _i27.TaskDetailViewModel? taskDetailViewModel;
+  final _i28.TaskDetailViewModel? taskDetailViewModel;
 
   @override
   String toString() {
@@ -583,8 +611,8 @@ class CreateProjectScreenRoute
     extends _i19.PageRouteInfo<CreateProjectScreenRouteArgs> {
   CreateProjectScreenRoute({
     _i20.Key? key,
-    required _i28.ProjectMode projectMode,
-    _i22.ProjectViewModel? projectViewModel,
+    required _i29.ProjectMode projectMode,
+    _i23.ProjectViewModel? projectViewModel,
   }) : super(
           CreateProjectScreenRoute.name,
           path: '/create-project-screen',
@@ -607,9 +635,9 @@ class CreateProjectScreenRouteArgs {
 
   final _i20.Key? key;
 
-  final _i28.ProjectMode projectMode;
+  final _i29.ProjectMode projectMode;
 
-  final _i22.ProjectViewModel? projectViewModel;
+  final _i23.ProjectViewModel? projectViewModel;
 
   @override
   String toString() {

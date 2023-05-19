@@ -3,6 +3,8 @@ import 'package:data/src/data_source/api/api_service.dart';
 import 'package:data/src/data_source/shared_data/storage_service.dart';
 import 'package:data/src/remote/dto/login/login_input_dto.dart';
 import 'package:data/src/remote/dto/login/login_output_dto.dart';
+import 'package:data/src/remote/dto/register/register_input_dto.dart';
+import 'package:data/src/remote/dto/register/register_output_dto.dart';
 import 'package:data/src/remote/response/response.dart';
 
 class AuthRemote {
@@ -31,6 +33,17 @@ class AuthRemote {
     return Response.fromJson(
       response.data,
       (json) => LoginOutputDto.fromJson(json),
+    );
+  }
+
+  Future<Response<RegisterOutputDto?>> createAccount(RegisterInputDto userEntity) async {
+    final res = await _apiService.post(
+      ApiPath.register,
+      data: userEntity.toJson(),
+    );
+    return Response.fromJson(
+      res.data,
+      (json) => RegisterOutputDto.fromJson(json),
     );
   }
 }

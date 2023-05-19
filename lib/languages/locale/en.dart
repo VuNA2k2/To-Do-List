@@ -151,5 +151,89 @@ class LanguageEn extends BaseLanguage {
   @override
   String get taskIsCompleted => "task is completed";
 
+  @override
+  String get signUpScreenUsernameEmpty => "Username is empty";
+
+  @override
+  String get errorDefaultMessage => "Something went wrong";
+
+  @override
+  String get signUpScreenPasswordEmpty => "Password is empty";
+
+  @override
+  String get signUpScreenPasswordNotMatch => "Password not match";
+
+  @override
+  String get cancel => "Cancel";
+
+  @override
+  String get ok => "Ok";
+
+  @override
+  String get error => "Error";
+
+  @override
+  String get fillProfileInvalidName => "Invalid name";
+
+  @override
+  String get fillProfileInvalidEmail => "Invalid email";
+
+  @override
+  String get fillProfileInvalidPhone => "Invalid phone";
+
+  @override
+  String get askSourceImage => "Select image from";
+
+  @override
+  String get camera => "Camera";
+
+  @override
+  String get gallery => "Gallery";
+
+  @override
+  String get noteNotFound => "Note not found";
+
+  @override
+  String get projectDeadlineIsBeforeNow => "Project deadline is before now";
+
+  @override
+  String get projectDeadlineIsBeforeTaskDeadline => "Project deadline is before task deadline";
+
+  @override
+  String get projectNotFound => "Project not found";
+
+  @override
+  String get projectStatusIsDone => "Project status is done";
+
+  @override
+  String get projectStatusIsTodo => "Project status is todo";
+
+  @override
+  String get taskDeadlineIsBeforeNow => "Task deadline is before now";
+
+  @override
+  String get taskNotFound => "Task not found";
+
+  @override
+  String get taskStatusIsDone => "Task status is done";
+
+  @override
+  String get unauthorized => "Unauthorized";
+
+  @override
+  String get userExisted => "User existed";
+
+  @override
+  String get userNotFound => "User not found";
+
+  @override
+  String get usernameExisted => "Username existed";
+
+  @override
+  String get systemError => "System error";
+
+  @override
+  String get usernameOrPasswordIncorrect => "Username or password incorrect";
+
 
 }

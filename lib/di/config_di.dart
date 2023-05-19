@@ -40,6 +40,8 @@ class ConfigDI {
     injector.registerLazySingleton<UploadImageUseCase>(() => UploadImageUseCase(injector.get()));
     injector.registerLazySingleton<CheckLoggedUseCase>(() => CheckLoggedUseCase(injector.get()));
     injector.registerLazySingleton<DoTaskUseCase>(() => DoTaskUseCase(injector.get()));
+    injector.registerLazySingleton<LogoutUseCase>(() => LogoutUseCase(injector.get()));
+    injector.registerLazySingleton<RegisterUseCase>(() => RegisterUseCase(injector.get()));
   }
   GetIt injector = GetIt.instance;
 

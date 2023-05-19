@@ -14,6 +14,7 @@ export 'src/remote/project_remote.dart';
 export 'src/repositories/project/project_repository_impl.dart';
 export 'src/cloud/firebase_storage_remote.dart';
 export 'src/repositories/storage/storage_repository_impl.dart';
+export 'src/data_source/api/rest_exception.dart';
 
 initDataLayer() {
   StorageService().init();
