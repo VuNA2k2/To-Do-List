@@ -8,7 +8,9 @@ import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/dialog_helper.dart';
 import 'package:todo_list/utils/format_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/fill_profile/view_model/profile_mode.dart';
 import 'package:todo_list/views/profile/bloc/profile_bloc.dart';
+import 'package:todo_list/views/sign_up/view_model/account_view_model.dart';
 import 'package:todo_list/views/widgets/avatar_common.dart';
 import 'package:todo_list/views/widgets/elevated_button_common.dart';
 
@@ -20,7 +22,9 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProfileBloc()..add(ProfileInitialEvent()),
+      create: (context) =>
+      ProfileBloc()
+        ..add(ProfileInitialEvent()),
       child: _body(context),
     );
   }
@@ -51,12 +55,24 @@ class ProfileScreen extends StatelessWidget {
                         horizontal: 12.0, vertical: 20),
                     child: _formProfile(context),
                   ),
+                  if(state is ProfileStableState)Padding(
+                    padding: const EdgeInsets.all(8.0), child:
+                  ElevatedButtonCommon(onPressed: () {
+                    context.router.push(FillProfileScreenRoute(
+                        accountViewModel: AccountViewModel(
+                            username: "", password: ""),
+                        profileMode: ProfileMode.edit,
+                        userInfoViewModel: state.userInfoViewModel)).then((value) {
+                      context.read<ProfileBloc>().add(ProfileInitialEvent());
+                    });
+
+                  }, child: Text(L.current.edit),),),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButtonCommon(
                         onPressed: () {
                           LogoutUseCase logoutUseCase =
-                              ConfigDI().injector.get();
+                          ConfigDI().injector.get();
                           logoutUseCase.call().then((value) {
                             AutoRouter.of(context).pushAndPopUntil(
                                 const LoginScreenRoute(),
@@ -84,7 +100,7 @@ class ProfileScreen extends StatelessWidget {
             child: AvatarCommon(
               avatar: state.userInfoViewModel.avatar != null
                   ? CachedNetworkImage(
-                      imageUrl: state.userInfoViewModel.avatar!)
+                  imageUrl: state.userInfoViewModel.avatar!)
                   : const Icon(Icons.person),
             ),
           ),

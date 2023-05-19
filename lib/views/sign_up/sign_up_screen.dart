@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/dialog_helper.dart';
+import 'package:todo_list/views/fill_profile/view_model/profile_mode.dart';
 import 'package:todo_list/views/sign_up/bloc/sign_up_bloc.dart';
 
 import '../../languages/language.dart';
@@ -93,7 +94,7 @@ class SignUpScreen extends StatelessWidget {
     return BlocConsumer<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if(state is SignUpValidState) {
-          context.router.replace(FillProfileScreenRoute(accountViewModel: state.accountViewModel));
+          context.router.replace(FillProfileScreenRoute(accountViewModel: state.accountViewModel, profileMode: ProfileMode.create,));
         } else if(state is SignUpInvalidState) {
           DialogHelper.showSimpleDialog(context, L.current.error, state.message ?? L.current.errorDefaultMessage);
         }

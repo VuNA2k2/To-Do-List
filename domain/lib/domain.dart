@@ -35,3 +35,4 @@ export 'src/use_case/do_task_use_case.dart';
 export 'src/use_case/logout_use_case.dart';
 export 'src/use_case/register_use_case.dart';
 export 'src/use_case/get_user_detail_use_case.dart';
+export 'src/use_case/update_profile_use_case.dart';

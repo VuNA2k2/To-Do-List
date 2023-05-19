@@ -147,8 +147,7 @@ class HomeScreen extends StatelessWidget {
                   const Icon(Icons.waving_hand_rounded),
                 ],
               ),
-              // TODO: implement icon
-              const Icon(Icons.notifications_active_outlined),
+
             ],
           ),
           if ([DashboardScreenRoute.name, CalendarScreenRoute.name]

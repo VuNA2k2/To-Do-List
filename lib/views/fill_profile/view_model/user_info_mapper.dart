@@ -5,6 +5,7 @@ class UserInfoMapper {
   static UserInfoViewModel getUserInfoViewModelFromUserEntity(
       UserEntity userEntity) {
     return UserInfoViewModel(
+      username: userEntity.username,
       name: userEntity.name,
       email: userEntity.email,
       avatar: userEntity.avatar,

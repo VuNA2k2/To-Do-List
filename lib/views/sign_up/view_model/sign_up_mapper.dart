@@ -17,4 +17,15 @@ class SignUpMapper {
       avatar: userInfoViewModel.avatar,
     );
   }
+
+  static UserEntity getUserEntityFromUserInfoViewModel(UserInfoViewModel userInfoViewModel) {
+    return UserEntity(
+      username: userInfoViewModel.username,
+      email: userInfoViewModel.email,
+      name: userInfoViewModel.name,
+      dateOfBirth: userInfoViewModel.dateOfBirth,
+      phoneNumber: userInfoViewModel.phoneNumber,
+      avatar: userInfoViewModel.avatar,
+    );
+  }
 }

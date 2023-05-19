@@ -45,6 +45,7 @@ class ConfigDI {
     injector.registerSingleton(UserRemote(injector.get()));
     injector.registerLazySingleton<UserRepository>(() => UserRepositoryImpl(injector.get()));
     injector.registerLazySingleton<GetUserDetailUseCase>(() => GetUserDetailUseCase(injector.get()));
+    injector.registerLazySingleton<UpdateProfileUseCase>(() => UpdateProfileUseCase(injector.get()));
   }
   GetIt injector = GetIt.instance;
 

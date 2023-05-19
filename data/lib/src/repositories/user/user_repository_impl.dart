@@ -16,4 +16,14 @@ class UserRepositoryImpl implements UserRepository {
     }
   }
 
+  @override
+  Future<UserEntity> updateUser(UserEntity userEntity) async {
+    final res = await _userRemote.updateUser(UserMapper.getUserInputDtoFromUserEntity(userEntity));
+    if(res.error.code == 'success') {
+      return UserMapper.getUserEntityFromUserDetailOutputDto(res.data!);
+    } else {
+      throw RestException(res.error.message);
+    }
+  }
+
 }

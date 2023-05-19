@@ -11,6 +11,8 @@ import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/dialog_helper.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/fill_profile/bloc/fill_profile_bloc.dart';
+import 'package:todo_list/views/fill_profile/view_model/profile_mode.dart';
+import 'package:todo_list/views/fill_profile/view_model/user_info_view_model.dart';
 import 'package:todo_list/views/sign_up/view_model/account_view_model.dart';
 import 'package:todo_list/views/widgets/avatar_common.dart';
 import 'package:todo_list/views/widgets/text_field_common.dart';
@@ -20,15 +22,16 @@ import '../../languages/language.dart';
 import '../widgets/elevated_button_common.dart';
 
 class FillProfileScreen extends StatelessWidget {
-  const FillProfileScreen({Key? key, required this.accountViewModel})
+  const FillProfileScreen({Key? key, required this.accountViewModel, required this.profileMode, this.userInfoViewModel})
       : super(key: key);
   final AccountViewModel accountViewModel;
-
+  final ProfileMode profileMode;
+  final UserInfoViewModel? userInfoViewModel;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => FillProfileBloc()
-        ..add(FillProfileInitialEvent(accountViewModel: accountViewModel)),
+        ..add(FillProfileInitialEvent(accountViewModel: accountViewModel, profileMode: profileMode, userInfoViewModel: userInfoViewModel)),
       child: Scaffold(
         body: _body(context),
       ),
@@ -72,9 +75,13 @@ class FillProfileScreen extends StatelessWidget {
         } else if(state is FillProfileErrorState) {
           DialogHelper.showSimpleDialog(context, L.current.error, state.message ?? L.current.errorDefaultMessage);
         } else if(state is FillProfileSuccessState) {
-          context.router.replace(
-            const LoginScreenRoute(),
-          );
+          if(profileMode == ProfileMode.create) {
+            context.router.replace(
+              const LoginScreenRoute(),
+            );
+          } else {
+            context.router.pop();
+          }
         }
       },
       builder: (context, state) {

@@ -14,6 +14,8 @@ class ApiPath {
 
   static String userDetail = "/users/detail";
 
+  static String users = "/users";
+
   static String searchTaskInProject(int projectId) => "$tasksSearch/$projectId";
 
   static String notesSearch = "/notes/search";
