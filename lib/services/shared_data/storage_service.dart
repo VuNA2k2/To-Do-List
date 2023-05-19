@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list/utils/extensions/enum_extensions.dart';
@@ -14,6 +15,11 @@ class StorageService {
 
   Future init() async {
     _prefs = await SharedPreferences.getInstance();
+    if (Platform.localeName == 'vi_VN') {
+      saveLocale = 'vi';
+    } else {
+      saveLocale = 'en';
+    }
   }
 
   set saveToken(String value) {

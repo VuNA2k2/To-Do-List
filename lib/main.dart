@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:data/data.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +12,6 @@ void main() async {
   await Firebase.initializeApp();
   initDataLayer();
   ConfigDI();
-  if(Platform.localeName == 'vi_VN') {
-    StorageService().saveLocale = 'vi';
-  } else {
-    StorageService().saveLocale = 'en';
-  }
   runApp(MyApp());
 }
 
