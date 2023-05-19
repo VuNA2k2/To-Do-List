@@ -238,5 +238,17 @@ class LanguageVi extends BaseLanguage {
   @override
   String get hello => "Xin chào";
 
+  @override
+  String get allTaskAndAllNoteInTheProjectWillBeDeleted => "Tất cả nhiệm vụ và ghi chú trong dự án sẽ bị xóa";
+
+  @override
+  String get doYouWantToDelete => "Bạn có muốn xóa?";
+
+  @override
+  String get projectEmpty => "Hiện tại chưa có dự án nào. Hãy tạo thêm dự án";
+
+  @override
+  String get logout => "Đăng xuất";
+
 
 }

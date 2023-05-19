@@ -118,9 +118,11 @@ class ProjectDetailScreen extends StatelessWidget {
                       )),
                   PopupMenuItem(
                     onTap: () {
-                      context.read<ProjectDetailBloc>().add(ProjectDetailDeleteProjectEvent(
-                          projectViewModel: state.projectViewModel));
-                      context.router.navigateBack();
+                      DialogHelper.showConfirmDialog(context, L.current.allTaskAndAllNoteInTheProjectWillBeDeleted, L.current.doYouWantToDelete, () {
+                        context.read<ProjectDetailBloc>().add(ProjectDetailDeleteProjectEvent(
+                            projectViewModel: state.projectViewModel));
+                        context.router.navigateBack();
+                      });
                     },
                     value: 1,
                     child: Text(

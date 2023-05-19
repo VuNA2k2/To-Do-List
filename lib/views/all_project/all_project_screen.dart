@@ -40,9 +40,11 @@ class AllProjectScreen extends StatelessWidget {
                 return ProjectItem(
                   projectViewModel: state.projectViewModels[index],
                   onDelete: (projectViewModel) {
-                    context.read<AllProjectBloc>().add(
-                        AllProjectDeleteProjectEvent(
-                            projectId: projectViewModel.id));
+                    DialogHelper.showConfirmDialog(context, L.current.allTaskAndAllNoteInTheProjectWillBeDeleted, L.current.doYouWantToDelete, () {
+                      context.read<AllProjectBloc>().add(
+                          AllProjectDeleteProjectEvent(
+                              projectId: projectViewModel.id));
+                    });
                   },
                   onEdit: (projectViewModel) {
                     context.router.navigate(CreateProjectScreenRoute(projectMode: ProjectMode.edit, projectViewModel: projectViewModel)).then((value) {

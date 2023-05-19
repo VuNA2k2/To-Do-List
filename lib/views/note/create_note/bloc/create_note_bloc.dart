@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/di/config_di.dart';
+import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/exception.dart';
 import 'package:todo_list/views/all_project/view_model/project_mapper.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
@@ -44,6 +45,10 @@ class CreateNoteBloc extends Bloc<CreateNoteEvent, CreateNoteState> {
       final List<ProjectViewModel> projectViewModels = projectRS.items
           .map(ProjectMapper.getProjectViewModelFromProjectEntity)
           .toList();
+      if(projectViewModels.isEmpty){
+        emit(CreateNoteErrorState(L.current.projectEmpty));
+        return;
+      }
       if (noteMode == NoteMode.create) {
         emit(CreateNoteStableState(
           projectViewModels: projectViewModels,

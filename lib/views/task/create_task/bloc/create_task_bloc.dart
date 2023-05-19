@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:todo_list/di/config_di.dart';
+import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/exception.dart';
 import 'package:todo_list/utils/format_utils.dart';
 import 'package:todo_list/views/all_project/view_model/project_mapper.dart';
@@ -68,9 +69,8 @@ class CreateTaskBloc extends Bloc<CreateTaskEvent, CreateTaskState> {
           .map(ProjectMapper.getProjectViewModelFromProjectEntity)
           .toList();
       if (listProjectViewModel.isEmpty) {
-        //TODO: handle empty project
-        // emit(CreateTaskEmpty());
-        // return;
+        emit(CreateTaskErrorState(L.current.projectEmpty));
+        return;
       }
       if (taskMode == TaskMode.edit && taskDetailViewModel != null) {
         emit(CreateTaskStableState(

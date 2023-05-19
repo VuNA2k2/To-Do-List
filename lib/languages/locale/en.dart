@@ -238,5 +238,17 @@ class LanguageEn extends BaseLanguage {
   @override
   String get hello => "Hello";
 
+  @override
+  String get allTaskAndAllNoteInTheProjectWillBeDeleted => "All task and all note in the project will be deleted";
+
+  @override
+  String get doYouWantToDelete => "Do you want to delete?";
+
+  @override
+  String get projectEmpty => "Project is empty";
+
+  @override
+  String get logout => "Logout";
+
 
 }

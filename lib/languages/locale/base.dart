@@ -156,4 +156,12 @@ abstract class BaseLanguage {
   String get usernameOrPasswordIncorrect;
 
   String get hello;
+
+  String get allTaskAndAllNoteInTheProjectWillBeDeleted;
+
+  String get doYouWantToDelete;
+
+  String get projectEmpty;
+
+  String get logout;
 }
