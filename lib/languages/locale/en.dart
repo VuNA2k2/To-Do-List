@@ -235,5 +235,8 @@ class LanguageEn extends BaseLanguage {
   @override
   String get usernameOrPasswordIncorrect => "Username or password incorrect";
 
+  @override
+  String get hello => "Hello";
+
 
 }

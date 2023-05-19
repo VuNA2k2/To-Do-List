@@ -1,4 +1,5 @@
 class UserEntity {
+  final int? id;
   final String username;
   final String? password;
   final String name;
@@ -8,6 +9,7 @@ class UserEntity {
   final String? phoneNumber;
 
   UserEntity({
+    this.id,
     required this.username,
     this.password,
     required this.name,

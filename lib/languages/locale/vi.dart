@@ -235,5 +235,8 @@ class LanguageVi extends BaseLanguage {
   @override
   String get usernameOrPasswordIncorrect => "Tên người dùng hoặc mật khẩu không chính xác";
 
+  @override
+  String get hello => "Xin chào";
+
 
 }

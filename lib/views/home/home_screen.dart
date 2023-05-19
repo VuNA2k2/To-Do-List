@@ -1,10 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
+import 'package:todo_list/utils/dialog_helper.dart';
 import 'package:todo_list/utils/format_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
+import 'package:todo_list/views/home/bloc/home_bloc.dart';
 import 'package:todo_list/views/note/create_note/view_model/note_mode.dart';
 import 'package:todo_list/views/project/create_project/view_model/project_mode.dart';
 import 'package:todo_list/views/task/create_task/view_model/task_mode.dart';
@@ -16,73 +19,78 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({
     Key? key,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: GestureDetector(
-        onTap: () {
-          FocusManager.instance.primaryFocus?.unfocus();
-        },
-        child: AutoTabsScaffold(
-          routes: const [
-            DashboardScreenRoute(),
-            AllProjectScreenRoute(),
-            CalendarScreenRoute(),
-            ProfileScreenRoute()
-          ],
-          appBarBuilder: (context, tabsRouter) => PreferredSize(
-            preferredSize: Size.fromHeight(_getHeightAppBar(tabsRouter)),
-            child: _appBar(context, tabsRouter),
-          ),
-          backgroundColor: ColorUtils.bgColor,
-          bottomNavigationBuilder: (_, tabsRouter) {
-            return BottomAppBar(
-              notchMargin: 10,
-              child: SizedBox(
-                height: 60,
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    _bottomNavigationItem(
-                        _, Icons.home, const DashboardScreenRoute()),
-                    _bottomNavigationItem(
-                        _, Icons.folder, const AllProjectScreenRoute()),
-                    _bottomNavigationItem(
-                        _, Icons.calendar_month, const CalendarScreenRoute()),
-                    _bottomNavigationItem(
-                        _, Icons.person, const ProfileScreenRoute()),
-
-                  ],
-                ),
-              ),
-            );
+    return BlocProvider(
+      create: (context) => HomeBloc()..add(HomeInitEvent()),
+      child: SafeArea(
+        child: GestureDetector(
+          onTap: () {
+            FocusManager.instance.primaryFocus?.unfocus();
           },
-          floatingActionButton: ExpandableFab(
-            child: const Icon(Icons.add),
-            backgroundColor: ColorUtils.primaryColor,
-            type: ExpandableFabType.up,
-            distance: 60,
-            closeButtonStyle: const ExpandableFabCloseButtonStyle(
-              backgroundColor: ColorUtils.primaryColor,
-            ),
-            children: [
-              _fabChild(context, L.current.createNoteLabel, () {
-                context.router.navigate(CreateNoteScreenRoute(noteMode: NoteMode.create));
-              }),
-              _fabChild(context, L.current.createTaskLabel, () {
-                context.router.navigate(
-                  CreateTaskScreenRoute(
-                    taskMode: TaskMode.create,
-                  ),
-                );
-              }),
-              _fabChild(context, L.current.createProjectLabel, () {
-                context.router.navigate(CreateProjectScreenRoute(projectMode: ProjectMode.create));
-              }),
+          child: AutoTabsScaffold(
+            routes: const [
+              DashboardScreenRoute(),
+              AllProjectScreenRoute(),
+              CalendarScreenRoute(),
+              ProfileScreenRoute()
             ],
+            appBarBuilder: (context, tabsRouter) => PreferredSize(
+              preferredSize: Size.fromHeight(_getHeightAppBar(tabsRouter)),
+              child: _appBar(context, tabsRouter),
+            ),
+            backgroundColor: ColorUtils.bgColor,
+            bottomNavigationBuilder: (_, tabsRouter) {
+              return BottomAppBar(
+                notchMargin: 10,
+                child: SizedBox(
+                  height: 60,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      _bottomNavigationItem(
+                          _, Icons.home, const DashboardScreenRoute()),
+                      _bottomNavigationItem(
+                          _, Icons.folder, const AllProjectScreenRoute()),
+                      _bottomNavigationItem(
+                          _, Icons.calendar_month, const CalendarScreenRoute()),
+                      _bottomNavigationItem(
+                          _, Icons.person, const ProfileScreenRoute()),
+                    ],
+                  ),
+                ),
+              );
+            },
+            floatingActionButton: ExpandableFab(
+              child: const Icon(Icons.add),
+              backgroundColor: ColorUtils.primaryColor,
+              type: ExpandableFabType.up,
+              distance: 60,
+              closeButtonStyle: const ExpandableFabCloseButtonStyle(
+                backgroundColor: ColorUtils.primaryColor,
+              ),
+              children: [
+                _fabChild(context, L.current.createNoteLabel, () {
+                  context.router.navigate(
+                      CreateNoteScreenRoute(noteMode: NoteMode.create));
+                }),
+                _fabChild(context, L.current.createTaskLabel, () {
+                  context.router.navigate(
+                    CreateTaskScreenRoute(
+                      taskMode: TaskMode.create,
+                    ),
+                  );
+                }),
+                _fabChild(context, L.current.createProjectLabel, () {
+                  context.router.navigate(CreateProjectScreenRoute(
+                      projectMode: ProjectMode.create));
+                }),
+              ],
+            ),
+            floatingActionButtonLocation: ExpandableFab.location,
           ),
-          floatingActionButtonLocation: ExpandableFab.location,
         ),
       ),
     );
@@ -118,9 +126,21 @@ class HomeScreen extends StatelessWidget {
                   const Icon(Icons.person_2_outlined),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      "Morning, VuNA",
-                      style: TextStyleUtils.textStyleOpenSans20W400,
+                    child: BlocConsumer<HomeBloc, HomeState>(
+                      listener: (context, state) {
+                        if (state is HomeErrorState) {
+                          DialogHelper.showSimpleDialog(
+                              context,
+                              L.current.error,
+                              state.message ?? L.current.errorDefaultMessage);
+                        }
+                      },
+                      builder: (context, state) {
+                        return Text(
+                          "${L.current.hello}, ${state is HomeStableState ? state.username : L.current.loading}",
+                          style: TextStyleUtils.textStyleOpenSans20W400,
+                        );
+                      },
                     ),
                   ),
                   // TODO: implement icon

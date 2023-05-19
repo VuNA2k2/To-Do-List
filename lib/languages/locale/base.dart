@@ -154,4 +154,6 @@ abstract class BaseLanguage {
   String get systemError;
 
   String get usernameOrPasswordIncorrect;
+
+  String get hello;
 }
