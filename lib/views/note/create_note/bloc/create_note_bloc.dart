@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/di/config_di.dart';
+import 'package:todo_list/utils/exception.dart';
 import 'package:todo_list/views/all_project/view_model/project_mapper.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 import 'package:todo_list/views/note/create_note/view_model/create_note_mapper.dart';
@@ -71,42 +71,51 @@ class CreateNoteBloc extends Bloc<CreateNoteEvent, CreateNoteState> {
           ));
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      final message = handleException(e);
+      emit(CreateNoteErrorState(message));
+    }
   }
 
   FutureOr<void> _saveNote(
       CreateNoteSaveEvent event, Emitter<CreateNoteState> emit) async {
     if (state is CreateNoteStableState) {
-      if(titleController.text.isEmpty) {
+      if (titleController.text.isEmpty) {
         return;
       }
-      CreateNoteViewModel createNoteViewModel = (state as CreateNoteStableState).noteDetailViewModel;
+      CreateNoteViewModel createNoteViewModel =
+          (state as CreateNoteStableState).noteDetailViewModel;
       createNoteViewModel.title = titleController.text;
       createNoteViewModel.subtitle = subtitleController.text;
       createNoteViewModel.description = descriptionController.text;
       try {
-        if(noteMode == NoteMode.create) {
+        if (noteMode == NoteMode.create) {
           final noteEntity = await _createNoteUseCase.call(
             CreateNoteMapper.getNoteEntityFromCreateNoteViewModel(
               createNoteViewModel,
             ),
           );
-          if(noteEntity != null) {
+          if (noteEntity != null) {
             noteMode = NoteMode.edit;
-            noteDetailViewModel = NoteDetailMapper.getNoteDetailViewModelFromNoteEntity(noteEntity);
+            noteDetailViewModel =
+                NoteDetailMapper.getNoteDetailViewModelFromNoteEntity(
+                    noteEntity);
           }
-        } else if(noteDetailViewModel != null) {
+        } else if (noteDetailViewModel != null) {
           final noteEntity = await _createNoteUseCase.call(
             CreateNoteMapper.getNoteEntityFromCreateNoteViewModel(
               createNoteViewModel,
             ),
           );
-          if(noteEntity != null) {
-            noteDetailViewModel = NoteDetailMapper.getNoteDetailViewModelFromNoteEntity(noteEntity);
+          if (noteEntity != null) {
+            noteDetailViewModel =
+                NoteDetailMapper.getNoteDetailViewModelFromNoteEntity(
+                    noteEntity);
           }
         }
-      } catch(e) {
-        log("Error: $e");
+      } catch (e) {
+        final message = handleException(e);
+        emit(CreateNoteErrorState(message));
       }
     }
   }

@@ -7,6 +7,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
+import 'package:todo_list/utils/dialog_helper.dart';
 import 'package:todo_list/utils/format_utils.dart';
 import 'package:todo_list/utils/icon_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
@@ -26,7 +27,12 @@ class TaskDetailScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => TaskDetailBloc()
         ..add(TaskDetailInitialEvent(taskViewModel: taskViewModel)),
-      child: BlocBuilder<TaskDetailBloc, TaskDetailState>(
+      child: BlocConsumer<TaskDetailBloc, TaskDetailState>(
+        listener: (context, state) {
+          if (state is TaskDetailErrorState) {
+            DialogHelper.showSimpleDialog(context, L.current.error, state.message);
+          }
+        },
         builder: (context, state) {
           return Scaffold(
             appBar: _appBar(context),

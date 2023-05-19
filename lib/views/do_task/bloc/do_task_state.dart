@@ -22,3 +22,11 @@ class DoTaskPauseState extends DoTaskStableState {
 class DoTaskPlayingState extends DoTaskStableState {
   DoTaskPlayingState({required super.taskDetailViewModel, required super.session, required super.timeOfSession});
 }
+
+class DoTaskErrorState extends DoTaskState {
+  final String message;
+
+  DoTaskErrorState(
+    this.message,
+  );
+}

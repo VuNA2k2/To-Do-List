@@ -6,6 +6,10 @@ class CreateNoteUseCase {
   CreateNoteUseCase(this._noteRepository);
 
   Future<NoteEntity?> call(NoteEntity noteEntity) async {
-    return await _noteRepository.createNote(noteEntity: noteEntity);
+    try {
+      return await _noteRepository.createNote(noteEntity: noteEntity);
+    } catch(e) {
+      rethrow;
+    }
   }
 }

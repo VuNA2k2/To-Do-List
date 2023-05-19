@@ -10,10 +10,14 @@ class GetTaskInProjectUseCase {
     PageRQEntity? pageRQEntity,
     SearchTask? searchTask,
   }) async {
-    return await _taskRepository.getTasksByProjectId(
-      projectId: projectId,
-      pageRQEntity: pageRQEntity,
-      searchTask: searchTask,
-    );
+    try {
+      return await _taskRepository.getTasksByProjectId(
+        projectId: projectId,
+        pageRQEntity: pageRQEntity,
+        searchTask: searchTask,
+      );
+    } catch (e) {
+      rethrow;
+    }
   }
 }

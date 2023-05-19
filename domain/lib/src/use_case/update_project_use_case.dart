@@ -8,6 +8,12 @@ class UpdateProjectUseCase {
 
   UpdateProjectUseCase(this._projectRepository);
 
-  Future<ProjectEntity?> call(int projectId, ProjectEntity projectEntity) => _projectRepository.updateProject(projectId: projectId, projectEntity: projectEntity);
+  Future<ProjectEntity?> call(int projectId, ProjectEntity projectEntity) {
+    try {
+      return _projectRepository.updateProject(projectId: projectId, projectEntity: projectEntity);
+    } catch (e) {
+      rethrow;
+    }
+  }
 
 }

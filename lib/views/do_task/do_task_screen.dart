@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
+import 'package:todo_list/utils/dialog_helper.dart';
 import 'package:todo_list/utils/icon_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/do_task/bloc/do_task_bloc.dart';
@@ -21,7 +23,14 @@ class DoTaskScreen extends StatelessWidget {
       DoTaskBloc()
         ..add(DoTaskInitialEvent(taskId: taskViewModel.id!)),
       child: Scaffold(
-        body: _body(context),
+        body: BlocListener<DoTaskBloc, DoTaskState>(
+  listener: (context, state){
+    if (state is DoTaskErrorState) {
+      DialogHelper.showSimpleDialog(context, L.current.error, state.message);
+    }
+  },
+  child: _body(context),
+),
       ),
     );
   }

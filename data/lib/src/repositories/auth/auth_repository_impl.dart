@@ -41,6 +41,8 @@ class AuthRepositoryImpl implements AuthRepository {
     if (response.error.code == "success") {
       StorageService().saveToken = response.data?.accessToken ?? "";
       StorageService().saveRefreshToken = response.data?.refreshToken ?? "";
+    } else {
+      throw RestException(response.error.message);
     }
   }
 

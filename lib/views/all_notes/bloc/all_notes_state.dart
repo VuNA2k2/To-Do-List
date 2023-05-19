@@ -16,3 +16,9 @@ class AllNotesStableState extends AllNotesState {
 class AllNotesLoadMoreState extends AllNotesStableState {
   AllNotesLoadMoreState({required super.noteViewModels});
 }
+
+class AllNotesErrorState extends AllNotesState {
+  final String? message;
+
+  AllNotesErrorState({ this.message});
+}

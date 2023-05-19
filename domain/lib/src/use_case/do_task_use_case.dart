@@ -8,6 +8,10 @@ class DoTaskUseCase {
   DoTaskUseCase(this._taskRepository);
 
   Future<void> call(int taskId, TaskEntity taskEntity) async {
-    await _taskRepository.doTask(taskId:  taskId,taskEntity: taskEntity);
+    try {
+      await _taskRepository.doTask(taskId:  taskId,taskEntity: taskEntity);
+    } catch(e) {
+      rethrow;
+    }
   }
 }

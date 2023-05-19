@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/di/config_di.dart';
+import 'package:todo_list/utils/exception.dart';
 import 'package:todo_list/views/view_model/note/note_mapper.dart';
 import 'package:todo_list/views/view_model/note/note_view_model.dart';
 
@@ -32,24 +33,30 @@ class AllNotesBloc extends Bloc<AllNotesEvent, AllNotesState> {
     page = 0;
     hasLoad = true;
     emit(AllNotesLoadingState());
-    final PageRS<NoteEntity> noteEntities = await _getNoteUseCase.call(
-      pageRQEntity: PageRQEntity(
-        page: page,
-        size: _limit,
-      ),
-    );
-    final List<NoteViewModel> noteViewModels = noteEntities.items
-        .map(NoteMapper.getNoteViewModelFromNoteEntity)
-        .toList();
-    page++;
-    hasLoad = noteEntities.items.length == _limit;
+    try {
+      final PageRS<NoteEntity> noteEntities = await _getNoteUseCase.call(
+        pageRQEntity: PageRQEntity(
+          page: page,
+          size: _limit,
+        ),
+      );
+      final List<NoteViewModel> noteViewModels = noteEntities.items
+          .map(NoteMapper.getNoteViewModelFromNoteEntity)
+          .toList();
+      page++;
+      hasLoad = noteEntities.items.length == _limit;
+      emit(AllNotesStableState(noteViewModels: noteViewModels));
+    } catch (e) {
+      final message = handleException(e);
+      emit(AllNotesErrorState(message: message));
+      emit(AllNotesInitialState());
+    }
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
         add(AllNotesLoadMoreEvent());
       }
     });
-    emit(AllNotesStableState(noteViewModels: noteViewModels));
   }
 
   FutureOr<void> _loadMore(

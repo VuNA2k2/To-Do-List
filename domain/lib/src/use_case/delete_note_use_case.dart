@@ -6,6 +6,10 @@ class DeleteNoteUseCase {
   DeleteNoteUseCase(this._noteRepository);
 
   Future<void> call(int noteId) async {
-    return await _noteRepository.deleteNote(noteId: noteId);
+    try {
+      return await _noteRepository.deleteNote(noteId: noteId);
+    } catch(e) {
+      rethrow;
+    }
   }
 }

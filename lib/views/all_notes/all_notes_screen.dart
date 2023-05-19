@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
+import 'package:todo_list/utils/dialog_helper.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/all_notes/bloc/all_notes_bloc.dart';
 import 'package:todo_list/views/widgets/note_item.dart';
@@ -18,32 +19,39 @@ class AllNotesScreen extends StatelessWidget {
       create: (context) =>
       AllNotesBloc()
         ..add(AllNotesInitialEvent()),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            L.current.allNote,
-            style: TextStyleUtils.textStyleOpenSans22W400Black,
+      child: BlocListener<AllNotesBloc, AllNotesState>(
+        listener: (context, state) {
+          if(state is AllNotesErrorState) {
+            DialogHelper.showSimpleDialog(context, L.current.error, state.message ?? L.current.errorDefaultMessage);
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              L.current.allNote,
+              style: TextStyleUtils.textStyleOpenSans22W400Black,
+            ),
+            backgroundColor: ColorUtils.bgColor,
+            elevation: 0,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_rounded,
+                color: ColorUtils.black,
+              ),
+              onPressed: () {
+                context.router.pop();
+              },
+            ),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.add, color: ColorUtils.black,),
+              ),
+            ],
           ),
+          body: _body(context),
           backgroundColor: ColorUtils.bgColor,
-          elevation: 0,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_rounded,
-              color: ColorUtils.black,
-            ),
-            onPressed: () {
-              context.router.pop();
-            },
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.add, color: ColorUtils.black,),
-            ),
-          ],
         ),
-        body: _body(context),
-        backgroundColor: ColorUtils.bgColor,
       ),
     );
   }
@@ -62,16 +70,19 @@ class AllNotesScreen extends StatelessWidget {
             ),
             BlocBuilder<AllNotesBloc, AllNotesState>(
               builder: (context, state) {
-                if(state is AllNotesStableState) {
+                if (state is AllNotesStableState) {
                   return Expanded(
                     child: MasonryGridView.count(
-                      controller: context.read<AllNotesBloc>().scrollController,
+                      controller: context
+                          .read<AllNotesBloc>()
+                          .scrollController,
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       crossAxisCount: 2,
                       mainAxisSpacing: 8,
                       crossAxisSpacing: 8,
                       itemBuilder: (context, index) {
-                        return NoteItem(noteViewModel: state.noteViewModels[index],);
+                        return NoteItem(noteViewModel: state
+                            .noteViewModels[index],);
                       },
                       itemCount: state.noteViewModels.length,
                     ),

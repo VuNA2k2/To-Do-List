@@ -92,22 +92,30 @@ class TaskRemote {
     );
   }
 
-  Future<void> deleteTask(int taskId) async {
-    await _apiService.delete(
+  Future<Response> deleteTask(int taskId) async {
+    final res = await _apiService.delete(
       ApiPath.tasks,
       queryParameters: {
         "id": taskId,
       },
     );
+    return Response.fromJson(
+      res.data,
+      (json) => json,
+    );
   }
 
-  Future<void> doTask({required int taskId,required DoTaskInputDto doTaskInputDto}) async {
-    await _apiService.put(
+  Future<Response> doTask({required int taskId,required DoTaskInputDto doTaskInputDto}) async {
+    final res = await _apiService.put(
       ApiPath.doTask,
       queryParameters: {
         "id": taskId,
       },
       data: doTaskInputDto.toJson(),
+    );
+    return Response.fromJson(
+      res.data,
+      (json) => json,
     );
   }
 }

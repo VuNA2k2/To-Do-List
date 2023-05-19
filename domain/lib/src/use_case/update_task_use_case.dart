@@ -7,6 +7,10 @@ class UpdateTaskUseCase {
   UpdateTaskUseCase(this._taskRepository);
 
   Future<void> call(int id, TaskEntity taskEntity) async {
-    await _taskRepository.updateTask(id: id, taskEntity: taskEntity);
+    try {
+      await _taskRepository.updateTask(id: id, taskEntity: taskEntity);
+    } catch (e) {
+      rethrow;
+    }
   }
 }

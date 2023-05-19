@@ -5,6 +5,10 @@ class CheckLoggedUseCase {
   CheckLoggedUseCase(this._authRepository);
 
   bool call() {
-    return _authRepository.isLoggedIn();
+    try {
+      return _authRepository.isLoggedIn();
+    } catch (e) {
+      rethrow;
+    }
   }
 }

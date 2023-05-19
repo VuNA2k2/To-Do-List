@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:meta/meta.dart';
 import 'package:todo_list/di/config_di.dart';
+import 'package:todo_list/utils/exception.dart';
 import 'package:todo_list/views/task/task_detail/view_model/task_detail_mapper.dart';
 import 'package:todo_list/views/task/task_detail/view_model/task_detail_view_model.dart';
 
@@ -44,7 +45,10 @@ class DoTaskBloc extends Bloc<DoTaskEvent, DoTaskState> {
             session: session,
             timeOfSession: 25));
       } else {}
-    } catch (e) {}
+    } catch (e) {
+      final String message = handleException(e);
+      emit(DoTaskErrorState(message));
+    }
   }
 
   FutureOr<void> _startTask(DoTaskStartEvent event, Emitter<DoTaskState> emit) {
@@ -69,7 +73,10 @@ class DoTaskBloc extends Bloc<DoTaskEvent, DoTaskState> {
             stableState.taskDetailViewModel.id,
             TaskDetailMapper.getTaskEntityFromTaskDetailMapper(
                 stableState.taskDetailViewModel));
-      } catch (e) {}
+      } catch (e) {
+        final String message = handleException(e);
+        emit(DoTaskErrorState(message));
+      }
     }
   }
 

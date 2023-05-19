@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
+import 'package:todo_list/utils/dialog_helper.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 import 'package:todo_list/views/project/create_project/view_model/project_mode.dart';
@@ -39,7 +40,12 @@ class ProjectDetailScreen extends StatelessWidget {
         children: [
           _projectProgress(context),
           SearchBarCommon(),
-          BlocBuilder<ProjectDetailBloc, ProjectDetailState>(
+          BlocConsumer<ProjectDetailBloc, ProjectDetailState>(
+            listener: (context, state) {
+              if (state is ProjectDetailErrorState) {
+                DialogHelper.showSimpleDialog(context, L.current.error, state.message);
+              }
+            },
             builder: (context, state) {
               log('list rebuild');
               if (state is ProjectDetailStableState) {

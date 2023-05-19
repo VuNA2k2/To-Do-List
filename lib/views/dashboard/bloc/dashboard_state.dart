@@ -21,3 +21,11 @@ class DashboardStableState extends DashboardState {
     required this.countNote,
   });
 }
+
+class DashboardErrorState extends DashboardState {
+  final String message;
+
+  DashboardErrorState({
+    required this.message,
+  });
+}

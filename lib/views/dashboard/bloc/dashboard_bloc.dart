@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:meta/meta.dart';
 import 'package:todo_list/di/config_di.dart';
+import 'package:todo_list/utils/exception.dart';
 import 'package:todo_list/views/view_model/note/note_mapper.dart';
 import 'package:todo_list/views/view_model/note/note_view_model.dart';
 import 'package:todo_list/views/view_model/task/task_mapper.dart';
@@ -26,42 +27,47 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   FutureOr<void> _initData(
       DashboardInitialEvent event, Emitter<DashboardState> emit) async {
     emit(DashboardLoadingState());
-    final PageRS<TaskEntity> taskEntities = await _getTaskUseCase.call(
-      pageRQEntity: PageRQEntity(
-        page: 0,
-        size: 5,
-      ),
-      searchTask: SearchTask(
-        deadline: DateTime.now(),
-      ),
-    );
-    final PageRS<TaskEntity> taskDoneEntities = await _getTaskUseCase.call(
-      pageRQEntity: PageRQEntity(
-        page: 0,
-        size: 0,
-      ),
-      searchTask: SearchTask(
-        deadline: DateTime.now(),
-        status: Status.DONE,
-      ),
-    );
-    final PageRS<NoteEntity> noteEntities = await _getNoteUseCase.call(
-      pageRQEntity: PageRQEntity(
-        page: 0,
-        size: 5,
-      ),
-    );
-    final List<NoteViewModel> noteViewModels = noteEntities.items
-        .map(NoteMapper.getNoteViewModelFromNoteEntity)
-        .toList();
-    final List<TaskViewModel> taskViewModels = taskEntities.items
-        .map(TaskMapper.getTaskViewModelFromTaskEntity)
-        .toList();
-    emit(DashboardStableState(
-        taskViewModels: taskViewModels,
-        countTask: taskEntities.total,
-        countDoneTask: taskDoneEntities.total,
-        noteViewModels: noteViewModels,
-        countNote: noteEntities.total));
+    try {
+      final PageRS<TaskEntity> taskEntities = await _getTaskUseCase.call(
+        pageRQEntity: PageRQEntity(
+          page: 0,
+          size: 5,
+        ),
+        searchTask: SearchTask(
+          deadline: DateTime.now(),
+        ),
+      );
+      final PageRS<TaskEntity> taskDoneEntities = await _getTaskUseCase.call(
+        pageRQEntity: PageRQEntity(
+          page: 0,
+          size: 0,
+        ),
+        searchTask: SearchTask(
+          deadline: DateTime.now(),
+          status: Status.DONE,
+        ),
+      );
+      final PageRS<NoteEntity> noteEntities = await _getNoteUseCase.call(
+        pageRQEntity: PageRQEntity(
+          page: 0,
+          size: 5,
+        ),
+      );
+      final List<NoteViewModel> noteViewModels = noteEntities.items
+          .map(NoteMapper.getNoteViewModelFromNoteEntity)
+          .toList();
+      final List<TaskViewModel> taskViewModels = taskEntities.items
+          .map(TaskMapper.getTaskViewModelFromTaskEntity)
+          .toList();
+      emit(DashboardStableState(
+          taskViewModels: taskViewModels,
+          countTask: taskEntities.total,
+          countDoneTask: taskDoneEntities.total,
+          noteViewModels: noteViewModels,
+          countNote: noteEntities.total));
+    } catch (e) {
+      final String message = handleException(e);
+      emit(DashboardErrorState(message: message));
+    }
   }
 }

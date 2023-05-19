@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
+import 'package:todo_list/utils/dialog_helper.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/note/create_note/view_model/note_mode.dart';
 import 'package:todo_list/views/note/note_detail/bloc/note_detail_bloc.dart';
@@ -39,7 +40,12 @@ class NoteDetailScreen extends StatelessWidget {
           color: ColorUtils.black,
         ),
       ),
-      title: BlocBuilder<NoteDetailBloc, NoteDetailState>(
+      title: BlocConsumer<NoteDetailBloc, NoteDetailState>(
+        listener: (context, state) {
+          if (state is NoteDetailErrorState) {
+            DialogHelper.showSimpleDialog(context, L.current.error, state.message);
+          }
+        },
         builder: (context, state) {
           if (state is NoteDetailStableState) {
             return Text(

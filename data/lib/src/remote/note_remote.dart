@@ -73,12 +73,16 @@ class NoteRemote {
     );
   }
 
-  Future<void> deleteNote({required int noteId}) {
-    return _apiService.delete(
+  Future<Response> deleteNote({required int noteId}) async {
+    final res = await  _apiService.delete(
       ApiPath.notes,
       queryParameters: {
         "id": noteId,
       },
+    );
+return Response.fromJson(
+      res.data,
+      (json) => json,
     );
   }
 }

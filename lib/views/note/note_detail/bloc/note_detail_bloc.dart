@@ -37,7 +37,8 @@ class NoteDetailBloc extends Bloc<NoteDetailEvent, NoteDetailState> {
                     noteDetailEntity)));
       }
     } catch (e) {
-      handleException(e);
+      final message = handleException(e);
+      emit(NoteDetailErrorState(message));
     }
   }
 

@@ -7,6 +7,10 @@ class GetTaskDetailUseCase {
   GetTaskDetailUseCase(this._taskRepository);
 
   Future<TaskEntity?> call({required int taskId}) async {
-    return await _taskRepository.getTaskDetail(taskId: taskId);
+    try {
+      return await _taskRepository.getTaskDetail(taskId: taskId);
+    } catch(e) {
+      rethrow;
+    }
   }
 }

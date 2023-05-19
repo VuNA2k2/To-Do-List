@@ -19,3 +19,13 @@ class CalendarStableState extends CalendarState {
     required this.taskViewModels,
   });
 }
+
+class CalendarErrorState extends CalendarState {
+  final String message;
+
+  CalendarErrorState({
+    required this.message,
+  });
+}
+
+

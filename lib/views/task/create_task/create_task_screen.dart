@@ -6,6 +6,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
+import 'package:todo_list/utils/dialog_helper.dart';
 import 'package:todo_list/utils/icon_utils.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
@@ -50,7 +51,12 @@ class CreateTaskScreen extends StatelessWidget {
       backgroundColor: ColorUtils.bgColor,
       elevation: 0,
       actions: [
-        BlocBuilder<CreateTaskBloc, CreateTaskState>(
+        BlocConsumer<CreateTaskBloc, CreateTaskState>(
+          listener: (context, state) {
+            if(state is CreateTaskErrorState) {
+              DialogHelper.showSimpleDialog(context, L.current.error, state.message);
+            }
+          },
           builder: (context, state) {
             return IconButton(
                 onPressed: () {

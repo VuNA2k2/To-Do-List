@@ -1,19 +1,18 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/di/config_di.dart';
+import 'package:todo_list/utils/exception.dart';
 import 'package:todo_list/utils/format_utils.dart';
 import 'package:todo_list/views/all_project/view_model/project_mapper.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
-import 'package:todo_list/views/project/create_project/view_model/project_mode.dart';
 import 'package:todo_list/views/project/create_project/view_model/create_project_mapper.dart';
 import 'package:todo_list/views/project/create_project/view_model/create_project_view_model.dart';
+import 'package:todo_list/views/project/create_project/view_model/project_mode.dart';
 
 part 'create_project_event.dart';
-
 part 'create_project_state.dart';
 
 class CreateProjectBloc extends Bloc<CreateProjectEvent, CreateProjectState> {
@@ -105,7 +104,8 @@ class CreateProjectBloc extends Bloc<CreateProjectEvent, CreateProjectState> {
         }
       }
       } catch (e) {
-        log("CreateProjectBloc _saveProject error: $e");
+        final message = handleException(e);
+        emit(CreateProjectErrorState(message));
       }
     }
   }

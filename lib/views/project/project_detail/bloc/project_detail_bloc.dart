@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:todo_list/di/config_di.dart';
+import 'package:todo_list/utils/exception.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 import 'package:todo_list/views/view_model/task/task_mapper.dart';
 import 'package:todo_list/views/view_model/task/task_view_model.dart';
@@ -52,7 +53,7 @@ class ProjectDetailBloc extends Bloc<ProjectDetailEvent, ProjectDetailState> {
       taskViewModels: [],
     ));
     final List<TaskViewModel> taskViewModels = [];
-    // try {
+    try {
     final PageRS<TaskEntity> pageRS = await _getTaskInProjectUseCase.call(
       pageRQEntity: PageRQEntity(size: _limit, page: _page),
       projectId: event.projectViewModel.id,
@@ -65,9 +66,10 @@ class ProjectDetailBloc extends Bloc<ProjectDetailEvent, ProjectDetailState> {
       projectViewModel: event.projectViewModel,
       taskViewModels: taskViewModels,
     ));
-    // } catch (e) {
-    //   log("$e");
-    // }
+    } catch (e) {
+      final message = handleException(e);
+      emit(ProjectDetailErrorState(message));
+    }
   }
 
   FutureOr<void> _loadMore(ProjectDetailLoadMoreEvent event,
@@ -95,7 +97,10 @@ class ProjectDetailBloc extends Bloc<ProjectDetailEvent, ProjectDetailState> {
             (state as ProjectDetailLoadMoreState).projectViewModel,
         taskViewModels: taskViewModels,
       ));
-    } catch (e) {}
+    } catch (e) {
+      final message = handleException(e);
+      emit(ProjectDetailErrorState(message));
+    }
   }
 
   FutureOr<void> _deleteProject(
@@ -103,7 +108,10 @@ class ProjectDetailBloc extends Bloc<ProjectDetailEvent, ProjectDetailState> {
     emit(ProjectDetailLoadingState());
     try {
       _deleteProjectUseCase.call(event.projectViewModel.id);
-    } catch (e) {}
+    } catch (e) {
+      final message = handleException(e);
+      emit(ProjectDetailErrorState(message));
+    }
   }
 
   FutureOr<void> _updateProject(ProjectDetailUpdateProjectEvent event, Emitter<ProjectDetailState> emit) {

@@ -18,3 +18,11 @@ class CreateTaskStableState extends CreateTaskState {
     required this.createTaskViewModel,
   });
 }
+
+class CreateTaskErrorState extends CreateTaskState {
+  final String message;
+
+  CreateTaskErrorState(
+    this.message,
+  );
+}

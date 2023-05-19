@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
+import 'package:todo_list/utils/dialog_helper.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/today_task/bloc/today_task_bloc.dart';
 import 'package:todo_list/views/widgets/search_bar_common.dart';
@@ -53,7 +54,12 @@ class TodayTaskScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: SearchBarCommon(),
             ),
-            BlocBuilder<TodayTaskBloc, TodayTaskState>(
+            BlocConsumer<TodayTaskBloc, TodayTaskState>(
+              listener: (context, state) {
+                if(state is TodayTaskErrorState) {
+                  DialogHelper.showSimpleDialog(context, L.current.error, state.message);
+                }
+              },
               builder: (context, state) {
                 if(state is TodayTaskStableState) {
                   return Expanded(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
+import 'package:todo_list/utils/dialog_helper.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 import 'package:todo_list/views/note/create_note/bloc/create_note_bloc.dart';
@@ -19,7 +20,12 @@ class CreateNoteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CreateNoteBloc(noteMode: noteMode, noteDetailViewModel: noteDetailViewModel)..add(CreateNoteInitialEvent()),
-      child: BlocBuilder<CreateNoteBloc, CreateNoteState>(
+      child: BlocConsumer<CreateNoteBloc, CreateNoteState>(
+        listener: (context, state) {
+          if (state is CreateNoteErrorState) {
+            DialogHelper.showSimpleDialog(context, L.current.error, state.message);
+          }
+        },
         builder: (context, state) {
           return Scaffold(
             appBar: _appBar(context),

@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:todo_list/di/config_di.dart';
+import 'package:todo_list/utils/exception.dart';
 import 'package:todo_list/utils/format_utils.dart';
 import 'package:todo_list/views/all_project/view_model/project_mapper.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
@@ -101,7 +102,10 @@ class CreateTaskBloc extends Bloc<CreateTaskEvent, CreateTaskState> {
         ),
       );
       add(CreateTaskChangeDeadlineEvent(DateTime.now()));
-    } catch (e) {}
+    } catch (e) {
+      final String message = handleException(e);
+      emit(CreateTaskErrorState(message));
+    }
   }
 
   FutureOr<void> _changeDeadline(

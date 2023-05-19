@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:todo_list/di/config_di.dart';
+import 'package:todo_list/utils/exception.dart';
 import 'package:todo_list/views/view_model/task/task_mapper.dart';
 import 'package:todo_list/views/view_model/task/task_view_model.dart';
 
@@ -58,7 +59,11 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         CalendarStableState(
             focusDay: DateTime.now(), taskViewModels: taskViewModels),
       );
-    } catch (e) {}
+    } catch (e) {
+      final message = handleException(e);
+      emit(CalendarErrorState(message: message));
+      emit(CalendarInitial());
+    }
   }
 
   FutureOr<void> _changeFocusDay(CalendarChangeFocusDayEvent event, Emitter<CalendarState> emit) async {
@@ -84,7 +89,11 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         CalendarStableState(
             focusDay: event.focusDay, taskViewModels: taskViewModels),
       );
-    } catch (e) {}
+    } catch (e) {
+      final message = handleException(e);
+      emit(CalendarErrorState(message: message));
+      emit(CalendarInitial());
+    }
   }
 
   FutureOr<void> _loadMore(CalendarLoadMoreEvent event, Emitter<CalendarState> emit) async {
@@ -108,6 +117,10 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         CalendarStableState(
             focusDay: (state as CalendarLoadMoreState).focusDay, taskViewModels: (state as CalendarLoadMoreState).taskViewModels..addAll(taskViewModels)),
       );
-    } catch (e) {}
+    } catch (e) {
+      final message = handleException(e);
+      emit(CalendarErrorState(message: message));
+      emit(CalendarInitial());
+    }
   }
 }

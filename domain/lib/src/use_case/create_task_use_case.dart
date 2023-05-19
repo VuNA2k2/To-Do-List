@@ -5,6 +5,11 @@ class CreateTaskUseCase {
 
   CreateTaskUseCase(this._taskRepository);
 
-  Future<TaskEntity?> call(TaskEntity taskEntity) =>
-      _taskRepository.createTask(taskEntity: taskEntity);
+  Future<TaskEntity?> call(TaskEntity taskEntity) {
+    try {
+      return _taskRepository.createTask(taskEntity: taskEntity);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

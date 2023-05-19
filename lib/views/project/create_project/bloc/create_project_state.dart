@@ -12,4 +12,12 @@ class CreateProjectStableState extends CreateProjectState {
 
 class CreateProjectLoadingState extends CreateProjectState {}
 
+class CreateProjectErrorState extends CreateProjectState {
+  final String message;
+
+  CreateProjectErrorState(
+    this.message,
+  );
+}
+
 

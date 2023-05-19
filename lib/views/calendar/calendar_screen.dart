@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/utils/color_utils.dart';
+import 'package:todo_list/utils/dialog_helper.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/calendar/bloc/calendar_bloc.dart';
 import 'package:todo_list/views/widgets/task_item.dart';
@@ -22,7 +24,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
       create: (context) =>
       CalendarBloc()
         ..add(CalendarInitialEvent()),
-      child: _body(context),
+      child: BlocListener<CalendarBloc, CalendarState>(
+        listener: (context, state) {
+          if(state is CalendarErrorState) {
+            DialogHelper.showSimpleDialog(context, L.current.error, state.message);
+          }
+        },
+        child: _body(context),
+      ),
     );
   }
 
@@ -109,7 +118,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
             if (state is CalendarStableState) {
               return Expanded(
                 child: ListView.separated(
-                  controller: context.read<CalendarBloc>().scrollController,
+                  controller: context
+                      .read<CalendarBloc>()
+                      .scrollController,
                   padding: const EdgeInsets.all(12),
                   itemBuilder: (context, index) {
                     return TaskItem(

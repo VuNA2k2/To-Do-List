@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
+import 'package:todo_list/utils/dialog_helper.dart';
 import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/dashboard/bloc/dashboard_bloc.dart';
 import 'package:todo_list/views/widgets/note_item.dart';
@@ -21,7 +22,14 @@ class DashboardScreen extends StatelessWidget {
       create: (context) =>
       DashboardBloc()
         ..add(DashboardInitialEvent()),
-      child: _body(context),
+      child: BlocListener<DashboardBloc, DashboardState>(
+  listener: (context, state) {
+    if(state is DashboardErrorState) {
+      DialogHelper.showSimpleDialog(context, L.current.error, state.message);
+    }
+  },
+  child: _body(context),
+),
     );
   }
 

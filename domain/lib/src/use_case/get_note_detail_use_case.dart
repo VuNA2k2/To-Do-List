@@ -6,5 +6,11 @@ class GetNoteDetailUseCase {
 
   GetNoteDetailUseCase(this._noteRepository);
 
-  Future<NoteEntity?> call(int noteId) => _noteRepository.getNoteDetail(id: noteId);
+  Future<NoteEntity?> call(int noteId) {
+    try {
+      return _noteRepository.getNoteDetail(id: noteId);
+    } catch(e) {
+      rethrow;
+    }
+  }
 }

@@ -20,3 +20,11 @@ class ProjectDetailStableState extends ProjectDetailState {
 class ProjectDetailLoadMoreState extends ProjectDetailStableState {
   ProjectDetailLoadMoreState({required super.projectViewModel, required super.taskViewModels});
 }
+
+class ProjectDetailErrorState extends ProjectDetailState {
+  final String message;
+
+  ProjectDetailErrorState(
+    this.message,
+  );
+}

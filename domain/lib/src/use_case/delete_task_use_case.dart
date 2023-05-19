@@ -6,6 +6,10 @@ class DeleteTaskUseCase {
   DeleteTaskUseCase(this._taskRepository);
 
   Future<void> call(int taskId) async {
-    return _taskRepository.deleteTask(taskId);
+    try {
+      return _taskRepository.deleteTask(taskId);
+    } catch(e) {
+      rethrow;
+    }
   }
 }

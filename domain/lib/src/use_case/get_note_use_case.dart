@@ -8,9 +8,14 @@ class GetNoteUseCase {
   Future<PageRS<NoteEntity>> call({
     PageRQEntity? pageRQEntity,
     SearchNote? searchNote,
-  }) =>
-      _noteRepository.getNotes(
+  }) {
+    try {
+      return _noteRepository.getNotes(
         pageRQEntity: pageRQEntity,
         searchNote: searchNote,
       );
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

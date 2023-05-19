@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/di/config_di.dart';
+import 'package:todo_list/utils/exception.dart';
 import 'package:todo_list/views/all_project/view_model/project_mapper.dart';
 import 'package:todo_list/views/all_project/view_model/project_view_model.dart';
 
@@ -36,24 +37,31 @@ class AllProjectBloc extends Bloc<AllProjectEvent, AllProjectState> {
     page = 0;
     hasLoad = true;
     emit(AllProjectLoadingState());
-    final PageRS<ProjectEntity> projectEntities = await _getProjectUseCase.call(
-      pageRQEntity: PageRQEntity(
-        page: page,
-        size: _limit,
-      ),
-    );
-    final List<ProjectViewModel> projectViewModels = projectEntities.items
-        .map(ProjectMapper.getProjectViewModelFromProjectEntity)
-        .toList();
-    page++;
-    hasLoad = projectEntities.items.length == _limit;
+    try {
+      final PageRS<ProjectEntity> projectEntities = await _getProjectUseCase.call(
+        pageRQEntity: PageRQEntity(
+          page: page,
+          size: _limit,
+        ),
+      );
+      final List<ProjectViewModel> projectViewModels = projectEntities.items
+          .map(ProjectMapper.getProjectViewModelFromProjectEntity)
+          .toList();
+      page++;
+      hasLoad = projectEntities.items.length == _limit;
+      emit(AllProjectStableState(projectViewModels: projectViewModels));
+    } catch (e) {
+      final message = handleException(e);
+      emit(AllProjectErrorState(message: message));
+      emit(AllProjectInitial());
+    }
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
         add(AllProjectLoadMoreEvent());
       }
     });
-    emit(AllProjectStableState(projectViewModels: projectViewModels));
+
   }
 
   FutureOr<void> _loadMore(
@@ -65,17 +73,23 @@ class AllProjectBloc extends Bloc<AllProjectEvent, AllProjectState> {
     List<ProjectViewModel> projectViewModels =
         (state as AllProjectStableState).projectViewModels;
     emit(AllProjectLoadMoreState(projectViewModels: projectViewModels));
-    final PageRS<ProjectEntity> projectEntities = await _getProjectUseCase.call(
-      pageRQEntity: PageRQEntity(
-        page: page,
-        size: _limit,
-      ),
-    );
-    projectViewModels.addAll(projectEntities.items
-        .map(ProjectMapper.getProjectViewModelFromProjectEntity));
-    page++;
-    hasLoad = projectEntities.items.length == _limit;
-    emit(AllProjectStableState(projectViewModels: projectViewModels));
+    try {
+      final PageRS<ProjectEntity> projectEntities = await _getProjectUseCase.call(
+        pageRQEntity: PageRQEntity(
+          page: page,
+          size: _limit,
+        ),
+      );
+      projectViewModels.addAll(projectEntities.items
+          .map(ProjectMapper.getProjectViewModelFromProjectEntity));
+      page++;
+      hasLoad = projectEntities.items.length == _limit;
+      emit(AllProjectStableState(projectViewModels: projectViewModels));
+    } catch (e) {
+      final message = handleException(e);
+      emit(AllProjectErrorState(message: message));
+      emit(AllProjectInitial());
+    }
   }
 
   FutureOr<void> _deleteProject(
@@ -84,6 +98,10 @@ class AllProjectBloc extends Bloc<AllProjectEvent, AllProjectState> {
       _deleteProjectUseCase.call(event.projectId).then((value) {
         add(AllProjectInitialEvent());
       });
-    } catch (e) {}
+    } catch (e) {
+      final message = handleException(e);
+      emit(AllProjectErrorState(message: message));
+      emit(AllProjectInitial());
+    }
   }
 }

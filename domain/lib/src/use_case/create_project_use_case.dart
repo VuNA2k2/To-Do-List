@@ -5,6 +5,11 @@ class CreateProjectUseCase {
 
   CreateProjectUseCase(this._projectRepository);
 
-  Future<ProjectEntity?> call(ProjectEntity projectEntity) =>
-      _projectRepository.createProject(projectEntity: projectEntity);
+  Future<ProjectEntity?> call(ProjectEntity projectEntity) {
+    try {
+      return _projectRepository.createProject(projectEntity: projectEntity);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

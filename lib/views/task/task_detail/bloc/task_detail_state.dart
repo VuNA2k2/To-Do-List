@@ -13,4 +13,12 @@ class TaskDetailStableState extends TaskDetailState {
   final TaskDetailViewModel taskDetailViewModel;
 }
 
+class TaskDetailErrorState extends TaskDetailState {
+  final String message;
+
+  TaskDetailErrorState(
+    this.message,
+  );
+}
+
 

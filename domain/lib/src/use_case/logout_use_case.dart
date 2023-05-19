@@ -6,6 +6,10 @@ class LogoutUseCase {
   LogoutUseCase(this._authRepository);
 
   Future<void> call() async {
-    _authRepository.logout();
+    try {
+      _authRepository.logout();
+    } catch (e) {
+      rethrow;
+    }
   }
 }

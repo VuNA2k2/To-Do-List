@@ -20,3 +20,11 @@ class AllProjectLoadMoreState extends AllProjectStableState {
     required super.projectViewModels,
   });
 }
+
+class AllProjectErrorState extends AllProjectState {
+  final String message;
+
+  AllProjectErrorState({
+    required this.message,
+  });
+}

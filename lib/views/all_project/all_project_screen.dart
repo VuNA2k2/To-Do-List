@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/route/route.gr.dart';
+import 'package:todo_list/utils/dialog_helper.dart';
 import 'package:todo_list/views/all_project/bloc/all_project_bloc.dart';
 import 'package:todo_list/views/project/create_project/view_model/project_mode.dart';
 import 'package:todo_list/views/widgets/project_item.dart';
@@ -18,7 +20,12 @@ class AllProjectScreen extends StatelessWidget {
   }
 
   Widget _body(BuildContext context) {
-    return BlocBuilder<AllProjectBloc, AllProjectState>(
+    return BlocConsumer<AllProjectBloc, AllProjectState>(
+      listener: (context, state) {
+        if (state is AllProjectErrorState) {
+          DialogHelper.showSimpleDialog(context, L.current.errorDefaultMessage, state.message);
+        }
+      },
       builder: (context, state) {
         if (state is AllProjectStableState) {
           return RefreshIndicator(

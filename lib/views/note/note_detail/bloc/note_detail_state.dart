@@ -12,3 +12,11 @@ class NoteDetailStableState extends NoteDetailState {
 
   NoteDetailStableState({required this.noteDetailViewModel});
 }
+
+class NoteDetailErrorState extends NoteDetailState {
+  final String message;
+
+  NoteDetailErrorState(
+    this.message,
+  );
+}

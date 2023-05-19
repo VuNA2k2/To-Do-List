@@ -5,5 +5,11 @@ class DeleteProjectUseCase {
 
   DeleteProjectUseCase(this._projectRepository);
 
-  Future<void> call(int id) => _projectRepository.deleteProject(projectId: id);
+  Future<void> call(int id) async {
+    try {
+      _projectRepository.deleteProject(projectId: id);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

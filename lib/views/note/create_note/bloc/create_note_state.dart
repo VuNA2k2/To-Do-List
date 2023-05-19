@@ -17,3 +17,11 @@ class CreateNoteStableState extends CreateNoteState {
     required this.selectedProjectViewModel,
   });
 }
+
+class CreateNoteErrorState extends CreateNoteState {
+  final String message;
+
+  CreateNoteErrorState(
+    this.message,
+  );
+}

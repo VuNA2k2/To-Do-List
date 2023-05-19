@@ -17,3 +17,11 @@ class TodayTaskStableState extends TodayTaskState {
     required this.taskViewModels,
   });
 }
+
+class TodayTaskErrorState extends TodayTaskState {
+  final String message;
+
+  TodayTaskErrorState(
+    this.message,
+  );
+}

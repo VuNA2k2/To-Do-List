@@ -37,13 +37,14 @@ class ProjectRemote {
     return Response.fromJson(res.data, (json) => ProjectOutputDto.fromJson(json));
   }
 
-  Future<void> deleteProject({required int projectId}) {
-    return _apiService.delete(
+  Future<Response> deleteProject({required int projectId}) async {
+    final res = await _apiService.delete(
       ApiPath.projects,
       queryParameters: {
         "id": projectId,
       },
     );
+    return Response.fromJson(res.data, (json) => json);
   }
 
   Future<Response<ProjectOutputDto>> updateProject({

@@ -10,9 +10,13 @@ class GetTaskUseCase {
     PageRQEntity? pageRQEntity,
     SearchTask? searchTask,
 }) async {
-    return await _taskRepository.getTasks(
-      pageRQEntity: pageRQEntity,
-      searchTask: searchTask,
-    );
+    try {
+      return await _taskRepository.getTasks(
+        pageRQEntity: pageRQEntity,
+        searchTask: searchTask,
+      );
+    } catch(e) {
+      rethrow;
+    }
   }
 }
