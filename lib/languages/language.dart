@@ -1,30 +1,33 @@
 
 import 'package:flutter/material.dart';
+import 'package:todo_list/languages/locale/vi.dart';
 import 'package:todo_list/services/shared_data/storage_service.dart';
 
 
 import 'locale/base.dart';
 import 'locale/en.dart';
 
-enum SupportedLocales { english }
+enum SupportedLocales { english, vietnamese }
 
 extension SupportedLocalesX on SupportedLocales {
   Locale get locale {
     switch (this) {
       case SupportedLocales.english:
         return const Locale('en');
+      case SupportedLocales.vietnamese:
+        return const Locale('vi');
     }
   }
 }
 
 final _mapLanguages = {
   SupportedLocales.english.locale: LanguageEn(),
+  SupportedLocales.vietnamese.locale: LanguageVi(),
 };
 
 class L {
   static BaseLanguage get current {
     var languageCode = StorageService().locale ?? "en";
-    //if (languageCode != null) {
     var language = _mapLanguages[Locale(languageCode)];
     if (language != null) {
       return language;

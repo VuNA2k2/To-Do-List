@@ -38,16 +38,16 @@ class LanguageVi extends BaseLanguage {
   String get hintTextUserName => 'Nick name';
 
   @override
-  String get dateOfBirthLabel => throw UnimplementedError();
+  String get dateOfBirthLabel => 'Ngày sinh';
 
   @override
-  String get emailLabel => throw UnimplementedError();
+  String get emailLabel => 'Email';
 
   @override
-  String get fullNameLabel => throw UnimplementedError();
+  String get fullNameLabel => 'Họ và tên';
 
   @override
-  String get phoneNumberLabel => throw UnimplementedError();
+  String get phoneNumberLabel => 'Số điện thoại';
 
   @override
   String get saveLabel => 'Lưu';
