@@ -164,4 +164,10 @@ abstract class BaseLanguage {
   String get projectEmpty;
 
   String get logout;
+
+  String get lowPriority;
+
+  String get mediumPriority;
+
+  String get highPriority;
 }

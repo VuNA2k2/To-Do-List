@@ -101,7 +101,7 @@ class HomeScreen extends StatelessWidget {
         .any((element) => element == tabsRouter.current.name)) {
       return 100;
     } else if (tabsRouter.current.name == AllProjectScreenRoute.name) {
-      return 145;
+      return 100;
     } else {
       return 50;
     }
@@ -164,10 +164,6 @@ class HomeScreen extends StatelessWidget {
             Text(
               L.current.myProjectLabel,
               style: TextStyleUtils.textStyleOpenSans22W400,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 12.0),
-              child: SearchBarCommon(),
             ),
           ]
         ],

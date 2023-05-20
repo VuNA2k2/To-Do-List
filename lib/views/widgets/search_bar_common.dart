@@ -5,13 +5,13 @@ import 'package:todo_list/utils/text_style_utils.dart';
 import 'package:todo_list/views/widgets/text_field_common.dart';
 
 class SearchBarCommon extends StatelessWidget {
-  SearchBarCommon({Key? key, TextEditingController? controller})
+  SearchBarCommon({Key? key, TextEditingController? controller, this.onTap})
       : super(key: key) {
     _controller = controller;
   }
 
   TextEditingController? _controller;
-
+  Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return TextFieldCommon(
@@ -20,9 +20,12 @@ class SearchBarCommon extends StatelessWidget {
       fillColor: ColorUtils.greyE8,
       hintText: L.current.hintTextSearch,
       hintStyle: TextStyleUtils.textStyleOpenSans13W400Grey81,
-      suffixIcon: const Icon(
-        Icons.search,
-        color: ColorUtils.black,
+      suffixIcon: InkWell(
+        onTap: onTap,
+        child: const Icon(
+          Icons.search,
+          color: ColorUtils.black,
+        ),
       ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),

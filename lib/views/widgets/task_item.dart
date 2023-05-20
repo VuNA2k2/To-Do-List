@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:todo_list/route/route.gr.dart';
@@ -11,11 +12,13 @@ import 'package:todo_list/views/widgets/circular_percent_indicator_by_color.dart
 class TaskItem extends StatelessWidget {
   TaskItem({Key? key, required this.taskViewModel}) : super(key: key);
   final TaskViewModel taskViewModel;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.router.navigate(TaskDetailScreenRoute(taskViewModel: taskViewModel));
+        context.router
+            .navigate(TaskDetailScreenRoute(taskViewModel: taskViewModel));
       },
       child: Container(
         padding: const EdgeInsets.all(8),
@@ -46,8 +49,14 @@ class TaskItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Text(taskViewModel.title ?? '', style: TextStyleUtils.textStyleOpenSans16W600,),
-                  Text(taskViewModel.subtitle ?? '', style: TextStyleUtils.textStyleOpenSans13W400Grey81,),
+                  Text(
+                    taskViewModel.title ?? '',
+                    style: TextStyleUtils.textStyleOpenSans16W600,
+                  ),
+                  Text(
+                    taskViewModel.subtitle ?? '',
+                    style: TextStyleUtils.textStyleOpenSans13W400Grey81,
+                  ),
                   SizedBox(
                     height: 15,
                     child: ListView.separated(
@@ -63,12 +72,37 @@ class TaskItem extends StatelessWidget {
                       itemCount: taskViewModel.numberOfPomodoro ?? 0,
                     ),
                   ),
+                  if (taskViewModel.status! != Status.DONE)
+                    if (taskViewModel.deadline!.isBefore(DateTime.now()))
+                      Text(
+                        'Overdue',
+                        style: TextStyleUtils.textStyleOpenSans13W600RedOA,
+                      )
+                    else
+                      Text(
+                        'Due ${taskViewModel.deadline!.difference(DateTime.now()).inDays} days',
+                        style: TextStyleUtils.textStyleOpenSans13W600RedOA,
+                      )
                 ],
               ),
             ),
-            IconButton(onPressed: () {
-              context.navigateTo(DoTaskScreenRoute(taskViewModel: taskViewModel));
-            }, icon: const Icon(Icons.play_circle_rounded, size: 36, color: ColorUtils.greenOA,),),
+            if (taskViewModel.status! != Status.DONE)
+              IconButton(
+                onPressed: () {
+                  context.navigateTo(
+                      DoTaskScreenRoute(taskViewModel: taskViewModel));
+                },
+                icon: const Icon(
+                  Icons.play_circle_rounded,
+                  size: 36,
+                  color: ColorUtils.greenOA,
+                ),
+              ),
+            if (taskViewModel.status! == Status.DONE)
+              Text(
+                'Done',
+                style: TextStyleUtils.textStyleOpenSans13W600GreenOA,
+              )
           ],
         ),
       ),

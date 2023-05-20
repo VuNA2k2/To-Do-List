@@ -16,6 +16,8 @@ part 'project_detail_state.dart';
 class ProjectDetailBloc extends Bloc<ProjectDetailEvent, ProjectDetailState> {
   final ScrollController scrollController = ScrollController();
 
+  TextEditingController searchController = TextEditingController();
+
   ProjectDetailBloc() : super(ProjectDetailInitial()) {
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
@@ -57,6 +59,9 @@ class ProjectDetailBloc extends Bloc<ProjectDetailEvent, ProjectDetailState> {
     final PageRS<TaskEntity> pageRS = await _getTaskInProjectUseCase.call(
       pageRQEntity: PageRQEntity(size: _limit, page: _page),
       projectId: event.projectViewModel.id,
+      searchTask: SearchTask(
+        title: event.keyword,
+      ),
     );
     _page++;
     _hasLoad = pageRS.total == _limit;

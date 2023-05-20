@@ -13,6 +13,8 @@ part 'all_project_event.dart';
 part 'all_project_state.dart';
 
 class AllProjectBloc extends Bloc<AllProjectEvent, AllProjectState> {
+  TextEditingController searchController = TextEditingController();
+
   AllProjectBloc() : super(AllProjectInitial()) {
     on<AllProjectInitialEvent>(
       _initData,
@@ -38,11 +40,13 @@ class AllProjectBloc extends Bloc<AllProjectEvent, AllProjectState> {
     hasLoad = true;
     emit(AllProjectLoadingState());
     try {
-      final PageRS<ProjectEntity> projectEntities = await _getProjectUseCase.call(
+      final PageRS<ProjectEntity> projectEntities =
+          await _getProjectUseCase.call(
         pageRQEntity: PageRQEntity(
           page: page,
           size: _limit,
         ),
+        search: SearchProject(title: event.keyword),
       );
       final List<ProjectViewModel> projectViewModels = projectEntities.items
           .map(ProjectMapper.getProjectViewModelFromProjectEntity)
@@ -61,7 +65,6 @@ class AllProjectBloc extends Bloc<AllProjectEvent, AllProjectState> {
         add(AllProjectLoadMoreEvent());
       }
     });
-
   }
 
   FutureOr<void> _loadMore(
@@ -74,7 +77,8 @@ class AllProjectBloc extends Bloc<AllProjectEvent, AllProjectState> {
         (state as AllProjectStableState).projectViewModels;
     emit(AllProjectLoadMoreState(projectViewModels: projectViewModels));
     try {
-      final PageRS<ProjectEntity> projectEntities = await _getProjectUseCase.call(
+      final PageRS<ProjectEntity> projectEntities =
+          await _getProjectUseCase.call(
         pageRQEntity: PageRQEntity(
           page: page,
           size: _limit,

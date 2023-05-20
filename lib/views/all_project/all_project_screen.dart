@@ -7,6 +7,7 @@ import 'package:todo_list/utils/dialog_helper.dart';
 import 'package:todo_list/views/all_project/bloc/all_project_bloc.dart';
 import 'package:todo_list/views/project/create_project/view_model/project_mode.dart';
 import 'package:todo_list/views/widgets/project_item.dart';
+import 'package:todo_list/views/widgets/search_bar_common.dart';
 
 class AllProjectScreen extends StatelessWidget {
   const AllProjectScreen({Key? key}) : super(key: key);
@@ -28,33 +29,49 @@ class AllProjectScreen extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is AllProjectStableState) {
-          return RefreshIndicator(
-            onRefresh: () async {
-              context.read<AllProjectBloc>().add(AllProjectInitialEvent());
-            },
-            child: ListView.builder(
-              physics: const AlwaysScrollableScrollPhysics(),
-              controller: context.read<AllProjectBloc>().scrollController,
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              itemBuilder: (context, index) {
-                return ProjectItem(
-                  projectViewModel: state.projectViewModels[index],
-                  onDelete: (projectViewModel) {
-                    DialogHelper.showConfirmDialog(context, L.current.allTaskAndAllNoteInTheProjectWillBeDeleted, L.current.doYouWantToDelete, () {
-                      context.read<AllProjectBloc>().add(
-                          AllProjectDeleteProjectEvent(
-                              projectId: projectViewModel.id));
-                    });
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: SearchBarCommon(
+                  controller: context.read<AllProjectBloc>().searchController,
+                  onTap: () {
+                    context.read<AllProjectBloc>().add(AllProjectInitialEvent(keyword: context.read<AllProjectBloc>().searchController.text));
+                  }
+                ),
+              ),
+              Expanded(
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    context.read<AllProjectBloc>().searchController.clear();
+                    context.read<AllProjectBloc>().add(AllProjectInitialEvent());
                   },
-                  onEdit: (projectViewModel) {
-                    context.router.navigate(CreateProjectScreenRoute(projectMode: ProjectMode.edit, projectViewModel: projectViewModel)).then((value) {
-                      context.read<AllProjectBloc>().add(AllProjectInitialEvent());
-                    });
-                  },
-                );
-              },
-              itemCount: state.projectViewModels.length,
-            ),
+                  child: ListView.builder(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    controller: context.read<AllProjectBloc>().scrollController,
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    itemBuilder: (context, index) {
+                      return ProjectItem(
+                        projectViewModel: state.projectViewModels[index],
+                        onDelete: (projectViewModel) {
+                          DialogHelper.showConfirmDialog(context, L.current.allTaskAndAllNoteInTheProjectWillBeDeleted, L.current.doYouWantToDelete, () {
+                            context.read<AllProjectBloc>().add(
+                                AllProjectDeleteProjectEvent(
+                                    projectId: projectViewModel.id));
+                          });
+                        },
+                        onEdit: (projectViewModel) {
+                          context.router.navigate(CreateProjectScreenRoute(projectMode: ProjectMode.edit, projectViewModel: projectViewModel)).then((value) {
+                            context.read<AllProjectBloc>().add(AllProjectInitialEvent());
+                          });
+                        },
+                      );
+                    },
+                    itemCount: state.projectViewModels.length,
+                  ),
+                ),
+              ),
+            ],
           );
         }
         return const SizedBox();

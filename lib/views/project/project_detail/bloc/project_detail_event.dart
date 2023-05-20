@@ -5,7 +5,8 @@ abstract class ProjectDetailEvent {}
 
 class ProjectDetailInitialEvent extends ProjectDetailEvent {
   final ProjectViewModel projectViewModel;
-  ProjectDetailInitialEvent(this.projectViewModel);
+  String keyword = '';
+  ProjectDetailInitialEvent(this.projectViewModel, {this.keyword = ''});
 }
 
 class ProjectDetailLoadMoreEvent extends ProjectDetailEvent {}

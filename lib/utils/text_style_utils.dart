@@ -122,5 +122,9 @@ class TextStyleUtils {
   static TextStyle textStyleOpenSans20W700Grey9F =
       textStyleOpenSans20W700.copyWith(color: ColorUtils.grey9F);
 
-  static var textStyleOpenSans16W600GreyA3 = textStyleOpenSans16W600.copyWith(color: ColorUtils.greyA3);
+  static TextStyle textStyleOpenSans16W600GreyA3 = textStyleOpenSans16W600.copyWith(color: ColorUtils.greyA3);
+
+  static TextStyle textStyleOpenSans13W600GreenOA = textStyleOpenSans13W400.copyWith(color: ColorUtils.greenOA);
+
+  static TextStyle textStyleOpenSans13W600RedOA = textStyleOpenSans13W400.copyWith(color: ColorUtils.redEE);
 }

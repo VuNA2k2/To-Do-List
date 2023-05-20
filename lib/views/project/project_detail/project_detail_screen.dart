@@ -39,7 +39,27 @@ class ProjectDetailScreen extends StatelessWidget {
       child: Column(
         children: [
           _projectProgress(context),
-          SearchBarCommon(),
+          BlocBuilder<ProjectDetailBloc, ProjectDetailState>(
+  builder: (context, state) {
+    return SearchBarCommon(
+            controller: context
+                .select((ProjectDetailBloc bloc) => bloc)
+                .searchController,
+      onTap: () {
+        context.read<ProjectDetailBloc>().add(
+              ProjectDetailInitialEvent(
+                projectViewModel,
+                keyword: context
+                    .read<ProjectDetailBloc>()
+                    .searchController
+                    .text,
+              ),
+            );
+      },
+
+          );
+  },
+),
           BlocConsumer<ProjectDetailBloc, ProjectDetailState>(
             listener: (context, state) {
               if (state is ProjectDetailErrorState) {
@@ -50,21 +70,35 @@ class ProjectDetailScreen extends StatelessWidget {
               log('list rebuild');
               if (state is ProjectDetailStableState) {
                 return Expanded(
-                  child: ListView.separated(
-                      controller: context
-                          .select((ProjectDetailBloc bloc) => bloc)
-                          .scrollController,
-                      itemBuilder: (context, index) {
-                        return TaskItem(
-                          taskViewModel: state.taskViewModels[index],
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(
-                          height: 8,
-                        );
-                      },
-                      itemCount: state.taskViewModels.length),
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      context
+                          .read<ProjectDetailBloc>()
+                          .searchController
+                          .clear();
+                      context.read<ProjectDetailBloc>().add(
+                            ProjectDetailInitialEvent(
+                              projectViewModel,
+                            ),
+                          );
+                    },
+                    child: ListView.separated(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                        controller: context
+                            .select((ProjectDetailBloc bloc) => bloc)
+                            .scrollController,
+                        itemBuilder: (context, index) {
+                          return TaskItem(
+                            taskViewModel: state.taskViewModels[index],
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(
+                            height: 8,
+                          );
+                        },
+                        itemCount: state.taskViewModels.length),
+                  ),
                 );
               }
               return const SizedBox();
@@ -87,7 +121,7 @@ class ProjectDetailScreen extends StatelessWidget {
         ),
       ),
       title: Text(
-        "Project Name",
+        "Project Detail",
         style: TextStyleUtils.textStyleOpenSans20W400Black,
       ),
       backgroundColor: ColorUtils.bgColor,

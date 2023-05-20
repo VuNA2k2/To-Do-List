@@ -250,5 +250,14 @@ class LanguageVi extends BaseLanguage {
   @override
   String get logout => "Đăng xuất";
 
+  @override
+  String get highPriority => "Ưu tiên cao";
+
+  @override
+  String get lowPriority => "Ưu tiên thấp";
+
+  @override
+  String get mediumPriority => "Ưu tiên trung bình";
+
 
 }

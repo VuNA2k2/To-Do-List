@@ -250,5 +250,14 @@ class LanguageEn extends BaseLanguage {
   @override
   String get logout => "Logout";
 
+  @override
+  String get highPriority => "LOW";
+
+  @override
+  String get lowPriority => "HIGH";
+
+  @override
+  String get mediumPriority => "MEDIUM";
+
 
 }

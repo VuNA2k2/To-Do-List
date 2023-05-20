@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:todo_list/languages/language.dart';
@@ -40,11 +41,16 @@ class ProjectItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Text(
-                    projectViewModel.name,
-                    style: TextStyleUtils.textStyleOpenSans24W700,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        projectViewModel.name,
+                        style: TextStyleUtils.textStyleOpenSans24W700,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ),
                 ),
                 DropdownButtonHideUnderline(
@@ -78,6 +84,27 @@ class ProjectItem extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
+            if(projectViewModel.priority == Priority.LOW)
+              Text(
+                L.current.lowPriority,
+                style: TextStyleUtils.textStyleOpenSans16W400Grey78,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            if(projectViewModel.priority == Priority.MEDIUM)
+              Text(
+                L.current.mediumPriority,
+                style: TextStyleUtils.textStyleOpenSans16W400Grey78,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            if(projectViewModel.priority == Priority.HIGH)
+              Text(
+                L.current.highPriority,
+                style: TextStyleUtils.textStyleOpenSans16W400Grey78,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
