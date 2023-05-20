@@ -259,5 +259,14 @@ class LanguageEn extends BaseLanguage {
   @override
   String get mediumPriority => "MEDIUM";
 
+  @override
+  String get days => "days";
+
+  @override
+  String get due => "Due";
+
+  @override
+  String get overdue => "Overdue";
+
 
 }

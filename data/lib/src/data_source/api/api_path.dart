@@ -1,5 +1,5 @@
 class ApiPath {
-  static String host = "http://192.168.1.53:8000/api/v1";
+  static String host = "http://10.20.6.151:8000/api/v1";
   static String login = "/auth/login";
 
   static String tasks = "/tasks";

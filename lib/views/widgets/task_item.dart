@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:todo_list/languages/language.dart';
 import 'package:todo_list/route/route.gr.dart';
 import 'package:todo_list/utils/color_utils.dart';
 import 'package:todo_list/utils/icon_utils.dart';
@@ -75,12 +76,12 @@ class TaskItem extends StatelessWidget {
                   if (taskViewModel.status! != Status.DONE)
                     if (taskViewModel.deadline!.isBefore(DateTime.now()))
                       Text(
-                        'Overdue',
+                        L.current.overdue,
                         style: TextStyleUtils.textStyleOpenSans13W600RedOA,
                       )
                     else
                       Text(
-                        'Due ${taskViewModel.deadline!.difference(DateTime.now()).inDays} days',
+                        '${L.current.due} ${taskViewModel.deadline!.difference(DateTime.now()).inDays} ${L.current.days}',
                         style: TextStyleUtils.textStyleOpenSans13W600RedOA,
                       )
                 ],

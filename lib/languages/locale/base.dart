@@ -170,4 +170,10 @@ abstract class BaseLanguage {
   String get mediumPriority;
 
   String get highPriority;
+
+  String get overdue;
+
+  String get due;
+
+  String get days;
 }

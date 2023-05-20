@@ -259,5 +259,14 @@ class LanguageVi extends BaseLanguage {
   @override
   String get mediumPriority => "Ưu tiên trung bình";
 
+  @override
+  String get days => "ngày";
+
+  @override
+  String get due => "Còn lại";
+
+  @override
+  String get overdue => "Quá hạn";
+
 
 }
